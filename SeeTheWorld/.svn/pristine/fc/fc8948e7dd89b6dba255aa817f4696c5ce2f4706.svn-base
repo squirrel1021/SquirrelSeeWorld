@@ -1,0 +1,74 @@
+package cn.caregg.o2o.carnest.engine.task;
+
+import java.util.Map;
+
+import android.content.Context;
+import cn.caregg.o2o.carnest.CarnestApplication;
+import cn.caregg.o2o.carnest.config.ConstantValues;
+import cn.caregg.o2o.carnest.engine.callback.BaseAbstractRequestCallBack;
+import cn.caregg.o2o.carnest.engine.handler.BaseRequestHandler;
+import cn.caregg.o2o.carnest.utils.ParamsMappingUtils;
+import cn.caregg.o2o.carnest.utils.PhoneUtils;
+
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+
+public class UserTask {
+
+	public <T> void login(final String ownerTel, final String userPassword, final RequestCallBack<T> callBack) {
+		identify(CarnestApplication.mContext, new BaseAbstractRequestCallBack<String>() {
+
+			@Override
+			public void onSuccess(String result) {
+				new BaseRequestHandler().send(ConstantValues.ACTION_LOGIN.toString(), HttpMethod.POST, ParamsMappingUtils.getLoginMap(ownerTel, userPassword), callBack);
+			}
+
+			@Override
+			public void onFailure(String failureMsg) {
+				new BaseRequestHandler().send(ConstantValues.ACTION_LOGIN.toString(), HttpMethod.POST, ParamsMappingUtils.getLoginMap(ownerTel, userPassword), callBack);
+			}
+		});
+
+	}
+
+	public <T> void identify(Context context, RequestCallBack<T> callBack) {
+		new BaseRequestHandler().send(ConstantValues.IDENTIFICATION_CODE.toString(), HttpMethod.POST,
+				ParamsMappingUtils.putIdentificationCode(PhoneUtils.getTVIMEI(context), "android" + android.os.Build.VERSION.RELEASE, "1"), callBack);
+	}
+
+	public <T> void regist(Map<String, Object> map, RequestCallBack<T> callBack) {
+		new BaseRequestHandler().send(ConstantValues.ACTION_REGIST.toString(), HttpMethod.POST, map, callBack);
+	}
+
+	public <T> void getMsgCode(String telephoneNo, String messageType, String requestTime, RequestCallBack<T> callBack) {
+
+		new BaseRequestHandler().send(ConstantValues.ACTION_MSG_CODE.toString(), HttpMethod.POST, ParamsMappingUtils.getRegistMsgMap(telephoneNo, messageType, requestTime), callBack);
+	}
+
+	public <T> void forgetPassword(Map<String, Object> map, RequestCallBack<T> callBack) {
+		new BaseRequestHandler().send(ConstantValues.FORGET_PASSWORD.toString(), HttpMethod.PUT, map, callBack);
+	}
+
+	public <T> void logout(String ownerTel, RequestCallBack<T> callBack) {
+		new BaseRequestHandler().send(ConstantValues.ACTION_LOGOUT.toString(), HttpMethod.POST, ParamsMappingUtils.getLogoutMap(ownerTel), callBack);
+	}
+
+	public <T> void modifyPassword(Integer carOwnerSeq, String userPassword, String newPassword, RequestCallBack<T> callBack) {
+		new BaseRequestHandler().send(ConstantValues.CAROWNER_PASSWORD.toString(), HttpMethod.PUT, ParamsMappingUtils.getCarOwnerPassword(carOwnerSeq, userPassword, newPassword), callBack);
+	}
+
+	public <T> void modifyNickname(Integer carOwnerSeq, String ownerNickName, RequestCallBack<T> callBack) {
+
+		new BaseRequestHandler().send(ConstantValues.CAROWNER_NICKNAME.toString(), HttpMethod.PUT, ParamsMappingUtils.getCarOwnerNickName(carOwnerSeq, ownerNickName), callBack);
+	}
+
+	public <T> void modifyPhoneNumber(Integer carOwnerSeq, String ownerTel, String mobileValidatecode, RequestCallBack<T> callBack) {
+		new BaseRequestHandler().send(ConstantValues.CAROWNER_OWNERTEL.toString(), HttpMethod.PUT, ParamsMappingUtils.getCarOwnerOwnerTel(carOwnerSeq, ownerTel, mobileValidatecode), callBack);
+	}
+
+	public <T> void uploadCarOwnerHeader(Integer carOwnerSeq, String carOwnerPic, RequestCallBack<T> callBack) {
+
+		new BaseRequestHandler().send(ConstantValues.CAROWNER_HEADER.toString(), HttpMethod.PUT, ParamsMappingUtils.getUploadCarOwnerHeader(carOwnerSeq, carOwnerPic), callBack);
+	}
+
+}

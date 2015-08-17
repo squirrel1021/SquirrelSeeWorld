@@ -1,0 +1,74 @@
+package cn.caregg.o2o.carnest.entity;
+
+import java.io.Serializable;
+
+public class OrderDataList implements Serializable {
+	/**
+	 * @Fields serialVersionUID : 用一句话描述该文件做什么
+	*/
+	
+	long serviceOrderTime;//下单时间
+	String chineseName;
+	Integer lastestServiceTimes;
+	String careggServiceName;
+	double serviceActualPrice;
+	Integer serviceOrderSeq;
+	Integer serviceOrderStatus;
+	Integer serviceForm;
+	
+	public Integer getServiceOrderStatus() {
+		return serviceOrderStatus;
+	}
+	public void setServiceOrderStatus(Integer serviceOrderStatus) {
+		this.serviceOrderStatus = serviceOrderStatus;
+	}
+	public Integer getServiceForm() {
+		return serviceForm;
+	}
+	public void setServiceForm(Integer serviceForm) {
+		this.serviceForm = serviceForm;
+	}
+	public long getServiceOrderTime() {
+		return serviceOrderTime;
+	}
+	public void setServiceOrderTime(long serviceOrderTime) {
+		this.serviceOrderTime = serviceOrderTime;
+	}
+	public String getChineseName() {
+		return chineseName;
+	}
+	public void setChineseName(String chineseName) {
+		this.chineseName = chineseName;
+	}
+	public Integer getLastestServiceTimes() {
+		return lastestServiceTimes;
+	}
+	public void setLastestServiceTimes(Integer lastestServiceTimes) {
+		this.lastestServiceTimes = lastestServiceTimes;
+	}
+	public String getCareggServiceName() {
+		return careggServiceName;
+	}
+	public void setCareggServiceName(String careggServiceName) {
+		this.careggServiceName = careggServiceName;
+	}
+	public double getServiceActualPrice() {
+		return serviceActualPrice;
+	}
+	public void setServiceActualPrice(double serviceActualPrice) {
+		this.serviceActualPrice = serviceActualPrice;
+	}
+	public Integer getServiceOrderSeq() {
+		return serviceOrderSeq;
+	}
+	public void setServiceOrderSeq(Integer serviceOrderSeq) {
+		this.serviceOrderSeq = serviceOrderSeq;
+	}
+	@Override
+	public String toString() {
+		return "OrderDataList [serviceOrderTime=" + serviceOrderTime + ", chineseName=" + chineseName
+				+ ", lastestServiceTimes=" + lastestServiceTimes + ", careggServiceName=" + careggServiceName
+				+ ", serviceActualPrice=" + serviceActualPrice + ", serviceOrderSeq=" + serviceOrderSeq
+				+ ", serviceOrderStatus=" + serviceOrderStatus + ", serviceForm=" + serviceForm + "]";
+	}
+}

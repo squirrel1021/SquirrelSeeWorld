@@ -1,0 +1,508 @@
+package cn.caregg.o2o.carnest.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
+public class Service implements Serializable {
+
+	// 洗车除尘
+	private Integer upServiceTypeSeq;// 服务编号
+
+	// 车辆保险
+	private String carOwnerSeq;// 车主编号
+	private String serviceOrderSeq;// 商品订单编号？？
+	private String insurancePackageSeq;// 保险套餐序号
+
+	// 所有订单
+	private Integer page;// 当前页
+	private Integer rows;// 每页数据数
+
+	// sos
+	private String telephoneNo;// 手机号
+	private String messageType;// 消息类型:1.注册 2.登录 3.忘记密码
+	private Integer virityWay;// 请求通道:1.网站 2.android 3.ios 4.微信
+	private Date requestTime;// 请求时间
+
+	private Integer id;// 车蛋商品编号 ？？
+	private Integer type;// sos救援类型
+	private String order;// 排序
+
+	private String serviceTypeName; // 服务类别名称;
+	private Integer serviceTypeSeq; // 服务类别ID
+	private String servcieTypePic; // 服务类别图标
+
+	// 违章
+	private double agentPrice;// 违章代办总费用
+	private String endorsementReason;// 违章行为
+	private String endorsementCity;// 违章地市
+	private Integer canDeal; // 违章能否代办(-1不行,1可以)
+	private Integer carEndorsementSeq;// 违章记录序号
+	private long endorsementTime; // 违章时间
+	private String endorsementPlace;// 违章具体地点
+	private Integer endorsementScore;// 驾照扣分
+
+	private Double endorsementPrice;// 罚款金额
+	private Integer balanceIntegral;// 积分
+	private double balanceMoney;// 车蛋余额
+	private String carId;// 车牌号
+	private double driveMoney;// 驾驶收益;
+	private List<ServiceViolation> listMap; // 违章信息模块
+
+	// 服务商品
+	private Long serviceOrgSeq; // 商家组织序列
+	private Double serviceCareggPrice; // 商品车蛋价;
+	private Double serviceBasicPrice; // 商品店面价;
+	private Long careggServiceSeq; // 车蛋商城商品序号;
+	private String primaryAddr; // 单位主要地址;
+	private String chineseName; // 中文名称;
+	private String careggServiceName; // 车蛋商城商品名称;
+	private Integer score; // 评论数量;
+	private Float Average; // 评论平均分;
+	private Double juli; // 距离;
+	private Long careggTel; // 电话;
+
+	// 服务详情
+	private Double number; // 好评率
+	private Double serviceReturnProfit; // 商品返利金额
+	private Integer serviceTimes; // 服务初始次数
+	private Integer serviceValidPeriod; // 服务有效期 (1,2,3)月
+	private Double integralMoney; // 车蛋积分对应可以兑换的钱数
+	private String desc; // 服务说明(已html代码呈现)
+	private String serviceForm; // 商品形态(1 单次标准化服务2 单次非标准化服务3 卡券类4 实物类-1 无)
+	private Integer consumeNumber; // 已购次数
+
+	long serviceUsageTime;// 消费时间
+	Integer serviceUsageNumber;// 消费次数
+
+	public Integer getConsumeNumber() {
+		return consumeNumber;
+	}
+
+	public void setConsumeNumber(Integer consumeNumber) {
+		this.consumeNumber = consumeNumber;
+	}
+
+	public double getAgentPrice() {
+		return agentPrice;
+	}
+
+	public void setAgentPrice(double agentPrice) {
+		this.agentPrice = agentPrice;
+	}
+
+	public double getDriveMoney() {
+		return driveMoney;
+	}
+
+	public void setDriveMoney(double driveMoney) {
+		this.driveMoney = driveMoney;
+	}
+
+	public List<ServiceViolation> getListMap() {
+		return listMap;
+	}
+
+	public void setListMap(List<ServiceViolation> listMap) {
+		this.listMap = listMap;
+	}
+
+	public long getServiceUsageTime() {
+		return serviceUsageTime;
+	}
+
+	public void setServiceUsageTime(long serviceUsageTime) {
+		this.serviceUsageTime = serviceUsageTime;
+	}
+
+	public Integer getServiceUsageNumber() {
+		return serviceUsageNumber;
+	}
+
+	public void setServiceUsageNumber(Integer serviceUsageNumber) {
+		this.serviceUsageNumber = serviceUsageNumber;
+	}
+
+	public String getEndorsementReason() {
+		return endorsementReason;
+	}
+
+	public String getCarId() {
+		return carId;
+	}
+
+	public void setCarId(String carId) {
+		this.carId = carId;
+	}
+
+	public void setEndorsementReason(String endorsementReason) {
+		this.endorsementReason = endorsementReason;
+	}
+
+	public String getEndorsementCity() {
+		return endorsementCity;
+	}
+
+	public void setEndorsementCity(String endorsementCity) {
+		this.endorsementCity = endorsementCity;
+	}
+
+	public Integer getCanDeal() {
+		return canDeal;
+	}
+
+	public void setCanDeal(Integer canDeal) {
+		this.canDeal = canDeal;
+	}
+
+	public Integer getCarEndorsementSeq() {
+		return carEndorsementSeq;
+	}
+
+	public void setCarEndorsementSeq(Integer carEndorsementSeq) {
+		this.carEndorsementSeq = carEndorsementSeq;
+	}
+
+	public long getEndorsementTime() {
+		return endorsementTime;
+	}
+
+	public void setEndorsementTime(long endorsementTime) {
+		this.endorsementTime = endorsementTime;
+	}
+
+	public String getEndorsementPlace() {
+		return endorsementPlace;
+	}
+
+	public void setEndorsementPlace(String endorsementPlace) {
+		this.endorsementPlace = endorsementPlace;
+	}
+
+	public Integer getEndorsementScore() {
+		return endorsementScore;
+	}
+
+	public void setEndorsementScore(Integer endorsementScore) {
+		this.endorsementScore = endorsementScore;
+	}
+
+	public Double getEndorsementPrice() {
+		return endorsementPrice;
+	}
+
+	public void setEndorsementPrice(Double endorsementPrice) {
+		this.endorsementPrice = endorsementPrice;
+	}
+
+	public Integer getBalanceIntegral() {
+		return balanceIntegral;
+	}
+
+	public void setBalanceIntegral(Integer balanceIntegral) {
+		this.balanceIntegral = balanceIntegral;
+	}
+
+	public double getBalanceMoney() {
+		return balanceMoney;
+	}
+
+	public void setBalanceMoney(double balanceMoney) {
+		this.balanceMoney = balanceMoney;
+	}
+
+	public Double getNumber() {
+		return number;
+	}
+
+	public void setNumber(Double number) {
+		this.number = number;
+	}
+
+	public Double getServiceReturnProfit() {
+		return serviceReturnProfit;
+	}
+
+	public void setServiceReturnProfit(Double serviceReturnProfit) {
+		this.serviceReturnProfit = serviceReturnProfit;
+	}
+
+	public Integer getServiceTimes() {
+		return serviceTimes;
+	}
+
+	public void setServiceTimes(Integer serviceTimes) {
+		this.serviceTimes = serviceTimes;
+	}
+
+	public Integer getServiceValidPeriod() {
+		return serviceValidPeriod;
+	}
+
+	public void setServiceValidPeriod(Integer serviceValidPeriod) {
+		this.serviceValidPeriod = serviceValidPeriod;
+	}
+
+	public Double getIntegralMoney() {
+		return integralMoney;
+	}
+
+	public void setIntegralMoney(Double integralMoney) {
+		this.integralMoney = integralMoney;
+	}
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
+	public String getServiceForm() {
+		return serviceForm;
+	}
+
+	public void setServiceForm(String serviceForm) {
+		this.serviceForm = serviceForm;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public String getOrder() {
+		return order;
+	}
+
+	public void setOrder(String order) {
+		this.order = order;
+	}
+
+	public Integer getUpServiceTypeSeq() {
+		return upServiceTypeSeq;
+	}
+
+	public void setUpServiceTypeSeq(Integer upServiceTypeSeq) {
+		this.upServiceTypeSeq = upServiceTypeSeq;
+	}
+
+	public String getCarOwnerSeq() {
+		return carOwnerSeq;
+	}
+
+	public void setCarOwnerSeq(String carOwnerSeq) {
+		this.carOwnerSeq = carOwnerSeq;
+	}
+
+	public String getServiceOrderSeq() {
+		return serviceOrderSeq;
+	}
+
+	public void setServiceOrderSeq(String serviceOrderSeq) {
+		this.serviceOrderSeq = serviceOrderSeq;
+	}
+
+	public String getInsurancePackageSeq() {
+		return insurancePackageSeq;
+	}
+
+	public void setInsurancePackageSeq(String insurancePackageSeq) {
+		this.insurancePackageSeq = insurancePackageSeq;
+	}
+
+	public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+
+	public Integer getRows() {
+		return rows;
+	}
+
+	public void setRows(Integer rows) {
+		this.rows = rows;
+	}
+
+	public String getTelephoneNo() {
+		return telephoneNo;
+	}
+
+	public void setTelephoneNo(String telephoneNo) {
+		this.telephoneNo = telephoneNo;
+	}
+
+	public String getMessageType() {
+		return messageType;
+	}
+
+	public void setMessageType(String messageType) {
+		this.messageType = messageType;
+	}
+
+	public Integer getVirityWay() {
+		return virityWay;
+	}
+
+	public void setVirityWay(Integer virityWay) {
+		this.virityWay = virityWay;
+	}
+
+	public Date getRequestTime() {
+		return requestTime;
+	}
+
+	public void setRequestTime(Date requestTime) {
+		this.requestTime = requestTime;
+	}
+
+	public String getServiceTypeName() {
+		return serviceTypeName;
+	}
+
+	public void setServiceTypeName(String serviceTypeName) {
+		this.serviceTypeName = serviceTypeName;
+	}
+
+	public Integer getServiceTypeSeq() {
+		return serviceTypeSeq;
+	}
+
+	public void setServiceTypeSeq(Integer serviceTypeSeq) {
+		this.serviceTypeSeq = serviceTypeSeq;
+	}
+
+	public String getServcieTypePic() {
+		return servcieTypePic;
+	}
+
+	public void setServcieTypePic(String servcieTypePic) {
+		this.servcieTypePic = servcieTypePic;
+	}
+
+	public Long getServiceOrgSeq() {
+		return serviceOrgSeq;
+	}
+
+	public void setServiceOrgSeq(Long serviceOrgSeq) {
+		this.serviceOrgSeq = serviceOrgSeq;
+	}
+
+	public Double getServiceCareggPrice() {
+		return serviceCareggPrice;
+	}
+
+	public void setServiceCareggPrice(Double serviceCareggPrice) {
+		this.serviceCareggPrice = serviceCareggPrice;
+	}
+
+	public Double getServiceBasicPrice() {
+		return serviceBasicPrice;
+	}
+
+	public void setServiceBasicPrice(Double serviceBasicPrice) {
+		this.serviceBasicPrice = serviceBasicPrice;
+	}
+
+	public Long getCareggServiceSeq() {
+		return careggServiceSeq;
+	}
+
+	public void setCareggServiceSeq(Long careggServiceSeq) {
+		this.careggServiceSeq = careggServiceSeq;
+	}
+
+	public String getPrimaryAddr() {
+		return primaryAddr;
+	}
+
+	public void setPrimaryAddr(String primaryAddr) {
+		this.primaryAddr = primaryAddr;
+	}
+
+	public String getChineseName() {
+		return chineseName;
+	}
+
+	public void setChineseName(String chineseName) {
+		this.chineseName = chineseName;
+	}
+
+	public String getCareggServiceName() {
+		return careggServiceName;
+	}
+
+	public void setCareggServiceName(String careggServiceName) {
+		this.careggServiceName = careggServiceName;
+	}
+
+	public Integer getScore() {
+		return score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+
+	public Float getAverage() {
+		return Average;
+	}
+
+	public void setAverage(Float average) {
+		Average = average;
+	}
+
+	public Double getJuli() {
+		return juli;
+	}
+
+	public void setJuli(Double juli) {
+		this.juli = juli;
+	}
+
+	public Long getCareggTel() {
+		return careggTel;
+	}
+
+	public void setCareggTel(Long careggTel) {
+		this.careggTel = careggTel;
+	}
+
+	@Override
+	public String toString() {
+		return "Service [upServiceTypeSeq=" + upServiceTypeSeq + ", carOwnerSeq=" + carOwnerSeq + ", serviceOrderSeq="
+				+ serviceOrderSeq + ", insurancePackageSeq=" + insurancePackageSeq + ", page=" + page + ", rows="
+				+ rows + ", telephoneNo=" + telephoneNo + ", messageType=" + messageType + ", virityWay=" + virityWay
+				+ ", requestTime=" + requestTime + ", id=" + id + ", type=" + type + ", order=" + order
+				+ ", serviceTypeName=" + serviceTypeName + ", serviceTypeSeq=" + serviceTypeSeq + ", servcieTypePic="
+				+ servcieTypePic + ", agentPrice=" + agentPrice + ", endorsementReason=" + endorsementReason
+				+ ", endorsementCity=" + endorsementCity + ", canDeal=" + canDeal + ", carEndorsementSeq="
+				+ carEndorsementSeq + ", endorsementTime=" + endorsementTime + ", endorsementPlace=" + endorsementPlace
+				+ ", endorsementScore=" + endorsementScore + ", endorsementPrice=" + endorsementPrice
+				+ ", balanceIntegral=" + balanceIntegral + ", balanceMoney=" + balanceMoney + ", carId=" + carId
+				+ ", driveMoney=" + driveMoney + ", listMap=" + listMap + ", serviceOrgSeq=" + serviceOrgSeq
+				+ ", serviceCareggPrice=" + serviceCareggPrice + ", serviceBasicPrice=" + serviceBasicPrice
+				+ ", careggServiceSeq=" + careggServiceSeq + ", primaryAddr=" + primaryAddr + ", chineseName="
+				+ chineseName + ", careggServiceName=" + careggServiceName + ", score=" + score + ", Average="
+				+ Average + ", juli=" + juli + ", careggTel=" + careggTel + ", number=" + number
+				+ ", serviceReturnProfit=" + serviceReturnProfit + ", serviceTimes=" + serviceTimes
+				+ ", serviceValidPeriod=" + serviceValidPeriod + ", integralMoney=" + integralMoney + ", desc=" + desc
+				+ ", serviceForm=" + serviceForm + ", consumeNumber=" + consumeNumber + ", serviceUsageTime="
+				+ serviceUsageTime + ", serviceUsageNumber=" + serviceUsageNumber + "]";
+	}
+}

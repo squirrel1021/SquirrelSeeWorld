@@ -1,0 +1,47 @@
+package cn.caregg.o2o.carnest.engine.task;
+
+import java.util.List;
+
+import cn.caregg.o2o.carnest.CarnestApplication;
+import cn.caregg.o2o.carnest.config.ConstantValues;
+import cn.caregg.o2o.carnest.config.EventTagConfig;
+import cn.caregg.o2o.carnest.config.GlobalParams;
+import cn.caregg.o2o.carnest.engine.callback.ResultWapper;
+import cn.caregg.o2o.carnest.entity.Bill;
+import cn.caregg.o2o.carnest.entity.User;
+
+import com.google.gson.reflect.TypeToken;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+
+public class AccountTask {
+	/**
+	 * @Description: 获取钱包余额
+	 * @throws:throws
+	 */
+
+	public void getWalletMoney() {
+		CarnestApplication.mHttpUtils.send(HttpMethod.GET, ConstantValues.WALLET_MONEY.toString() + "/" + GlobalParams.carOwnerSeq, new ResultWapper<String>(ResultWapper.LIST_PV,
+				new TypeToken<List<User>>() {
+				}, EventTagConfig.TAG_WALLET));
+	}
+
+	/**
+	 * @Description: 获取账单数据
+	 * @throws:throws
+	 */
+	public void getBillData() {
+		CarnestApplication.mHttpUtils.send(HttpMethod.GET, ConstantValues.BILL_DETAIL.toString() + "/" + GlobalParams.carOwnerSeq, new ResultWapper<String>(ResultWapper.LIST_PV,
+				new TypeToken<List<Bill>>() {
+				}, EventTagConfig.TAG_BILL_DATA));
+	}
+
+	/**
+	 * @Description: 获取收益详情
+	 * @throws:throws
+	 */
+	public void getIncomeDetail() {
+		CarnestApplication.mHttpUtils.send(HttpMethod.GET, ConstantValues.LAST_BENEFIT.toString() + "/" + GlobalParams.carOwnerSeq, new ResultWapper<String>(ResultWapper.COMPLEX_PV, null,
+				EventTagConfig.TAG_INCOME_DETAIL));
+	}
+
+}

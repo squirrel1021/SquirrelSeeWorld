@@ -1,0 +1,32 @@
+package cn.caregg.o2o.carnest.config;
+
+public interface EventTagConfig {
+
+	/*************************************帐号*******************************************/
+	String TAG_WALLET = "TAG_WALLET";
+	
+	String TAG_BILL_DATA="TAG_BILL_DATA";
+	
+	String TAG_INCOME_DETAIL="TAG_INCOME_DETAIL";
+
+	/*************************************违章*******************************************/
+	String TAG_VIOLATION_CAR_DETAIL = "TAG_VIOLATION_CAR_DETAIL";
+
+	String TAG_CARID_LIST = "TAG_CARID_LIST";
+
+	String TAG_PENDING_VIOLATION_LIST = "TAG_PENDING_VIOLATION_LIST";
+
+	String TAG_PROCESSING_VIOLATION_LIST = "TAG_PENDING_VIOLATION_LIST";
+	
+	String TAG_HISTORY_VIOLATION_LIST = "TAG_HISTORY_VIOLATION_LIST";
+	
+	String TAG_VIOLATION_DELETE_CARID = "TAG_VIOLATION_DELETE_CARID";
+	
+	String TAG_VIOLATION_ADD_CARID = "TAG_VIOLATION_ADD_CARID";
+	
+	String TAG_VIOLATION_CHANGE_CARID = "TAG_VIOLATION_REVISE_CARID";
+	
+	/*************************************车辆*******************************************/
+	String TAG_CAR_INFO="TAG_CAR_INFO";
+	
+}

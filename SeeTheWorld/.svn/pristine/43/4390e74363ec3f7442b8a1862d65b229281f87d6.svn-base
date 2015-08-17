@@ -1,0 +1,254 @@
+package cn.caregg.o2o.carnest.entity;
+
+import java.io.Serializable;
+
+
+public class OrderHeader implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	String orderBusinessType; // 标识 1.虚拟产品，2.车蛋产品
+
+	String orderId;
+
+	String orderName;
+
+	String shopName;
+
+	double totalPrice;
+
+	double orderNeedPay;
+
+	int careggBalanceFlag; // 勾选车蛋余额标识
+
+	int orderType; // 1、表示 支付宝 2、表示微信支付 3、表示银联支付 payInfParaSeq
+
+	String rechargeDesc;
+
+	Integer virtualGoodsSeq;// 虚拟商品序号
+	Integer virtualGoodsPromotionDetailSeq;// 虚拟商品促销明细
+	Double virtualGoodsDiscount;// 促销折扣参数
+	String virtualGoodsPromotionPara1;// 商品价格
+	String virtualGoodsOrderCode;// 虚拟订单编号
+	// int virtualGoodsOrderSeq;// 虚拟订单序号
+	// Integer payInfParaSeq;//支付接口序号
+	String careggRechargeNo;// 充值流水号
+
+	double payMoney;// 支付金额
+	long payTime;// 支付时间
+	// double rechargeTotal;// 充值金额
+	double careggDiscount;// 车蛋给客户折扣
+	Integer rechargeQuantity;// 充值数量
+	Integer rechargePrice;// 充值单价
+	String rechargeObject;// 充值对象
+	String userNumberType;// 充值商品类型
+	Integer amount;// 充值金额（折扣前）
+
+	String pay_business; // 100：车蛋购买;801：违章代理充值;810：手机充值;811：宜停车充值;812：QQ充值
+
+	public OrderHeader(String orderId, String orderName, String shopName, double totalPrice, double orderNeedPay, String pay_business) {
+		super();
+		this.orderId = orderId;
+		this.orderName = orderName;
+		this.shopName = shopName;
+		this.totalPrice = totalPrice;
+		this.orderNeedPay = orderNeedPay;
+		this.pay_business = pay_business;
+	}
+
+	public OrderHeader() {
+	};
+
+	public double getPayMoney() {
+		return payMoney;
+	}
+
+	public void setPayMoney(double payMoney) {
+		this.payMoney = payMoney;
+	}
+
+	public long getPayTime() {
+		return payTime;
+	}
+
+	public void setPayTime(long payTime) {
+		this.payTime = payTime;
+	}
+
+	public String getPay_business() {
+		return pay_business;
+	}
+
+	public void setPay_business(String pay_business) {
+		this.pay_business = pay_business;
+	}
+
+	public Integer getVirtualGoodsSeq() {
+		return virtualGoodsSeq;
+	}
+
+	public void setVirtualGoodsSeq(Integer virtualGoodsSeq) {
+		this.virtualGoodsSeq = virtualGoodsSeq;
+	}
+
+	public Integer getVirtualGoodsPromotionDetailSeq() {
+		return virtualGoodsPromotionDetailSeq;
+	}
+
+	public void setVirtualGoodsPromotionDetailSeq(Integer virtualGoodsPromotionDetailSeq) {
+		this.virtualGoodsPromotionDetailSeq = virtualGoodsPromotionDetailSeq;
+	}
+
+	public Double getVirtualGoodsDiscount() {
+		return virtualGoodsDiscount;
+	}
+
+	public void setVirtualGoodsDiscount(Double virtualGoodsDiscount) {
+		this.virtualGoodsDiscount = virtualGoodsDiscount;
+	}
+
+	public String getVirtualGoodsPromotionPara1() {
+		return virtualGoodsPromotionPara1;
+	}
+
+	public void setVirtualGoodsPromotionPara1(String virtualGoodsPromotionPara1) {
+		this.virtualGoodsPromotionPara1 = virtualGoodsPromotionPara1;
+	}
+
+	public String getVirtualGoodsOrderCode() {
+		return virtualGoodsOrderCode;
+	}
+
+	public void setVirtualGoodsOrderCode(String virtualGoodsOrderCode) {
+		this.virtualGoodsOrderCode = virtualGoodsOrderCode;
+	}
+
+	public String getCareggRechargeNo() {
+		return careggRechargeNo;
+	}
+
+	public void setCareggRechargeNo(String careggRechargeNo) {
+		this.careggRechargeNo = careggRechargeNo;
+	}
+
+	public double getCareggDiscount() {
+		return careggDiscount;
+	}
+
+	public void setCareggDiscount(double careggDiscount) {
+		this.careggDiscount = careggDiscount;
+	}
+
+	public Integer getRechargeQuantity() {
+		return rechargeQuantity;
+	}
+
+	public void setRechargeQuantity(Integer rechargeQuantity) {
+		this.rechargeQuantity = rechargeQuantity;
+	}
+
+	public Integer getRechargePrice() {
+		return rechargePrice;
+	}
+
+	public void setRechargePrice(Integer rechargePrice) {
+		this.rechargePrice = rechargePrice;
+	}
+
+	public String getRechargeObject() {
+		return rechargeObject;
+	}
+
+	public void setRechargeObject(String rechargeObject) {
+		this.rechargeObject = rechargeObject;
+	}
+
+	public String getUserNumberType() {
+		return userNumberType;
+	}
+
+	public void setUserNumberType(String userNumberType) {
+		this.userNumberType = userNumberType;
+	}
+
+	public Integer getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+
+	public String getOrderName() {
+		return orderName;
+	}
+
+	public void setOrderName(String orderName) {
+		this.orderName = orderName;
+	}
+
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public double getOrderNeedPay() {
+		return orderNeedPay;
+	}
+
+	public void setOrderNeedPay(double orderNeedPay) {
+		this.orderNeedPay = orderNeedPay;
+	}
+
+	public int getCareggBalanceFlag() {
+		return careggBalanceFlag;
+	}
+
+	public void setCareggBalanceFlag(int careggBalanceFlag) {
+		this.careggBalanceFlag = careggBalanceFlag;
+	}
+
+	public int getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(int orderType) {
+		this.orderType = orderType;
+	}
+
+	public String getRechargeDesc() {
+		return rechargeDesc;
+	}
+
+	public void setRechargeDesc(String rechargeDesc) {
+		this.rechargeDesc = rechargeDesc;
+	}
+
+	public String getOrderBusinessType() {
+		return orderBusinessType;
+	}
+
+	public void setOrderBusinessType(String orderBusinessType) {
+		this.orderBusinessType = orderBusinessType;
+	}
+
+}

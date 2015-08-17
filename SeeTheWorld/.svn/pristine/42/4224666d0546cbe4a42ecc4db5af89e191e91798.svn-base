@@ -1,0 +1,402 @@
+package cn.caregg.o2o.carnest.entity;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import com.lidroid.xutils.db.annotation.Transient;
+
+public class User implements Serializable{
+	//注册、登录、找回密码、退出
+	long id;
+
+	String ownerTel;//手机号；
+	String mobileValidatecode;//手机验证码；
+	String userPassword;
+	Integer ownerFlag;//注册类型:1.网站，2.andriod，3.ios，4.微信
+	String ownerName;//用户真实姓名（默认：待审核）
+
+	//新增短信
+	String telephoneNo;//新增短信：手机号
+	String messageType;//消息类型：1.注册，2.登录，3.忘记密码；
+	Integer virityWay;//请求通道，1.网站，2.andriod，3.ios，4.微信
+	Date requestTime;//请求时间 格式：yyyy-MM-dd'T'HH:mm:ss.SSSZ
+
+	//预约
+	String bookingWay;//订购方式：1.网络，2.andriod，3.ios，4.微信
+	String submitPic;//行驶证图片 上传路径   如： /upload/159.jpg
+	String sendName;//发送人
+	Integer addrProvice;//省份
+
+	Integer addrCity;//市区
+	String addrDetail;//街道地址
+
+	//获得市区信息
+	String sysDictCode;//系统字典编码（固定值：CITY）
+	String sysDictItemSeq;//省份字典id
+
+	//钱包，修改头像、手机号、昵称、密码
+	Integer carOwnerSeq;//车主编号
+	
+	String carOwnerPic;
+
+	double drivenBalance;//驾驶收益
+	double careggBalance;//车蛋卡余额
+	double rebateBalance;//消费返利
+	double creditBalance;//车蛋积分
+	double clientBalance;//会员卡余额
+	
+	@Transient
+	double accountBalance;//各类型钱包数额
+	@Transient
+	int accountType;
+	
+	double totalBalance;
+	
+	int score;
+
+//	List<Bill> bills;
+
+	String ownerNickName;//用户昵称
+	String newPassword;//用户新密码
+
+	//App唯一标识
+	String identifyCode;//用户app唯一标识；
+	String identifyTypeVersion;//手机版本；
+	String identifyType;//版本类型：1.andriod，2.ios；
+	String carid;
+	String tips;
+	
+	boolean isLogin;
+	
+
+	
+	public int getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(int accountType) {
+		this.accountType = accountType;
+	}
+
+	public String getTips() {
+		return tips;
+	}
+
+	public void setTips(String tips) {
+		this.tips = tips;
+	}
+
+	public String getCarid() {
+		return carid;
+	}
+
+	public void setCarid(String carid) {
+		this.carid = carid;
+	}
+
+	public User() {
+
+	}
+
+	public User(String ownerTel, String userPassword) {
+		super();
+		this.ownerTel = ownerTel;
+		this.userPassword = userPassword;
+	}
+
+	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getOwnerTel() {
+		return ownerTel;
+	}
+
+	public void setOwnerTel(String ownerTel) {
+		this.ownerTel = ownerTel;
+	}
+
+	public String getMobileValidatecode() {
+		return mobileValidatecode;
+	}
+
+	public void setMobileValidatecode(String mobileValidatecode) {
+		this.mobileValidatecode = mobileValidatecode;
+	}
+
+	public String getUserPassword() {
+		return userPassword;
+	}
+
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+
+	public String getTelephoneNo() {
+		return telephoneNo;
+	}
+
+	public void setTelephoneNo(String telephoneNo) {
+		this.telephoneNo = telephoneNo;
+	}
+
+	public String getMessageType() {
+		return messageType;
+	}
+
+	public void setMessageType(String messageType) {
+		this.messageType = messageType;
+	}
+
+	public Integer getVirityWay() {
+		return virityWay;
+	}
+
+	public void setVirityWay(Integer virityWay) {
+		this.virityWay = virityWay;
+	}
+
+	public Date getRequestTime() {
+		return requestTime;
+	}
+
+	public void setRequestTime(Date requestTime) {
+		this.requestTime = requestTime;
+	}
+
+	public String getBookingWay() {
+		return bookingWay;
+	}
+
+	public void setBookingWay(String bookingWay) {
+		this.bookingWay = bookingWay;
+	}
+
+	public String getSubmitPic() {
+		return submitPic;
+	}
+
+	public void setSubmitPic(String submitPic) {
+		this.submitPic = submitPic;
+	}
+
+	public String getSendName() {
+		return sendName;
+	}
+
+	public void setSendName(String sendName) {
+		this.sendName = sendName;
+	}
+
+	public Integer getAddrProvice() {
+		return addrProvice;
+	}
+
+	public void setAddrProvice(Integer addrProvice) {
+		this.addrProvice = addrProvice;
+	}
+
+	public Integer getAddrCity() {
+		return addrCity;
+	}
+
+	public void setAddrCity(Integer addrCity) {
+		this.addrCity = addrCity;
+	}
+
+	public String getAddrDetail() {
+		return addrDetail;
+	}
+
+	public void setAddrDetail(String addrDetail) {
+		this.addrDetail = addrDetail;
+	}
+
+	public String getSysDictCode() {
+		return sysDictCode;
+	}
+
+	public void setSysDictCode(String sysDictCode) {
+		this.sysDictCode = sysDictCode;
+	}
+
+	public String getSysDictItemSeq() {
+		return sysDictItemSeq;
+	}
+
+	public void setSysDictItemSeq(String sysDictItemSeq) {
+		this.sysDictItemSeq = sysDictItemSeq;
+	}
+
+	public String getIdentifyCode() {
+		return identifyCode;
+	}
+
+	public void setIdentifyCode(String identifyCode) {
+		this.identifyCode = identifyCode;
+	}
+
+	public String getIdentifyTypeVersion() {
+		return identifyTypeVersion;
+	}
+
+	public void setIdentifyTypeVersion(String identifyTypeVersion) {
+		this.identifyTypeVersion = identifyTypeVersion;
+	}
+
+	public String getIdentifyType() {
+		return identifyType;
+	}
+
+	public void setIdentifyType(String identifyType) {
+		this.identifyType = identifyType;
+	}
+
+	public Integer getCarOwnerSeq() {
+		return carOwnerSeq;
+	}
+
+	public double getDrivenBalance() {
+		return drivenBalance;
+	}
+
+	public void setDrivenBalance(double drivenBalance) {
+		this.drivenBalance = drivenBalance;
+	}
+
+	public double getCareggBalance() {
+		return careggBalance;
+	}
+
+	public void setCareggBalance(double careggBalance) {
+		this.careggBalance = careggBalance;
+	}
+
+	public double getRebateBalance() {
+		return rebateBalance;
+	}
+
+	public void setRebateBalance(double rebateBalance) {
+		this.rebateBalance = rebateBalance;
+	}
+
+	public double getCreditBalance() {
+		return creditBalance;
+	}
+
+	public void setCreditBalance(double creditBalance) {
+		this.creditBalance = creditBalance;
+	}
+
+	public double getClientBalance() {
+		return clientBalance;
+	}
+
+	public void setClientBalance(double clientBalance) {
+		this.clientBalance = clientBalance;
+	}
+
+	public void setCarOwnerSeq(Integer carOwnerSeq) {
+		this.carOwnerSeq = carOwnerSeq;
+	}
+
+	public String getOwnerNickName() {
+		return ownerNickName;
+	}
+
+	public void setOwnerNickName(String ownerNickName) {
+		this.ownerNickName = ownerNickName;
+	}
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+
+//	public List<Bill> getBills() {
+//		return bills;
+//	}
+//
+//	public void setBills(List<Bill> bills) {
+//		this.bills = bills;
+//	}
+//
+//	public void addBill(Bill bill) {
+//		if (null == bills) {
+//			bills = new ArrayList<Bill>();
+//		}
+//		bills.add(bill);
+//	}
+
+	public Integer getOwnerFlag() {
+		return ownerFlag;
+	}
+
+	public void setOwnerFlag(Integer ownerFlag) {
+		this.ownerFlag = ownerFlag;
+	}
+
+	public String getCarOwnerPic() {
+		return carOwnerPic;
+	}
+
+	public void setCarOwnerPic(String carOwnerPic) {
+		this.carOwnerPic = carOwnerPic;
+	}
+
+	public double getTotalBalance() {
+		return totalBalance;
+	}
+
+	public void setTotalBalance(double totalBalance) {
+		this.totalBalance = totalBalance;
+	}
+
+	public boolean isLogin() {
+		return isLogin;
+	}
+
+	public void setLogin(boolean isLogin) {
+		this.isLogin = isLogin;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public double getAccountBalance() {
+		return accountBalance;
+	}
+
+	public void setAccountBalance(double accountBalance) {
+		this.accountBalance = accountBalance;
+	}
+	
+	
+	
+	
+
+}

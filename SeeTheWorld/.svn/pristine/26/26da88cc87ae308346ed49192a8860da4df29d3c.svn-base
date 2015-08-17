@@ -1,0 +1,45 @@
+package cn.caregg.o2o.carnest.ui.activity;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ContentView;
+import com.lidroid.xutils.view.annotation.ViewInject;
+
+import cn.caregg.o2o.carnest.R;
+import cn.caregg.o2o.carnest.config.EventTagConfig;
+import cn.caregg.o2o.carnest.engine.task.AccountTask;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.webkit.WebView;
+import android.widget.Button;
+
+@ContentView(R.layout.carnest_service_violation_activity)
+public class WebViewTest extends Activity {
+	@ViewInject(R.id.web_view)
+	WebView webView;
+	@ViewInject(R.id.get_car_id_list)
+	Button btn;
+	int index = 0;
+	String[] EVENT_TAG = { EventTagConfig.TAG_ORDER_ALL, EventTagConfig.TAG_ORDER_WAIT_PAY,
+			EventTagConfig.TAG_ORDER_WAIT_DELIVER_GOODS, EventTagConfig.TAG_ORDER_ALREADY_DELIVER_GOODS,
+			EventTagConfig.TAG_ORDER_HANDLING, EventTagConfig.TAG_ORDER_DELIVER_ADDRESS,
+			EventTagConfig.TAG_PRODUCT_SHOP };
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		ViewUtils.inject(this);
+		webView.getSettings().setJavaScriptEnabled(true);
+		btn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				new AccountTask().loadWebView(webView, EVENT_TAG[index],null);
+				if(index<EVENT_TAG.length-1){
+					index++;
+				}
+			}
+		});
+	}
+}

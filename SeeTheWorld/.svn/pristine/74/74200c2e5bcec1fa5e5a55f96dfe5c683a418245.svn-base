@@ -1,0 +1,99 @@
+package cn.caregg.o2o.carnest.ui.activity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.google.gson.reflect.TypeToken;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import cn.caregg.o2o.carnest.R;
+import cn.caregg.o2o.carnest.config.EventTagConfig;
+import cn.caregg.o2o.carnest.engine.parser.GsonParser;
+import cn.caregg.o2o.carnest.engine.task.MessageTask;
+import cn.caregg.o2o.carnest.entity.CarDetail;
+import cn.caregg.o2o.carnest.entity.EventByTag;
+import cn.caregg.o2o.carnest.entity.News;
+import cn.caregg.o2o.carnest.utils.StringUtils;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ContentView;
+import com.lidroid.xutils.view.annotation.ViewInject;
+
+import de.greenrobot.event.EventBus;
+import android.widget.Toast;
+
+@ContentView(R.layout.carnest_service_violation_activity)
+public class ServiceViolationActivity extends Activity {
+	@ViewInject(R.id.get_car_id_list)
+	Button dataShow;
+
+	List<CarDetail> carIdList;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		EventBus.getDefault().register(this);
+		ViewUtils.inject(this);
+		initView();
+	}
+
+	private void initView() {
+		carIdList = new ArrayList<CarDetail>();
+		setClickListener();
+	}
+
+	private void setClickListener() {
+		dataShow.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				new MessageTask().getAllUnreadNewsNumber();
+			}
+		});
+	}
+
+	public void onEventMainThread(EventByTag eventByTag) {
+		if (StringUtils.isEquals(eventByTag.getTAG(), EventTagConfig.TAG_NEWS_LIST)) {
+			getNewsList(eventByTag);
+		}
+		if (StringUtils.isEquals(eventByTag.getTAG(), EventTagConfig.TAG_ALL_UNREAD_NEWS_NUMBER)) {
+			Toast.makeText(this, eventByTag.getObject().toString(), 1).show();
+		}
+		//		else if (StringUtils.isEquals(eventByTag.getTAG(), EventTagConfig.TAG_PROCESSING_VIOLATION_LIST)) {
+		//			if (eventByTag.getObj() instanceof Empty) {
+		//				dataShow.setText("kong");
+		//			}
+		//		}
+	}
+
+	private void getNewsList(EventByTag eventByTag) {
+		JSONObject jsonObject;
+		try {
+			jsonObject = new JSONObject((String) eventByTag.getObject());
+			List<News> list = GsonParser.parseList(jsonObject.get("dataList").toString(), new TypeToken<List<News>>() {
+			});
+			new MessageTask().readNews(list.get(0));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return;
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
+	}
+}

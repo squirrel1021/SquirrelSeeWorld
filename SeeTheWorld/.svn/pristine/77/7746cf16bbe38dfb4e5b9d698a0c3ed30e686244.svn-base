@@ -1,0 +1,72 @@
+package cn.caregg.o2o.carnest.engine.task;
+
+import java.util.List;
+import java.util.Map;
+
+import cn.caregg.o2o.carnest.config.ConstantValues;
+import cn.caregg.o2o.carnest.config.EventTagConfig;
+import cn.caregg.o2o.carnest.config.GlobalParams;
+import cn.caregg.o2o.carnest.engine.callback.ResultWapper;
+import cn.caregg.o2o.carnest.engine.handler.BaseRequestHandler;
+import cn.caregg.o2o.carnest.entity.CarDetail;
+import cn.caregg.o2o.carnest.entity.Service;
+import cn.caregg.o2o.carnest.entity.ServiceViolation;
+import cn.caregg.o2o.carnest.utils.ParamsMappingUtils;
+
+import com.google.gson.reflect.TypeToken;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+
+public class ViolationTask {
+
+	/** 
+	 * @Description: 获得车牌号列表 void 返回类型  
+	 * @throws:throws
+	*/
+
+	public void getCarIdList() {
+		new BaseRequestHandler().send(ConstantValues.CAR_NUMBER_LIST.toString() + GlobalParams.carOwnerSeq,
+				HttpMethod.GET, new ResultWapper<String>(ResultWapper.LIST_PV, new TypeToken<List<CarDetail>>() {
+				}, EventTagConfig.TAG_CARID_LIST));
+	}
+
+	/** 
+	 * @Description: 获取车主车辆信息 void 返回类型  
+	 * @throws:throws
+	*/
+
+	public void getViolationCarDetail() {
+		new BaseRequestHandler().send(
+				ConstantValues.CAR_DETAIL_MESSAGE.toString() + 1 + "/" + GlobalParams.carOwnerSeq, HttpMethod.GET,
+				new ResultWapper<String>(ResultWapper.SINGLE_PV, CarDetail.class,
+						EventTagConfig.TAG_VIOLATION_CAR_DETAIL));
+	}
+
+	/** 
+	 * @Description: 获取待处理违章列表
+	 * @param map void 返回类型  
+	 * @throws:throws
+	*/
+
+	public void getPendingViolationList(CarDetail carDetail) {
+		Map<String, Object> map = ParamsMappingUtils.getViolationList(10, GlobalParams.carOwnerSeq,
+				carDetail.getCarId(), carDetail.getCarEngine(), carDetail.getCarVin());
+		new BaseRequestHandler()
+				.send(ConstantValues.VIOLATION_LIST_UNCANDEAL.toString(), HttpMethod.POST, map,
+						new ResultWapper<String>(ResultWapper.SINGLE_PV, Service.class,
+								EventTagConfig.TAG_PENDING_VIOLATION_LIST));
+	}
+
+	/** 
+	 * @Description: 获取处理中违章列表
+	 * @param map void 返回类型  
+	 * @throws:throws
+	*/
+
+	public void getProcessingViolationList(CarDetail carDetail) {
+		Map<String, Object> map = ParamsMappingUtils.getViolationList(20, GlobalParams.carOwnerSeq,
+				carDetail.getCarId(), carDetail.getCarEngine(), carDetail.getCarVin());
+		new BaseRequestHandler().send(ConstantValues.VIOLATION_LIST_CANDEAL.toString(), HttpMethod.POST, map,
+				new ResultWapper<String>(ResultWapper.LIST_PV, new TypeToken<List<ServiceViolation>>() {
+				}, EventTagConfig.TAG_PROCESSING_VIOLATION_LIST));
+	}
+}

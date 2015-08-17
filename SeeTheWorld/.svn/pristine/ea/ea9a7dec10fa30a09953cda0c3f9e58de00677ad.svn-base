@@ -1,0 +1,32 @@
+package cn.caregg.o2o.carnest.ui.activity;
+
+import android.app.Activity;
+import android.os.Bundle;
+import cn.caregg.o2o.carnest.R;
+import cn.caregg.o2o.carnest.entity.CarDetail;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ContentView;
+import com.lidroid.xutils.view.annotation.ViewInject;
+
+import de.greenrobot.event.EventBus;
+
+@ContentView(R.layout.test1)
+public class Test1 extends Activity {
+
+	@ViewInject(R.id.test)
+	BootstrapButton mBootstrapButton;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		EventBus.getDefault().registerSticky(this);
+		super.onCreate(savedInstanceState);
+		ViewUtils.inject(this);
+	}
+
+	public void onEventMainThread(CarDetail event) {
+		mBootstrapButton.setTextGravity("center");
+		mBootstrapButton.setText(""+event.getCarId());
+	}
+}

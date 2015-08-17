@@ -1,0 +1,33 @@
+package cn.caregg.o2o.carnest.entity;
+
+public class EventByTag {
+
+	private String TAG;
+
+	private Object obj;
+
+	public EventByTag(Object obj, String TAG) {
+		this.TAG = TAG;
+		this.obj = obj;
+	}
+
+	public String getTAG() {
+		return TAG;
+	}
+
+	public void setTAG(String TAG) {
+		this.TAG = TAG;
+	}
+
+	public Object getObject() {
+		return obj;
+	}
+
+	public Object getObj() {
+		return obj;
+	}
+
+	public void setObj(Object obj) {
+		this.obj = obj;
+	}
+}

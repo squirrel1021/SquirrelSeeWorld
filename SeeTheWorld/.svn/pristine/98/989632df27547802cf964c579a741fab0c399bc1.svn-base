@@ -1,0 +1,68 @@
+package cn.caregg.o2o.carnest.entity;
+
+import java.io.Serializable;
+
+public class Bill implements Serializable{
+	
+	//账单查询
+	long dealTime;//交易时间
+	String clientName;//服务商家
+	double dealAmount;//金额
+	String serviceName;//服务名称
+	String flag;
+	
+	String type;
+	
+	//余额查询
+	
+	public double getDealAmount() {
+		return dealAmount;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
+	public long getDealTime() {
+		return dealTime;
+	}
+
+	public void setDealTime(long dealTime) {
+		this.dealTime = dealTime;
+	}
+
+	public String getClientName() {
+		return clientName;
+	}
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}
+
+	public String getServiceName() {
+		return serviceName;
+	}
+
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
+	}
+
+	public void setDealAmount(double dealAmount) {
+		this.dealAmount = dealAmount;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	
+
+}

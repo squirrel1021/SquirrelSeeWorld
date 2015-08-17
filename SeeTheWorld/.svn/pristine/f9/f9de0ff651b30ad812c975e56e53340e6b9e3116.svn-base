@@ -1,0 +1,48 @@
+package cn.caregg.o2o.carnest.ui.activity;
+
+import android.app.Activity;
+import android.os.Bundle;
+import cn.caregg.o2o.carnest.R;
+import cn.caregg.o2o.carnest.config.EventTagConfig;
+import cn.caregg.o2o.carnest.engine.task.AccountTask;
+import cn.caregg.o2o.carnest.engine.task.CarTask;
+import cn.caregg.o2o.carnest.entity.EventByTag;
+import cn.caregg.o2o.carnest.utils.EventUtils;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ContentView;
+import com.lidroid.xutils.view.annotation.ViewInject;
+
+import de.greenrobot.event.EventBus;
+
+@ContentView(R.layout.carnest_activity_splash)
+public class Test2 extends Activity {
+	@ViewInject(R.id.login)
+	BootstrapButton mBootstrapButton;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		EventBus.getDefault().registerSticky(this);
+		super.onCreate(savedInstanceState);
+		ViewUtils.inject(this);
+
+//		 new AccountTask().getBillData();
+		new AccountTask().getWalletMoney();
+//		 new AccountTask().getIncomeDetail();
+//		 new CarTask().getDriveDetail();
+//		 new CarTask().getCarInfo();
+	}
+
+	@SuppressWarnings("unchecked")
+	public void onEventMainThread(EventByTag eventByTag) {
+		mBootstrapButton.setTextGravity("center");
+		if (EventUtils.isValid(eventByTag, EventTagConfig.TAG_WALLET, null)) {
+			//TODO
+		}
+		if (EventUtils.isValid(eventByTag, EventTagConfig.TAG_CHECK_CAR, null)) {
+			//TODO
+		}
+
+	}
+}

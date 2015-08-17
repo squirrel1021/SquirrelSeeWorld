@@ -1,0 +1,234 @@
+package cn.caregg.o2o.carnest.entity;
+
+import java.io.Serializable;
+
+public class News implements Serializable{
+
+	long id;
+	long _id;
+
+	/**消息类型*/
+	Integer noticeInfoSeq;//消息信息编号   消息详情请求url参数
+	Integer CappLevelNotice;//APP内消息提示
+	String noticeTypeName;//消息类别名称
+	Integer totalNotice;//分类消息总数
+	String noticeTypeDesc;//消息类别描述
+	Integer appLevelNotice;//APP内消息提示
+	Integer sysLevelNotice;//系统通知提示
+	Integer smsLevelNotice;//短信通知提示
+	Integer telLevelNotice;//客服电话提示
+	Integer serviceLevelNotice;//绑定商家通知提示
+	Integer noticeTypeSeq = 0;//消息类别序号
+	String noticeTypeCode;//消息类别编码  
+
+	/**消息详情*/
+	Integer carOwnerSeq;//车主编号
+	String noticeInfoTitle;//消息标题
+	String noticeInfoContent;//消息内容
+	long noticeInfoTime;//消息生成时间
+	Integer noticeInfoStatus;//消息状态  0 是未读，1 是已读
+	String noticeInfoDesc;//消息通知描述
+
+	/**消息设置*/
+	Integer carOwnerMessageCfgSeq;
+	String ownerNoticeType;
+	Integer configValue;
+	
+	public Integer getTotalNotice() {
+		return totalNotice;
+	}
+
+	public void setTotalNotice(Integer totalNotice) {
+		this.totalNotice = totalNotice;
+	}
+
+	public Integer getCarOwnerMessageCfgSeq() {
+		return carOwnerMessageCfgSeq;
+	}
+
+	public void setCarOwnerMessageCfgSeq(Integer carOwnerMessageCfgSeq) {
+		this.carOwnerMessageCfgSeq = carOwnerMessageCfgSeq;
+	}
+
+	public String getOwnerNoticeType() {
+		return ownerNoticeType;
+	}
+
+	public void setOwnerNoticeType(String ownerNoticeType) {
+		this.ownerNoticeType = ownerNoticeType;
+	}
+
+	public Integer getConfigValue() {
+		return configValue;
+	}
+
+	public void setConfigValue(Integer configValue) {
+		this.configValue = configValue;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public long get_id() {
+		return _id;
+	}
+
+	public void set_id(long _id) {
+		this._id = _id;
+	}
+
+	public Integer getNoticeInfoSeq() {
+		return noticeInfoSeq;
+	}
+
+	public void setNoticeInfoSeq(Integer noticeInfoSeq) {
+		this.noticeInfoSeq = noticeInfoSeq;
+	}
+
+	public Integer getCappLevelNotice() {
+		return CappLevelNotice;
+	}
+
+	public void setCappLevelNotice(Integer cappLevelNotice) {
+		CappLevelNotice = cappLevelNotice;
+	}
+
+	public String getNoticeTypeName() {
+		return noticeTypeName;
+	}
+
+	public void setNoticeTypeName(String noticeTypeName) {
+		this.noticeTypeName = noticeTypeName;
+	}
+
+	public String getNoticeTypeDesc() {
+		return noticeTypeDesc;
+	}
+
+	public void setNoticeTypeDesc(String noticeTypeDesc) {
+		this.noticeTypeDesc = noticeTypeDesc;
+	}
+
+	public Integer getAppLevelNotice() {
+		return appLevelNotice;
+	}
+
+	public void setAppLevelNotice(Integer appLevelNotice) {
+		this.appLevelNotice = appLevelNotice;
+	}
+
+	public Integer getSysLevelNotice() {
+		return sysLevelNotice;
+	}
+
+	public void setSysLevelNotice(Integer sysLevelNotice) {
+		this.sysLevelNotice = sysLevelNotice;
+	}
+
+	public Integer getSmsLevelNotice() {
+		return smsLevelNotice;
+	}
+
+	public void setSmsLevelNotice(Integer smsLevelNotice) {
+		this.smsLevelNotice = smsLevelNotice;
+	}
+
+	public Integer getTelLevelNotice() {
+		return telLevelNotice;
+	}
+
+	public void setTelLevelNotice(Integer telLevelNotice) {
+		this.telLevelNotice = telLevelNotice;
+	}
+
+	public Integer getServiceLevelNotice() {
+		return serviceLevelNotice;
+	}
+
+	public void setServiceLevelNotice(Integer serviceLevelNotice) {
+		this.serviceLevelNotice = serviceLevelNotice;
+	}
+
+	public Integer getNoticeTypeSeq() {
+		return noticeTypeSeq;
+	}
+
+	public void setNoticeTypeSeq(Integer noticeTypeSeq) {
+		this.noticeTypeSeq = noticeTypeSeq;
+	}
+
+	public String getNoticeTypeCode() {
+		return noticeTypeCode;
+	}
+
+	public void setNoticeTypeCode(String noticeTypeCode) {
+		this.noticeTypeCode = noticeTypeCode;
+	}
+
+	public Integer getCarOwnerSeq() {
+		return carOwnerSeq;
+	}
+
+	public void setCarOwnerSeq(Integer carOwnerSeq) {
+		this.carOwnerSeq = carOwnerSeq;
+	}
+
+	public String getNoticeInfoTitle() {
+		return noticeInfoTitle;
+	}
+
+	public void setNoticeInfoTitle(String noticeInfoTitle) {
+		this.noticeInfoTitle = noticeInfoTitle;
+	}
+
+	public String getNoticeInfoContent() {
+		return noticeInfoContent;
+	}
+
+	public void setNoticeInfoContent(String noticeInfoContent) {
+		this.noticeInfoContent = noticeInfoContent;
+	}
+
+	public long getNoticeInfoTime() {
+		return noticeInfoTime;
+	}
+
+	public void setNoticeInfoTime(long noticeInfoTime) {
+		this.noticeInfoTime = noticeInfoTime;
+	}
+
+	public Integer getNoticeInfoStatus() {
+		return noticeInfoStatus;
+	}
+
+	public void setNoticeInfoStatus(Integer noticeInfoStatus) {
+		this.noticeInfoStatus = noticeInfoStatus;
+	}
+
+	public String getNoticeInfoDesc() {
+		return noticeInfoDesc;
+	}
+
+	public void setNoticeInfoDesc(String noticeInfoDesc) {
+		this.noticeInfoDesc = noticeInfoDesc;
+	}
+
+	@Override
+	public String toString() {
+		return "Message [id=" + id + ", _id=" + _id + ", noticeInfoSeq=" + noticeInfoSeq + ", CappLevelNotice="
+				+ CappLevelNotice + ", noticeTypeName=" + noticeTypeName + ", totalNotice=" + totalNotice
+				+ ", noticeTypeDesc=" + noticeTypeDesc + ", appLevelNotice=" + appLevelNotice + ", sysLevelNotice="
+				+ sysLevelNotice + ", smsLevelNotice=" + smsLevelNotice + ", telLevelNotice=" + telLevelNotice
+				+ ", serviceLevelNotice=" + serviceLevelNotice + ", noticeTypeSeq=" + noticeTypeSeq
+				+ ", noticeTypeCode=" + noticeTypeCode + ", carOwnerSeq=" + carOwnerSeq + ", noticeInfoTitle="
+				+ noticeInfoTitle + ", noticeInfoContent=" + noticeInfoContent + ", noticeInfoTime=" + noticeInfoTime
+				+ ", noticeInfoStatus=" + noticeInfoStatus + ", noticeInfoDesc=" + noticeInfoDesc
+				+ ", carOwnerMessageCfgSeq=" + carOwnerMessageCfgSeq + ", ownerNoticeType=" + ownerNoticeType
+				+ ", configValue=" + configValue + "]";
+	}
+}

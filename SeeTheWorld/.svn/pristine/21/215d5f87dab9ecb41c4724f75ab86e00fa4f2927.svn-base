@@ -1,0 +1,40 @@
+package cn.caregg.o2o.carnest.engine.task;
+
+import cn.caregg.o2o.carnest.CarnestApplication;
+import cn.caregg.o2o.carnest.config.ConstantValues;
+import cn.caregg.o2o.carnest.config.EventTagConfig;
+import cn.caregg.o2o.carnest.config.GlobalParams;
+import cn.caregg.o2o.carnest.engine.callback.ResultWapper;
+import cn.caregg.o2o.carnest.entity.CarDetail;
+
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+
+public class CarTask {
+
+	/**
+	 * @Description: 获取车辆信息
+	 * @throws:throws
+	 */
+	public void getCarInfo() {
+		CarnestApplication.mHttpUtils.send(HttpMethod.GET, ConstantValues.QUERY_CARNUM.toString() + "/" + GlobalParams.carOwnerSeq, new ResultWapper<String>(ResultWapper.SINGLE_PV, CarDetail.class,
+				EventTagConfig.TAG_CAR_INFO));
+	}
+
+	/**
+	 * @Description: 获取驾驶详情
+	 * @throws:throws
+	 */
+	public void getDriveDetail() {
+		CarnestApplication.mHttpUtils.send(HttpMethod.GET, ConstantValues.QUERY_CAR_DETAIL.toString() + "/" + GlobalParams.mCarDetail.getCarInfoSeq(), new ResultWapper<String>(
+				ResultWapper.COMPLEX_PV, null, EventTagConfig.TAG_DRIVE_DETAIL));
+	}
+
+	/**
+	 * @Description: 一键检测
+	 * @throws:throws
+	 */
+	public void checkCar() {
+		CarnestApplication.mHttpUtils.send(HttpMethod.GET, ConstantValues.CHECK_CAR.toString() + "/" + GlobalParams.mCarDetail.getCarInfoSeq(), new ResultWapper<String>(ResultWapper.COMPLEX_PV, null,
+				EventTagConfig.TAG_CHECK_CAR));
+	}
+}

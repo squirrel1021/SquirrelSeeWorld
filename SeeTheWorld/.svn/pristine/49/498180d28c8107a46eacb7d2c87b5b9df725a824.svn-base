@@ -1,0 +1,187 @@
+package cn.caregg.o2o.carnest.entity;
+
+import java.io.Serializable;
+
+public class ServiceViolation implements Serializable{
+	
+	long id;
+	String endorsementCity;//违章地市
+	String endorsementReason;//违章详情
+	double careggFee;//车蛋代办费用
+	int canDeal;//违章能否代办(-1不行,1可以)
+	int carEndorsementSeq;//违章记录序号
+	double endorsementPrice;//罚款金额
+	long endorsementTime;//违章时间
+	String endorsementPlace;//违章地点
+	String endorsementTitile;//违章标题
+	double agentFee;//渠道代办费用
+	int endorsementScore;//驾照扣分
+	String reqNo;//订单号
+	String endorsementId;//违章ID
+	double totalFee;//为应交总费用
+	double arrdv;//为手续费，银盛公司收取车蛋公司代办手续费。
+	double supplierFee;
+	
+	int endorsementStatus;//违章状态
+	String endorsementStatusName;//违章状态名称
+	long virtualGoodsOrderTime;//订单交易时间
+	int virtualGoodsOrderSeq;//订单序号
+	boolean isChecked;
+	Integer carOwnerSeq;//车主编号
+	
+	
+	public Integer getCarOwnerSeq() {
+		return carOwnerSeq;
+	}
+	public void setCarOwnerSeq(Integer carOwnerSeq) {
+		this.carOwnerSeq = carOwnerSeq;
+	}
+	public boolean isChecked() {
+		return isChecked;
+	}
+	public void setChecked(boolean isChecked) {
+		this.isChecked = isChecked;
+	}
+	public int getEndorsementStatus() {
+		return endorsementStatus;
+	}
+	public void setEndorsementStatus(int endorsementStatus) {
+		this.endorsementStatus = endorsementStatus;
+	}
+	public String getEndorsementStatusName() {
+		return endorsementStatusName;
+	}
+	public void setEndorsementStatusName(String endorsementStatusName) {
+		this.endorsementStatusName = endorsementStatusName;
+	}
+	public long getVirtualGoodsOrderTime() {
+		return virtualGoodsOrderTime;
+	}
+	public void setVirtualGoodsOrderTime(long virtualGoodsOrderTime) {
+		this.virtualGoodsOrderTime = virtualGoodsOrderTime;
+	}
+	public int getVirtualGoodsOrderSeq() {
+		return virtualGoodsOrderSeq;
+	}
+	public void setVirtualGoodsOrderSeq(int virtualGoodsOrderSeq) {
+		this.virtualGoodsOrderSeq = virtualGoodsOrderSeq;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public double getSupplierFee() {
+		return supplierFee;
+	}
+	public void setSupplierFee(double supplierFee) {
+		this.supplierFee = supplierFee;
+	}
+	public double getTotalFee() {
+		return totalFee;
+	}
+	public void setTotalFee(double totalFee) {
+		this.totalFee = totalFee;
+	}
+	public double getArrdv() {
+		return arrdv;
+	}
+	public void setArrdv(double arrdv) {
+		this.arrdv = arrdv;
+	}
+	public String getReqNo() {
+		return reqNo;
+	}
+	public void setReqNo(String reqNo) {
+		this.reqNo = reqNo;
+	}
+	public String getEndorsementId() {
+		return endorsementId;
+	}
+	public void setEndorsementId(String endorsementId) {
+		this.endorsementId = endorsementId;
+	}
+	public String getEndorsementCity() {
+		return endorsementCity;
+	}
+	public void setEndorsementCity(String endorsementCity) {
+		this.endorsementCity = endorsementCity;
+	}
+	public String getEndorsementReason() {
+		return endorsementReason;
+	}
+	public void setEndorsementReason(String endorsementReason) {
+		this.endorsementReason = endorsementReason;
+	}
+	
+	public int getCanDeal() {
+		return canDeal;
+	}
+	public void setCanDeal(int canDeal) {
+		this.canDeal = canDeal;
+	}
+	public int getCarEndorsementSeq() {
+		return carEndorsementSeq;
+	}
+	public void setCarEndorsementSeq(int carEndorsementSeq) {
+		this.carEndorsementSeq = carEndorsementSeq;
+	}
+	
+	public long getEndorsementTime() {
+		return endorsementTime;
+	}
+	public void setEndorsementTime(long endorsementTime) {
+		this.endorsementTime = endorsementTime;
+	}
+	public String getEndorsementPlace() {
+		return endorsementPlace;
+	}
+	public void setEndorsementPlace(String endorsementPlace) {
+		this.endorsementPlace = endorsementPlace;
+	}
+	public String getEndorsementTitile() {
+		return endorsementTitile;
+	}
+	public void setEndorsementTitile(String endorsementTitile) {
+		this.endorsementTitile = endorsementTitile;
+	}
+	public int getEndorsementScore() {
+		return endorsementScore;
+	}
+	public void setEndorsementScore(int endorsementScore) {
+		this.endorsementScore = endorsementScore;
+	}
+	
+	public double getCareggFee() {
+		return careggFee;
+	}
+	public void setCareggFee(double careggFee) {
+		this.careggFee = careggFee;
+	}
+	public double getEndorsementPrice() {
+		return endorsementPrice;
+	}
+	public void setEndorsementPrice(double endorsementPrice) {
+		this.endorsementPrice = endorsementPrice;
+	}
+	public double getAgentFee() {
+		return agentFee;
+	}
+	public void setAgentFee(double agentFee) {
+		this.agentFee = agentFee;
+	}
+	
+	@Override
+	public String toString() {
+		return "ServiceViolation [id=" + id + ", endorsementCity=" + endorsementCity + ", endorsementReason="
+				+ endorsementReason + ", careggFee=" + careggFee + ", canDeal=" + canDeal + ", carEndorsementSeq="
+				+ carEndorsementSeq + ", endorsementPrice=" + endorsementPrice + ", endorsementTime=" + endorsementTime
+				+ ", endorsementPlace=" + endorsementPlace + ", endorsementTitile=" + endorsementTitile + ", agentFee="
+				+ agentFee + ", endorsementScore=" + endorsementScore + ", reqNo=" + reqNo + ", endorsementId="
+				+ endorsementId + ", totalFee=" + totalFee + ", arrdv=" + arrdv + ", supplierFee=" + supplierFee
+				+ ", endorsementStatus=" + endorsementStatus + ", endorsementStatusName=" + endorsementStatusName
+				+ ", virtualGoodsOrderTime=" + virtualGoodsOrderTime + ", virtualGoodsOrderSeq=" + virtualGoodsOrderSeq
+				+ ", isChecked=" + isChecked + ", carOwnerSeq=" + carOwnerSeq + "]";
+	}
+}

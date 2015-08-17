@@ -1,0 +1,305 @@
+package cn.caregg.o2o.carnest.entity;
+
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
+
+public class Order implements Serializable{
+	
+	//保险订单详情
+	String id;
+	
+	String insuranceOrderDetailSeq;//保险订单号；
+	String serviceOrderSeq;//商品订单序号
+	
+	double serviceBasicPrice;
+	double serviceReturnProfit;
+	long lastestServiceTimes;
+	String serviceCommentContent;
+	long initServiceTimes;	
+	float serviceCommentValue;
+	long servicePayTime;
+	
+	String serviceOrderStatus;
+	double serviceCareggPrice;
+	String careggServiceName;
+	String lastestValidcode;
+	double serviceActualPrice;
+	
+	long serviceLastDate;
+	
+	String payInfParaSeq;
+	
+	double integralMoney;
+	
+	List<OrderDataList> dataList;
+	String mysqlQueryCondition;
+	boolean orderDirection;
+	Integer pageCount;
+	Integer pageId;
+	Integer pageTail;
+	String orderField;
+	Integer pageSize;
+	String orderCondition;
+	Integer rowCount;
+	Integer pageOffset;
+	
+	
+	Service[] clipData;
+	
+	List<Service> listData;
+	
+	String serviceOrderNo;
+	
+	Integer totalOrders;//订单未读数
+	String order_status;//订单类型
+	int virtualGoodsOrderSeq;//订单序号
+	String virtualGoodsOrderCode;//虚拟订单编号
+	
+	
+	public String getVirtualGoodsOrderCode() {
+		return virtualGoodsOrderCode;
+	}
+
+	public void setVirtualGoodsOrderCode(String virtualGoodsOrderCode) {
+		this.virtualGoodsOrderCode = virtualGoodsOrderCode;
+	}
+
+	public int getVirtualGoodsOrderSeq() {
+		return virtualGoodsOrderSeq;
+	}
+
+	public void setVirtualGoodsOrderSeq(int virtualGoodsOrderSeq) {
+		this.virtualGoodsOrderSeq = virtualGoodsOrderSeq;
+	}
+
+	public Integer getTotalOrders() {
+		return totalOrders;
+	}
+
+	public void setTotalOrders(Integer totalOrders) {
+		this.totalOrders = totalOrders;
+	}
+
+	public String getOrder_status() {
+		return order_status;
+	}
+
+	public void setOrder_status(String order_status) {
+		this.order_status = order_status;
+	}
+
+	public String getServiceOrderNo() {
+		return serviceOrderNo;
+	}
+
+	public void setServiceOrderNo(String serviceOrderNo) {
+		this.serviceOrderNo = serviceOrderNo;
+	}
+	
+	public List<Service> getListData() {
+		return listData;
+	}
+	public void setListData(List<Service> listData) {
+		this.listData = listData;
+	}
+	public Service[] getClipData() {
+		return clipData;
+	}
+	public void setClipData(Service[] clipData) {
+		this.clipData = clipData;
+	}
+	
+	public List<OrderDataList> getDataList() {
+		return dataList;
+	}
+	public void setDataList(List<OrderDataList> dataList) {
+		this.dataList = dataList;
+	}
+	public String getMysqlQueryCondition() {
+		return mysqlQueryCondition;
+	}
+	public void setMysqlQueryCondition(String mysqlQueryCondition) {
+		this.mysqlQueryCondition = mysqlQueryCondition;
+	}
+	public boolean isOrderDirection() {
+		return orderDirection;
+	}
+	public void setOrderDirection(boolean orderDirection) {
+		this.orderDirection = orderDirection;
+	}
+	public Integer getPageCount() {
+		return pageCount;
+	}
+	public void setPageCount(Integer pageCount) {
+		this.pageCount = pageCount;
+	}
+	public Integer getPageId() {
+		return pageId;
+	}
+	public void setPageId(Integer pageId) {
+		this.pageId = pageId;
+	}
+	public Integer getPageTail() {
+		return pageTail;
+	}
+	public void setPageTail(Integer pageTail) {
+		this.pageTail = pageTail;
+	}
+	public String getOrderField() {
+		return orderField;
+	}
+	public void setOrderField(String orderField) {
+		this.orderField = orderField;
+	}
+	public Integer getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+	public String getOrderCondition() {
+		return orderCondition;
+	}
+	public void setOrderCondition(String orderCondition) {
+		this.orderCondition = orderCondition;
+	}
+	public Integer getRowCount() {
+		return rowCount;
+	}
+	public void setRowCount(Integer rowCount) {
+		this.rowCount = rowCount;
+	}
+	public Integer getPageOffset() {
+		return pageOffset;
+	}
+	public void setPageOffset(Integer pageOffset) {
+		this.pageOffset = pageOffset;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public double getServiceBasicPrice() {
+		return serviceBasicPrice;
+	}
+	public void setServiceBasicPrice(double serviceBasicPrice) {
+		this.serviceBasicPrice = serviceBasicPrice;
+	}
+	public double getServiceReturnProfit() {
+		return serviceReturnProfit;
+	}
+	public void setServiceReturnProfit(double serviceReturnProfit) {
+		this.serviceReturnProfit = serviceReturnProfit;
+	}
+	public long getLastestServiceTimes() {
+		return lastestServiceTimes;
+	}
+	public void setLastestServiceTimes(long lastestServiceTimes) {
+		this.lastestServiceTimes = lastestServiceTimes;
+	}
+	public String getServiceCommentContent() {
+		return serviceCommentContent;
+	}
+	public void setServiceCommentContent(String serviceCommentContent) {
+		this.serviceCommentContent = serviceCommentContent;
+	}
+	public long getInitServiceTimes() {
+		return initServiceTimes;
+	}
+	public void setInitServiceTimes(long initServiceTimes) {
+		this.initServiceTimes = initServiceTimes;
+	}
+	public float getServiceCommentValue() {
+		return serviceCommentValue;
+	}
+	public void setServiceCommentValue(float serviceCommentValue) {
+		this.serviceCommentValue = serviceCommentValue;
+	}
+	public long getServicePayTime() {
+		return servicePayTime;
+	}
+	public void setServicePayTime(long servicePayTime) {
+		this.servicePayTime = servicePayTime;
+	}
+	public String getServiceOrderStatus() {
+		return serviceOrderStatus;
+	}
+	public void setServiceOrderStatus(String serviceOrderStatus) {
+		this.serviceOrderStatus = serviceOrderStatus;
+	}
+	public double getServiceCareggPrice() {
+		return serviceCareggPrice;
+	}
+	public void setServiceCareggPrice(double serviceCareggPrice) {
+		this.serviceCareggPrice = serviceCareggPrice;
+	}
+	public String getCareggServiceName() {
+		return careggServiceName;
+	}
+	public void setCareggServiceName(String careggServiceName) {
+		this.careggServiceName = careggServiceName;
+	}
+	public String getLastestValidcode() {
+		return lastestValidcode;
+	}
+	public void setLastestValidcode(String lastestValidcode) {
+		this.lastestValidcode = lastestValidcode;
+	}
+	public double getServiceActualPrice() {
+		return serviceActualPrice;
+	}
+	public void setServiceActualPrice(double serviceActualPrice) {
+		this.serviceActualPrice = serviceActualPrice;
+	}
+	public long getServiceLastDate() {
+		return serviceLastDate;
+	}
+	public void setServiceLastDate(long serviceLastDate) {
+		this.serviceLastDate = serviceLastDate;
+	}
+	public String getPayInfParaSeq() {
+		return payInfParaSeq;
+	}
+	public void setPayInfParaSeq(String payInfParaSeq) {
+		this.payInfParaSeq = payInfParaSeq;
+	}
+	public double getIntegralMoney() {
+		return integralMoney;
+	}
+	public void setIntegralMoney(double integralMoney) {
+		this.integralMoney = integralMoney;
+	}
+	public String getInsuranceOrderDetailSeq() {
+		return insuranceOrderDetailSeq;
+	}
+	public void setInsuranceOrderDetailSeq(String insuranceOrderDetailSeq) {
+		this.insuranceOrderDetailSeq = insuranceOrderDetailSeq;
+	}
+	public String getServiceOrderSeq() {
+		return serviceOrderSeq;
+	}
+	public void setServiceOrderSeq(String serviceOrderSeq) {
+		this.serviceOrderSeq = serviceOrderSeq;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", insuranceOrderDetailSeq=" + insuranceOrderDetailSeq + ", serviceOrderSeq="
+				+ serviceOrderSeq + ", serviceBasicPrice=" + serviceBasicPrice + ", serviceReturnProfit="
+				+ serviceReturnProfit + ", lastestServiceTimes=" + lastestServiceTimes + ", serviceCommentContent="
+				+ serviceCommentContent + ", initServiceTimes=" + initServiceTimes + ", serviceCommentValue="
+				+ serviceCommentValue + ", servicePayTime=" + servicePayTime + ", serviceOrderStatus="
+				+ serviceOrderStatus + ", serviceCareggPrice=" + serviceCareggPrice + ", careggServiceName="
+				+ careggServiceName + ", lastestValidcode=" + lastestValidcode + ", serviceActualPrice="
+				+ serviceActualPrice + ", serviceLastDate=" + serviceLastDate + ", payInfParaSeq=" + payInfParaSeq
+				+ ", integralMoney=" + integralMoney + ", dataList=" + dataList + ", mysqlQueryCondition="
+				+ mysqlQueryCondition + ", orderDirection=" + orderDirection + ", pageCount=" + pageCount + ", pageId="
+				+ pageId + ", pageTail=" + pageTail + ", orderField=" + orderField + ", pageSize=" + pageSize
+				+ ", orderCondition=" + orderCondition + ", rowCount=" + rowCount + ", pageOffset=" + pageOffset
+				+ ", clipData=" + Arrays.toString(clipData) + ", listData=" + listData + ", serviceOrderNo="
+				+ serviceOrderNo + ", totalOrders=" + totalOrders + ", order_status=" + order_status + "]";
+	}
+}

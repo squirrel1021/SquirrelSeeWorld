@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 白色 -->
+    <color name="white">#ffffff</color>
+    <!-- 灰白色 -->
+    <color name="white_gray">#DBDBDB</color>
+    <color name="carlove_title">#6C7881</color>
+    <color name="carlove_pro">#bababa</color>
+    <color name="blue">#4DD6F7</color>
+    <color name="blue1">#248CC8</color>
+    <color name="gray_white">#8EA3BB</color>
+    <!-- button样式的蓝色 -->
+    <color name="blue2">#3B95D3</color>
+    <color name="blue_cilcle">#69C1FE</color>
+    <color name="black_gray">#8C8C8C</color>
+    <color name="dialog_left_gray">#939393</color>
+    <color name="dialog_right_blue">#04B8F2</color>
+    <color name="black_">#000000</color>
+    <!-- 纯黑 -->
+    <color name="linaer_line">#232F3A</color>
+    <!-- 线条颜色 -->
+    <color name="message_navigationBar_textcColor">#656565</color>
+    <!-- message模块导航栏未选中状态字体颜色 -->
+    <color name="black_text">#000000</color>
+    <!-- 黑色字体 -->
+    <color name="background">#EFEFF4</color>
+    <!-- mainactivity中fragment的背景颜色 -->
+    
+    <color name="whiteground">#FFFFFF</color>
+    <!-- 白色背景 -->
+    <color name="message_reminder_textcColor">#B7B7B7</color>
+    <!-- message模块消息提示的字体颜色 -->
+    <color name="tab_tv">#484F5F</color>
+    <color name="tab_tvpre">#fff</color>
+    <!-- Tab栏字体默认颜色 -->
+    <color name="login_gray">#EFEFF4 </color>
+    <!-- 背景灰色 -->
+    <color name="gray_tvback">#ECECEC </color>
+    <!-- 背景灰色 -->
+    <!-- 纯黑 -->
+    <color name="line">#E8E8E8</color>
+    <!-- message模块导航栏未选中状态字体颜色 -->
+    <color name="blacktext">#000000</color>
+    <!-- 背景灰色 -->
+    <color name="login_registration_editTextColor">#9A9A9A</color>
+    <color name="homepage_tv_color">#3B95D3</color>
+    <color name="login_registration_dialog_buttontext">#939393</color>
+    <color name="service_allorder_red">#FF3300</color>
+    <color name="service_allorder_money">#FF9900</color>
+    <color name="dialog_gray">#DBDBDB</color>
+    <color name="general_medium_highlight_color">#ff95a1aa</color>
+    <color name="dialog_grey_button">#EFEFF4</color>
+    <color name="inverse_text_color">#ffffffff</color>
+    <color name="bar_select">#04B8F2</color>
+    <color name="girdtable_num">#656565</color>
+    <color name="girdtable_tv">#737373</color>
+    <!-- 导航栏选中字体的颜色 -->
+    <color name="bar_unselect">#656565</color>
+    <!-- 导航栏未选中字体的颜色 -->
+    <color name="bar_background">#182026</color>
+    <!-- 导航栏背景颜色 -->
+    <color name="top_title_background">#0A0E11</color>
+    <!-- MainAcitivity顶部标题栏背景颜色 -->
+    <color name="no_agent_background">#EC605F</color>
+    <!-- 无法代理背景颜色 -->
+	<color name="no_net">#F8EBAA</color>
+    <!-- 无网络view的背景颜色 -->
+
+    <!-- 消息导航栏选中字体的颜色 -->
+    <color name="msg_title_bar_select">#3B95D3</color>
+
+    <!-- 消息导航栏未选中字体的颜色 -->
+    <color name="msg_title_bar_unselect">#333333</color>
+
+    <!-- order导航栏选中字体的颜色 -->
+    <color name="order_title_bar_select">#04B8F2</color>
+
+    <!-- order导航栏未选中字体的颜色 -->
+    <color name="order_title_bar_unselect">#8C8C8C</color>
+    <color name="green">#009900</color>
+    <color name="yellow">#FF9900</color>
+    <!-- service模块 -->
+    <color name="insurance_grey">#C0C0C0</color>
+    <!-- 灰 -->
+    <color name="insrance_blance_blue">#5B6C86</color>
+    <!-- 深蓝 -->
+    <color name="insrance_blance_yellow">#E1A43B</color>
+    <color name="blue_homepage_benefit">#4DD6F7</color>
+    <color name="sos_btn_blue">#248CC8</color>
+    <color name="insure_blue_text">#8C9EBD</color>
+    <color name="billow_blue">#4DD6F7</color>
+    <color name="blue_home_num">#3B95D3</color>
+    <color name="blue_time_system">#569CDA</color>
+    <!-- 淡蓝 -->
+    <color name="tinge_blue">#97C3F3</color>
+    <!-- 带透明蓝色 -->
+    <color name="clear_blue">#44063770</color>
+    
+    <!-- 黄色 -->
+    <!-- 橙色 -->
+    <color name="order_ide_background_hese">#5E6B85</color>
+    <color name="blue_order">#0099FF</color>
+    <color name="mine_right_tv">#878787</color>
+    <!-- mine模块右边字体的颜色 -->
+    <color name="transparent">#00000000</color>
+    <color name="gold">#b89766</color>
+    <color name="header_normal">#00000000</color>
+    <color name="header_pressed">#ff7474F6</color>
+    <color name="black">#ff000000</color>
+    <color name="line_gray">#D6D6D6</color>
+    <!-- 线条灰色 -->
+    <color name="line_gray1">#D8D8D8</color>
+    <!-- 线条灰色 -->
+    <color name="line_gray2">#E7E7E7</color>
+    <!-- 线条灰色 -->
+    <color name="line_gray3">#E4E4E4</color>
+    <!-- 线条灰色 -->
+
+    <color name="rebrand_error_red">#ffcc1100</color>
+    <color name="listview_line">#E8E8E8</color>
+    <color name="rebrand_warning_green">#ff8b7400</color>
+    <color name="top_title_line_background">#C3C3C3</color>
+    <!-- 顶部标题栏边框线条颜色 -->
+
+    <color name="text_view_frame">#D8D8D8</color>
+    <!-- TextView的边框颜色 -->
+    <color name="green_drivecar">#4DBC6D</color>
+
+    <color name="grid_bg">#11000000</color>
+    <color name="grid_line">#000000</color>
+    <color name="billow_red">#E05921</color>
+    <color name="insure_yellow_text">#FE8148</color>
+    <color name="service_gray_tv">#999999</color>
+    
+    <color name="gray_tv">#737373</color>
+    <!-- 灰色字体颜色 -->
+    <color name="gray_tv1">#8A8A8A</color>
+    <!-- 灰色字体颜色 -->
+    <color name="gray_tv2">#8C8C8C</color>
+    <!-- 灰色字体颜色 -->
+    <color name="gray_tv3">#B0B0B0</color>
+    <!-- 灰色字体颜色 -->
+    <color name="gray_line1">#A5A5A5</color>
+    <!-- 灰色字体颜色 -->
+    <color name="gray_tv4">#BEBEBE</color>
+    <!-- 灰色字体颜色 -->
+    <color name="gray_tv5">#939393</color>
+    <!-- 灰色字体颜色 -->
+    <color name="gray_tv6">#666666</color>
+    <!-- 灰色字体颜色 -->
+    
+    <color name="service_red_tv">#FF4C01</color>
+    <!-- 红色字体颜色 -->
+    <color name="red_tv1">#FF4E4E</color>
+    <!-- 红色字体颜色 -->
+
+    <color name="yellow_tv">#ECBC11</color>
+    <!-- 黄色字体颜色 -->
+    <color name="green_tv">#54CB00</color>
+    <!-- 绿色字体颜色 -->
+    <color name="blue_tv">#248CC8</color>
+    <!-- 蓝色字体颜色 -->
+    <color name="blue_tv1">#62A5D9</color>
+    <!-- 蓝色字体颜色 -->
+    <color name="orange_tv">#FA7842</color>
+    <!-- 橙色字体颜色 -->
+    <color name="circle_bg">#00ffffff</color>
+    <color name="order_blue_tv">#5E6B85</color>
+    <!-- 订单详情深蓝色背景颜色 -->
+    <color name="order_blue_tv1">#62AADC</color>
+    <!-- 订单详情浅蓝色背景颜色 -->
+    <!-- 删除红色背景 -->
+    <color name="delete_red">#EC4949</color>
+
+    <color name="white_background">#FFFFFF</color>
+    <color name="billow_background">#321b1223</color>
+    <color name="yellow_circle">#e05921</color>
+    <color name="blue_circle">#4dd6f7</color>
+    <color name="window">#ffffff</color>
+    <color name="yellow_textview">#fb7e05</color>
+
+    <!-- new -->
+
+    <color name="navigation_bar">#3B95D3</color>
+    <color name="tab_bottom">#F1F1F5</color>
+    <color name="tab_line">#C2C2C2</color>
+    <color name="home_page_title_background">#EFEFEF</color>
+    <color name="key_test_result_bg">#33000000</color>
+    <color name="key_test_result_score_bg">#44000000</color>
+     <color name="background_window">#FFE5E5E5</color>
+     
+     <color name="circle_background">#EDEDED</color>
+     <color name="circle_progress">#50A3FE</color>
+     <!-- 灰黑色 -->
+	 <color name="gray_black">#582814</color>
+	 <color name="mid_tran_background">#72011147</color>
+</resources>

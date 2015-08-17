@@ -1,0 +1,321 @@
+package cn.caregg.o2o.carnest.config;
+
+import java.util.Date;
+
+public interface ConstantValues {
+
+	public static final String SCAN_MODES = "SCAN_MODES";
+	public static final String SCAN_RESULT = "SCAN_RESULT";
+	public static final String SCAN_RESULT_TYPE = "SCAN_RESULT_TYPE";
+	public static final String ERROR_INFO = "ERROR_INFO";
+
+	// ==================== Terminal date ====================//
+
+	String IMEI = "IMEI";
+
+	String WLAN_MAC = "WLAN_MAC";
+
+	String BT_MAC = "BT_MAC";
+
+	String MODEL = "MODEL";
+
+	String VENDOR = "VENDOR";
+
+	String SCREEN_WIDTH = "SCREEN_WIDTH";
+
+	String SCREEN_HEIGHT = "SCREEN_HEIGHT";
+
+	String DENSITY = "DENSITY";
+	// ==================== Terminal date ====================//
+
+	// ========================基本设置=========================//
+
+	/**
+	 * 设置UTF-8
+	 */
+	String ENCODING = "UTF-8";
+
+	// 正式
+	String URI = "http://api.caregg.cn";
+	String REQUEST_URL = URI + "/carapp/";
+	String IMAGE_URL = "http://image.caregg.cn/";
+	String PAY_URL = "http://pay.caregg.cn/";
+	String UPLOAD_URL = URI + "/";
+
+	// String URI = "http://192.168.1.90:8082";
+	// String REQUEST_URL = URI + "/caregg-o2o-carapp-dev/carapp/";
+	// 测试
+	// String URI = "http://api-test.caregg.cn";
+	// String REQUEST_URL = URI + "/carapp_test/carapp/";
+	// String IMAGE_URL = "http://image-test.caregg.cn/";
+	// String PAY_URL = "http://pay-test.caregg.cn/";
+	// String UPLOAD_URL = URI + "/" + "carapp_test/";
+
+	String CARAPP_URL = URI + "/carapp/";
+	String CAREGG_SERVICE_URL = URI + "/" + "" + "/";
+
+	String PORTAL_URL = "http://192.168.1.231:8081/caregg-o2o-portal/carOwnerMain/login";
+
+	// 数据库访问
+
+	String AUTHORITY = "cn.caregg.o2o.carnest.provider";
+
+	String CONTENT_URI_BASE = "content://" + AUTHORITY;
+
+	// ========================基本设置=========================//
+
+	// =======================================接口=======================================//
+	StringBuffer ACTION_REGIST = new StringBuffer(REQUEST_URL + "security");
+	StringBuffer ACTION_LOGIN = new StringBuffer(REQUEST_URL + "security/login");
+	StringBuffer ACTION_SOS = new StringBuffer(REQUEST_URL + "CareggService/findCareggServiceByType");
+	StringBuffer ACTION_INSURE = new StringBuffer(REQUEST_URL + "CareggService/CareggService/carInsurance");
+	StringBuffer MESSAGE_DETAIL = new StringBuffer(REQUEST_URL + "noticeType");
+	StringBuffer ACTION_AREA = new StringBuffer(REQUEST_URL + "sysDictItem");
+	StringBuffer ACTION_ISACTIVE = new StringBuffer(REQUEST_URL + "careggInfo");
+
+	StringBuffer ACTION_MSG_CODE = new StringBuffer(REQUEST_URL + "registerLoginMessage");
+
+	StringBuffer ACTION_COMMENT = new StringBuffer(REQUEST_URL + "comment");
+
+	StringBuffer FIND_CAREGG_SERVICE = new StringBuffer(CAREGG_SERVICE_URL + "findCareggServiceByID");
+
+	StringBuffer MESSAGE_NOTICEINFO = new StringBuffer(REQUEST_URL + "noticeInfo");
+
+	StringBuffer SERVICE_VERSIONCHECK = new StringBuffer(REQUEST_URL + "CareggService/caregg/versionCheck");
+
+	StringBuffer WALLET_BILL = new StringBuffer(REQUEST_URL + "account/wallet/bill");
+
+	StringBuffer WALLET = new StringBuffer(REQUEST_URL + "account/wallet");
+
+	StringBuffer CAROWNER_SERVICESETUP_SAVE = new StringBuffer(REQUEST_URL + "carOwner/serviceSetup/save");
+
+	StringBuffer CAROWNER_SERVICESETUP_NAMES = new StringBuffer(REQUEST_URL + "carOwner/serviceSetup/names");
+
+	StringBuffer CAROWNER_OWNERTEL = new StringBuffer(REQUEST_URL + "carOwner/ownerTel");
+
+	StringBuffer CAROWNER_NICKNAME = new StringBuffer(REQUEST_URL + "carOwner/nickName");
+
+	StringBuffer CAROWNER_PASSWORD = new StringBuffer(REQUEST_URL + "carOwner/password");
+
+	StringBuffer DRIVEINCOME = new StringBuffer(REQUEST_URL + "driveIncome");
+
+	StringBuffer DRIVEINCOME_HISTORY = new StringBuffer(REQUEST_URL + "driveIncome/history");
+
+	StringBuffer FIND_CAREGG_SERVICEBY_TYPE = new StringBuffer(CAREGG_SERVICE_URL + "findCareggServiceByType");
+
+	StringBuffer SERVICEORG_GETORGBYSERVICEORGSEQ = new StringBuffer(CARAPP_URL + "ServiceOrg/getOrgbyServiceOrgSeq");
+
+	StringBuffer FINDBY_CARIDANDGPS = new StringBuffer(CAREGG_SERVICE_URL + "findByCarIdAndGPS");
+
+	StringBuffer SERVICETYPE_FINDBYTYPE = new StringBuffer(REQUEST_URL + "ServiceType/findByType");
+
+	StringBuffer CARENDORSEMENT = new StringBuffer(CARAPP_URL + "CarEndorsement/findProcessByServiceOrderSeq");
+
+	StringBuffer LOOKCARDS_SERVICE_ORDER = new StringBuffer(CARAPP_URL + "ServiceOrder/lookCardsServiceOrderByID");
+
+	StringBuffer CLIPBYTYPE = new StringBuffer(CARAPP_URL + "ServiceOrder/clipByType");
+
+	StringBuffer CARINSURANCE = new StringBuffer(CARAPP_URL + "CareggService/carInsurance");
+
+	StringBuffer FIND_CAREGGSERVICEBYID = new StringBuffer(CARAPP_URL + "CareggService/findCareggServiceByID");
+
+	StringBuffer FAULTNOTICE_CHECK = new StringBuffer(CARAPP_URL + "faultNotice/check");
+
+	StringBuffer DRIVE_DRIVEDETAIL = new StringBuffer(CARAPP_URL + "drive/driveDetail");
+
+	StringBuffer ACTION_APPOINT = new StringBuffer(REQUEST_URL + "careggBooking");
+
+	StringBuffer MESSAGE_QUERY = new StringBuffer(REQUEST_URL + "noticeInfo");
+
+	StringBuffer QUERY_OIL_TYPE = new StringBuffer(REQUEST_URL + "sysDictItem");
+
+	StringBuffer WALLET_MONEY = new StringBuffer(REQUEST_URL + "account/wallet");
+	// StringBuffer WALLET_MONEY = new
+	// StringBuffer("http://192.168.1.104:8080/caregg-o2o-carapp-dev/carapp/account/wallet");
+	StringBuffer VIOLATION_LIST_UNCANDEAL = new StringBuffer(REQUEST_URL + "CarEndorsement/unCanDeal");
+
+	StringBuffer VIOLATION_LIST_CANDEAL = new StringBuffer(REQUEST_URL + "CarEndorsement/canDeal");
+
+	StringBuffer QUERY_VIOLATION_LIST = new StringBuffer(REQUEST_URL + "CarEndorsement/history");
+
+	StringBuffer CAR_NUMBER_LIST = new StringBuffer(REQUEST_URL + "carInfo/");
+
+	StringBuffer CAR_NEWEST_STATE = new StringBuffer(REQUEST_URL + "carSituation/today");
+
+	StringBuffer UPLOAD_FILE = new StringBuffer(UPLOAD_URL + "common/attachment/upload");
+
+	StringBuffer QUERY_CARNUM = new StringBuffer(REQUEST_URL + "carInfoDetail");
+
+	StringBuffer MODIFY_CAR_INFO = new StringBuffer(REQUEST_URL + "carInfoDetail");
+
+	StringBuffer DRIVE_DETAIL = new StringBuffer(REQUEST_URL + "drive/driveDetail");
+
+	StringBuffer VIOLATION_ADD_CAR = new StringBuffer(REQUEST_URL + "carInfo");
+
+	StringBuffer VIOLATION_EDIT_CAR = new StringBuffer(REQUEST_URL + "carInfo/");
+	// =======================================接口=======================================//
+
+	StringBuffer FORGET_PASSWORD = new StringBuffer(REQUEST_URL + "security/password");
+
+	StringBuffer LAST_BENEFIT = new StringBuffer(REQUEST_URL + "driveIncome");
+
+	StringBuffer ACTION_LOGOUT = new StringBuffer(REQUEST_URL + "security/logout");
+
+	StringBuffer QUERY_CAR_DETAIL = new StringBuffer(REQUEST_URL + "drive/driveDetail");
+
+	StringBuffer CAR_INSURANCE = new StringBuffer(REQUEST_URL + "CareggService/carInsurance");
+
+	StringBuffer INSURANCE_PACKAGE_DETAIL = new StringBuffer(REQUEST_URL + "CareggService/insurancePackageDetail");
+
+	StringBuffer GET_AVAILABLE_SELLER = new StringBuffer(REQUEST_URL + "CareggService/getAvailableSellerAmount");
+
+	StringBuffer GET_INSURANCE_AMOUNT = new StringBuffer(REQUEST_URL + "CareggService/getInsuranceAmount");
+
+	StringBuffer CONFIRM_ORDER = new StringBuffer(REQUEST_URL + "CareggService/confirmOrder");
+
+	StringBuffer ORDER_VIOLATION_DETAIL = new StringBuffer(REQUEST_URL + "CarEndorsement/findProcessByServiceOrderSeq/");
+
+	StringBuffer ORDER_BEAUTY_MAINTAIN_DETAIL = new StringBuffer(REQUEST_URL + "ServiceOrder/lookCardsServiceOrderByID/");
+	// =======================================接口=======================================//
+
+	StringBuffer SERVICE_ORDER_LIST = new StringBuffer(REQUEST_URL + "ServiceOrder/findServiceOrder/");
+	StringBuffer SERVICE_ORDER_CARD_STOCK_LIST = new StringBuffer(REQUEST_URL + "ServiceOrder/clipByType/");
+	StringBuffer SERVICE_ORDER_CARD_STOCK_DETAIL = new StringBuffer(REQUEST_URL + "ServiceOrder/clipDetailsByID/");
+
+	StringBuffer CAR_MODIFY_PIC = new StringBuffer(REQUEST_URL + "carInfoDetail/carModifyPic");
+
+	StringBuffer CHECK_CAR = new StringBuffer(REQUEST_URL + "faultNotice/check");
+
+	/*
+	 * StringBuffer CHECK_UPDATE = new StringBuffer(URI1 + CAREGG_DEV_URL1 +
+	 * "CareggService/caregg/versionCheck");
+	 */
+	StringBuffer NEWS_ALL_UNREAD_NUMBER = new StringBuffer(REQUEST_URL + "noticeInfo/unRead/");
+
+	StringBuffer MESSAGE_CHANGE_STATUS = new StringBuffer(REQUEST_URL + "noticeInfo");
+
+	// StringBuffer SETALLMESSAGESTATUS = new StringBuffer(REQUEST_URL +
+	// "noticeInfo/batch");
+
+	StringBuffer SET_ALL_MESSAGE_STATUS = new StringBuffer(REQUEST_URL + "noticeInfo/all");
+
+	StringBuffer BILL_DETAIL = new StringBuffer(REQUEST_URL + "account/wallet/bill");
+
+	StringBuffer CAROWNER_HEADER = new StringBuffer(REQUEST_URL + "carOwner/carOwnerPic");
+
+	StringBuffer CHOOSE_CAR_TYPE = new StringBuffer(REQUEST_URL + "carType");
+
+	StringBuffer HISTORY_INCOME = new StringBuffer(REQUEST_URL + "driveIncome/history");
+
+	StringBuffer UPDATE_CAR_INFO = new StringBuffer(REQUEST_URL + "carInfo");
+
+	// =====================================充值==接口=======================================//
+	StringBuffer GET_PHONE_DISCOUNT = new StringBuffer(REQUEST_URL + "carRecharge/listCombo/");
+
+	StringBuffer PARK_ORDER = new StringBuffer(REQUEST_URL + "carRecharge/saveOder");
+
+	StringBuffer PHONE_DISCOUNT = new StringBuffer(REQUEST_URL + "phoneRecharge/listCombo");
+
+	StringBuffer PHONE_ORDER = new StringBuffer(REQUEST_URL + "phoneRecharge/saveOder");
+
+	StringBuffer PHONE_SUCCESS_ORDER = new StringBuffer(REQUEST_URL + "phoneRecharge/topUpSuccess");
+
+	StringBuffer QQ_DISCOUNT = new StringBuffer(REQUEST_URL + "QQRecharge/listCombo/");
+
+	StringBuffer QQ_ORDER = new StringBuffer(REQUEST_URL + "QQRecharge/saveOder");
+
+	StringBuffer QQ_SUCCESS_ORDER = new StringBuffer(REQUEST_URL + "QQRecharge/topUpSuccess");
+
+	// =====================================lq==接口=======================================//
+	StringBuffer MESSAGE_SET_PUSH = new StringBuffer(REQUEST_URL + "carOwnerMessageCfg/");
+
+	StringBuffer ACTIVATECAREGG = new StringBuffer(REQUEST_URL + "careggInfo");
+
+	StringBuffer ORDER_LIST = new StringBuffer(REQUEST_URL + "ServiceOrder/findServiceOrder");
+
+	StringBuffer UN_BIND = new StringBuffer(REQUEST_URL + "careggInfo");
+
+	StringBuffer CAR_CHECK_DETAIL = new StringBuffer(REQUEST_URL + "faultNotice/faultDetail");
+
+	StringBuffer CAR_MESSAGE_SET = new StringBuffer(REQUEST_URL + "carOwnerMessageCfg/");
+
+	StringBuffer CARAPP_FEEDBACK_SAVE = new StringBuffer(REQUEST_URL + "feedback/save");
+
+	StringBuffer DELETE_VIOLATION_CARID = new StringBuffer(REQUEST_URL + "carInfo/");
+
+	StringBuffer PAYMENT_PROMPTLY = new StringBuffer(REQUEST_URL + "CarEndorsement/confirm");
+
+	StringBuffer CAR_DETAIL_MESSAGE = new StringBuffer(REQUEST_URL + "carInfo/");
+
+	StringBuffer SERVICE_PAYMENT_FINISH = new StringBuffer(REQUEST_URL + "CarEndorsement/pay");
+
+	StringBuffer LAST_CARSITUATION = new StringBuffer(REQUEST_URL + "carSituation/last");
+
+	StringBuffer IDENTIFICATION_CODE = new StringBuffer(REQUEST_URL + "carIdentify");
+
+	StringBuffer WEIXIN_PAY = new StringBuffer(PAY_URL + "caregg_weixin_app/payment/app/prePay");
+
+	StringBuffer Ali_PAY = new StringBuffer(PAY_URL + "caregg_alipay_app/alipay/app/payment");
+
+	StringBuffer ORDER_TYPE_MESSAGE_NUMBER = new StringBuffer(REQUEST_URL + "carOwnerOrder/");
+
+	StringBuffer MESSAGE_TYPE_MESSAGE_NUMBER = new StringBuffer(REQUEST_URL + "noticeInfo/queryOwnerNotice/");
+
+	StringBuffer CREAT_ORDER = new StringBuffer(REQUEST_URL + "CarEndorsement/order");
+
+	StringBuffer APPLY_FOR_REFUND = new StringBuffer(REQUEST_URL + "CarEndorsement/");
+	StringBuffer UPDATE_CARTYPE = new StringBuffer(REQUEST_URL + "carType/");
+
+	// =================================== HTML5
+	// ============================================
+	String VERSIONTIME = "?v=" + new Date().getTime();
+	String HTML_DOMAIN = REQUEST_URL + "index.html" + VERSIONTIME;
+	// 本地测试
+	// String HTML_DOMAIN="http://192.168.1.107/index.html"+VERSIONTIME;
+
+	// String HTML_DOMAIN="http://192.168.1.112/index.html";
+
+	/**
+	 * 购买车蛋
+	 */
+	StringBuffer PRODUCTSHOP_URL = new StringBuffer(HTML_DOMAIN + "&action=product-details");
+
+	/**
+	 * 待付款
+	 */
+	StringBuffer STAY_PAY_URL = new StringBuffer(HTML_DOMAIN + "&action=order-manage&status=0");
+
+	/**
+	 * 待发货
+	 */
+	StringBuffer STAY_DELIVER_GOODS_URL = new StringBuffer(HTML_DOMAIN + "&action=order-manage&status=1");
+
+	/**
+	 * 已发货
+	 */
+	StringBuffer USE_DELIVER_GOODS_URL = new StringBuffer(HTML_DOMAIN + "&action=order-manage&status=2");
+
+	/**
+	 * 订单处理
+	 */
+	StringBuffer HANDLER_ORDER_URL = new StringBuffer(HTML_DOMAIN + "&action=order-manage&status=3");
+
+	/**
+	 * 所有订单
+	 */
+	StringBuffer ALL_ORDER = new StringBuffer(HTML_DOMAIN + "&action=order-manage");
+
+	/**
+	 * 订单详情
+	 */
+	StringBuffer ORDER_DETAILS = new StringBuffer(HTML_DOMAIN + "&action=order-info&orderId=");
+
+	/**
+	 * 收货地址
+	 */
+	StringBuffer DELIVERY_ADDRESS = new StringBuffer(HTML_DOMAIN + "&action=address-manage&from=native");
+
+	StringBuffer MESSAGE_STATUS_CHANGE_BATCH = new StringBuffer(REQUEST_URL + "noticeInfo/batch");
+
+	StringBuffer MESSAGE_STATUS_CHANGE_All = new StringBuffer(REQUEST_URL + "noticeInfo/all");
+}

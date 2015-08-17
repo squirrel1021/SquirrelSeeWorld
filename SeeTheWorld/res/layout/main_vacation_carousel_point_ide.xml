@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp" >
+
+    <ImageView
+        android:id="@+id/dot_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:src="@drawable/carnest_dot_selected" />
+
+    <ImageView
+        android:id="@+id/dot_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:src="@drawable/carnest_dot_unselected" />
+
+    <ImageView
+        android:id="@+id/dot_third"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:src="@drawable/carnest_dot_unselected" />
+
+    <ImageView
+        android:id="@+id/dot_fourth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:src="@drawable/carnest_dot_unselected" />
+
+</LinearLayout>

@@ -1,0 +1,88 @@
+package cn.caregg.o2o.carnest.engine.task;
+
+import java.util.List;
+import java.util.Map;
+
+import cn.caregg.o2o.carnest.config.ConstantValues;
+import cn.caregg.o2o.carnest.config.EventTagConfig;
+import cn.caregg.o2o.carnest.config.GlobalParams;
+import cn.caregg.o2o.carnest.engine.callback.ResultWapper;
+import cn.caregg.o2o.carnest.engine.handler.BaseRequestHandler;
+import cn.caregg.o2o.carnest.entity.News;
+import cn.caregg.o2o.carnest.entity.Order;
+import cn.caregg.o2o.carnest.utils.ParamsMappingUtils;
+
+import com.google.gson.reflect.TypeToken;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+
+public class MessageTask {
+
+	/** 
+	 * @Description: 获取各类型订单信息数量 void 返回类型  
+	 * @throws:throws
+	*/
+
+	public void getOrderNumber() {
+		new BaseRequestHandler().send(ConstantValues.ORDER_TYPE_MESSAGE_NUMBER.toString() + GlobalParams.carOwnerSeq,
+				HttpMethod.GET, new ResultWapper<String>(ResultWapper.LIST_PV, new TypeToken<List<Order>>() {
+				}, EventTagConfig.TAG_ORDER_NUMBER));
+	}
+
+	/** 
+	 * @Description: 获取各类型消息未读数 void 返回类型  
+	 * @throws:throws
+	*/
+
+	public void getNewsNumber() {
+		new BaseRequestHandler().send(ConstantValues.MESSAGE_TYPE_MESSAGE_NUMBER.toString() + GlobalParams.carOwnerSeq,
+				HttpMethod.GET, new ResultWapper<String>(ResultWapper.LIST_PV, new TypeToken<List<News>>() {
+				}, EventTagConfig.TAG_NEWS_NUMBER));
+	}
+
+	/** 
+	 * @Description: 根据类型获取消息列表APPMESSAGE(全部)，APPMESSAGE1(车辆信息)，APPMESSAGE2(服务器信息)，APPMESSAGE3(钱包)，APPMESSAGE4(活动消息)
+	 * @param messageTypeCode void 返回类型  
+	 * @throws:throws
+	*/
+
+	public void getNewsList(String messageTypeCode) {
+		Map<String, Object> map = ParamsMappingUtils.getMessageNoticeInfoMap(1, 10, GlobalParams.carOwnerSeq,
+				messageTypeCode);
+		new BaseRequestHandler().send(ConstantValues.MESSAGE_QUERY.toString(), HttpMethod.POST, map,
+				new ResultWapper<String>(ResultWapper.COMPLEX_PV, null, EventTagConfig.TAG_NEWS_LIST));
+	}
+
+	/** 
+	 * @Description: 根据类型设置消息全部已读，消息类型 钱包消息，服务消息，活动消息，车辆消息，修改所有的传入null
+	 * @param messageTypeCode void 返回类型  
+	 * @throws:throws
+	*/
+
+	public void readAllNews(String messageTypeCode) {
+		Map<String, Object> map = ParamsMappingUtils.readAllNews(messageTypeCode);
+		new BaseRequestHandler().send(ConstantValues.MESSAGE_STATUS_CHANGE_All.toString(), HttpMethod.POST, map,
+				new ResultWapper<String>(ResultWapper.COMPLEX_PV, null, EventTagConfig.TAG_ALL_NEWS_STATUS_CHANGE));
+	}
+
+	/** 
+	 * @Description: 修改单条消息的状态为已读 void 返回类型  
+	 * @throws:throws
+	*/
+
+	public void readNews(News news) {
+		Map<String, Object> map = ParamsMappingUtils.readNews(news);
+		new BaseRequestHandler().send(ConstantValues.MESSAGE_CHANGE_STATUS.toString(), HttpMethod.PUT, map,
+				new ResultWapper<String>(ResultWapper.COMPLEX_PV, null, EventTagConfig.TAG_SINGLE_NEWS_STATUS_CHANGE));
+	}
+
+	/** 
+	 * @Description: 获取未读消息总数 void 返回类型  
+	 * @throws:throws
+	*/ 
+	
+	public void getAllUnreadNewsNumber() {
+		new BaseRequestHandler().send(ConstantValues.NEWS_ALL_UNREAD_NUMBER.toString() + GlobalParams.carOwnerSeq,
+				HttpMethod.GET, new ResultWapper<String>(ResultWapper.COMPLEX_PV, null,
+						EventTagConfig.TAG_ALL_UNREAD_NEWS_NUMBER));
+	}
+}

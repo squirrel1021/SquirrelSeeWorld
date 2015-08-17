@@ -1,0 +1,73 @@
+package cn.caregg.o2o.carnest.engine.task;
+
+import java.util.List;
+
+import cn.caregg.o2o.carnest.CarnestApplication;
+import cn.caregg.o2o.carnest.config.ConstantValues;
+import cn.caregg.o2o.carnest.config.EventTagConfig;
+import cn.caregg.o2o.carnest.config.GlobalParams;
+import cn.caregg.o2o.carnest.engine.callback.BaseAbstractRequestCallBack;
+import cn.caregg.o2o.carnest.engine.parser.GsonParser;
+import cn.caregg.o2o.carnest.entity.Bill;
+import cn.caregg.o2o.carnest.entity.EventByTag;
+import cn.caregg.o2o.carnest.entity.User;
+import cn.caregg.o2o.carnest.utils.ListUtils;
+import cn.caregg.o2o.carnest.utils.StringUtils;
+
+import com.google.gson.reflect.TypeToken;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+
+import de.greenrobot.event.EventBus;
+
+public class AccountTask {
+	/**
+	 * @Description: 获取钱包余额
+	 * @throws:throws
+	 */
+
+	public void getWalletMoney() {
+		CarnestApplication.mHttpUtils.send(HttpMethod.GET, ConstantValues.WALLET_MONEY.toString() + "/" + GlobalParams.carOwnerSeq, new BaseAbstractRequestCallBack<String>() {
+
+			@Override
+			public void onSuccess(String result) {
+				if (!StringUtils.isEmpty(result)) {
+					List<User> users = GsonParser.parseList(result, new TypeToken<List<User>>() {
+					});
+					if (!ListUtils.isEmpty(users)) {
+						EventBus.getDefault().post(EventByTag.getDefault(users, EventTagConfig.TAG_WALLET));
+					}
+				}
+			}
+
+			@Override
+			public void onFailure(String failureMsg) {
+				// TODO Auto-generated method stub
+				System.out.println(failureMsg);
+			}
+		});
+	}
+
+	public void getBillData() {
+		CarnestApplication.mHttpUtils.send(HttpMethod.GET, ConstantValues.BILL_DETAIL.toString() + "/" + GlobalParams.carOwnerSeq, new BaseAbstractRequestCallBack<String>() {
+
+			@Override
+			public void onSuccess(String result) {
+				if (!StringUtils.isEmpty(result)) {
+					List<Bill> list = GsonParser.parseList(result, new TypeToken<List<Bill>>() {
+					});
+					if(!ListUtils.isEmpty(list)){
+						EventBus.getDefault().post(EventByTag.getDefault(list, EventTagConfig.TAG_BILL_DATA));
+					}
+				}
+
+			}
+
+			@Override
+			public void onFailure(String failureMsg) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+	}
+
+}

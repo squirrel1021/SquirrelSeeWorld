@@ -1,0 +1,43 @@
+package cn.caregg.o2o.carnest.ui.activity;
+
+import android.app.Activity;
+import android.os.Bundle;
+import cn.caregg.o2o.carnest.R;
+import cn.caregg.o2o.carnest.engine.task.ViolationTask;
+import cn.caregg.o2o.carnest.entity.EventBusByTag;
+import cn.caregg.o2o.carnest.entity.EventByTag;
+import cn.caregg.o2o.carnest.utils.StringUtils;
+import cn.caregg.o2o.carnest.utils.ToastUtils;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ContentView;
+import com.lidroid.xutils.view.annotation.ViewInject;
+
+@ContentView(R.layout.test1)
+public class Test1 extends Activity {
+
+	@ViewInject(R.id.test)
+	BootstrapButton mBootstrapButton;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		EventBusByTag.getEventByTag("testList").registerSticky(this);
+		EventBusByTag.getEventByTag("test").registerSticky(this);
+		super.onCreate(savedInstanceState);
+		ViewUtils.inject(this);
+		new ViolationTask().getTestList();
+	}
+
+	public void onEventMainThread(EventByTag eventByTag) {
+
+		if (StringUtils.isEquals(eventByTag.getTAG(), "testList")) {
+			// TODO
+			ToastUtils.show(this, eventByTag.getObj().toString());
+			mBootstrapButton.setTextGravity("center");
+			mBootstrapButton.setText(eventByTag.getObj().toString());
+		}
+
+	}
+
+}

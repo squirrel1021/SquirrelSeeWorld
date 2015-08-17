@@ -1,0 +1,529 @@
+package cn.caregg.o2o.carnest.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class CarDetail implements Serializable{
+	Integer id;
+	Integer state;// 狀態
+	String message;// 消息提示
+	Integer carSituationSeq;// 车况信息序号
+	Integer carInfoSeq;// 车辆信息编号
+	Integer environmentTemp;
+	Integer remainingMileage;
+	Integer carInletTemp;// 进气口温度
+	Integer coolantTemp;// 水箱温度
+	Integer carSpeed;
+	Integer engineRevolution;// 发动机转速
+	double gpsUploadLo;
+	double gpsUploadLa;
+	double carVoltValue;
+	double meterMileage;
+	Integer carSAcc;// 点火
+	Integer faultAmount;// 故障码个数
+	double snapshotFuelIns;// 瞬时油耗
+	double snapshotFuelAve;// 平均油耗
+	double throttlePosition;// 油门深度
+	String carIdF;
+	String carIdS;
+	String carId = "";
+
+	Integer defaultFuel = 0;// 燃油类型
+	Integer carInfoDetailSeq;
+	String carVin;// 车架号
+	String carEngine;// 发动机号
+
+	double carOutput;// 排量
+	Date insuranceEndDate;// 购险日期
+	String carTypeName;// 车辆型号
+	Long carRegisterTime;
+	double carDistance;
+	Double carPrice;
+
+	int dailyDeceTimes;// 急减速
+	double dailyMileage;// 驾驶里程
+	Integer dailyIdlingTime;// 怠速时长
+	int dailyTurnTimes;// 转弯次数
+	int dailyAcceTimes;// 急加速
+
+	Long accOnTime;// 点火时间
+	Long accOffTime;// 熄火时间
+
+	int tripMaxSpeed;// 最大速度
+	double tripAvgSpeed;// 平均速度
+	int dailyOverspeedTimes;// 超速次数
+	Float dailyOverspeedTime;// 超速时长
+
+	double incomeAmount;
+	double totalFuelUsage;
+	Integer carAddType;
+	int dailyScore;
+
+	String formatDay;
+
+	Integer carStatus;
+
+	String ownerName;
+
+	Integer lbsFlag = 1;
+
+	Float tripObdMileage;
+
+	Double tripFuel;
+
+	public Float getTripObdMileage() {
+		return tripObdMileage == null ? 0.0f : tripObdMileage;
+	}
+
+	public void setTripObdMileage(Float tripObdMileage) {
+		this.tripObdMileage = tripObdMileage;
+	}
+
+	public double getTripFuel() {
+		return tripFuel == null ? 0.00d : tripFuel;
+	}
+
+	public void setTripFuel(Double tripFuel) {
+		this.tripFuel = tripFuel;
+	}
+
+	public Integer getLbsFlag() {
+		return lbsFlag == null ? 1 : lbsFlag;
+	}
+
+	public void setLbsFlag(Integer lbsFlag) {
+		this.lbsFlag = lbsFlag;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+
+	public Integer getCarStatus() {
+		return carStatus;
+	}
+
+	public void setCarStatus(Integer carStatus) {
+		this.carStatus = carStatus;
+	}
+
+	public String getFormatDay() {
+		return formatDay;
+	}
+
+	public void setFormatDay(String formatDay) {
+		this.formatDay = formatDay;
+	}
+
+	public int getDailyScore() {
+		return dailyScore;
+	}
+
+	public void setDailyScore(int dailyScore) {
+		this.dailyScore = dailyScore;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public Integer getCarSituationSeq() {
+		return carSituationSeq;
+	}
+
+	public void setCarSituationSeq(Integer carSituationSeq) {
+		this.carSituationSeq = carSituationSeq;
+	}
+
+	public Integer getCarInfoSeq() {
+		return null == carInfoSeq ? -1 : carInfoSeq;
+	}
+
+	public void setCarInfoSeq(Integer carInfoSeq) {
+		this.carInfoSeq = carInfoSeq;
+	}
+
+	public Integer getEnvironmentTemp() {
+		return environmentTemp;
+	}
+
+	public void setEnvironmentTemp(Integer environmentTemp) {
+		this.environmentTemp = environmentTemp;
+	}
+
+	public Integer getRemainingMileage() {
+		return remainingMileage;
+	}
+
+	public void setRemainingMileage(Integer remainingMileage) {
+		this.remainingMileage = remainingMileage;
+	}
+
+	public Integer getCarInletTemp() {
+		return carInletTemp;
+	}
+
+	public void setCarInletTemp(Integer carInletTemp) {
+		this.carInletTemp = carInletTemp;
+	}
+
+	public Integer getCoolantTemp() {
+		return coolantTemp;
+	}
+
+	public void setCoolantTemp(Integer coolantTemp) {
+		this.coolantTemp = coolantTemp;
+	}
+
+	public Integer getCarSpeed() {
+		return carSpeed == null ? 0 : carSpeed;
+	}
+
+	public void setCarSpeed(Integer carSpeed) {
+		this.carSpeed = carSpeed;
+	}
+
+	public Integer getEngineRevolution() {
+		return engineRevolution;
+	}
+
+	public void setEngineRevolution(Integer engineRevolution) {
+		this.engineRevolution = engineRevolution;
+	}
+
+	public double getGpsUploadLo() {
+		return gpsUploadLo;
+	}
+
+	public void setGpsUploadLo(double gpsUploadLo) {
+		this.gpsUploadLo = gpsUploadLo;
+	}
+
+	public double getGpsUploadLa() {
+		return gpsUploadLa;
+	}
+
+	public void setGpsUploadLa(double gpsUploadLa) {
+		this.gpsUploadLa = gpsUploadLa;
+	}
+
+	public double getCarVoltValue() {
+		return carVoltValue;
+	}
+
+	public void setCarVoltValue(double carVoltValue) {
+		this.carVoltValue = carVoltValue;
+	}
+
+	public double getMeterMileage() {
+		return meterMileage;
+	}
+
+	public void setMeterMileage(double meterMileage) {
+		this.meterMileage = meterMileage;
+	}
+
+	public Integer getCarSAcc() {
+		return carSAcc == null ? 0 : carSAcc;
+	}
+
+	public void setCarSAcc(Integer carSAcc) {
+		this.carSAcc = carSAcc;
+	}
+
+	public Integer getFaultAmount() {
+		return faultAmount == null ? 0 : faultAmount;
+	}
+
+	public void setFaultAmount(Integer faultAmount) {
+		this.faultAmount = faultAmount;
+	}
+
+	public double getSnapshotFuelIns() {
+		return snapshotFuelIns;
+	}
+
+	public void setSnapshotFuelIns(double snapshotFuelIns) {
+		this.snapshotFuelIns = snapshotFuelIns;
+	}
+
+	public double getSnapshotFuelAve() {
+		return snapshotFuelAve;
+	}
+
+	public void setSnapshotFuelAve(double snapshotFuelAve) {
+		this.snapshotFuelAve = snapshotFuelAve;
+	}
+
+	public double getThrottlePosition() {
+		return throttlePosition;
+	}
+
+	public void setThrottlePosition(double throttlePosition) {
+		this.throttlePosition = throttlePosition;
+	}
+
+	public String getCarIdF() {
+		return carIdF;
+	}
+
+	public void setCarIdF(String carIdF) {
+		this.carIdF = carIdF;
+	}
+
+	public String getCarIdS() {
+		return carIdS;
+	}
+
+	public void setCarIdS(String carIdS) {
+		this.carIdS = carIdS;
+	}
+
+	public String getCarId() {
+		return carId == null ? "" : carId;
+	}
+
+	public void setCarId(String carId) {
+		this.carId = carId;
+	}
+
+	public Integer getDefaultFuel() {
+		return defaultFuel;
+	}
+
+	public void setDefaultFuel(Integer defaultFuel) {
+		this.defaultFuel = defaultFuel;
+	}
+
+	public Integer getCarInfoDetailSeq() {
+		return carInfoDetailSeq;
+	}
+
+	public void setCarInfoDetailSeq(Integer carInfoDetailSeq) {
+		this.carInfoDetailSeq = carInfoDetailSeq;
+	}
+
+	public String getCarVin() {
+		return carVin;
+	}
+
+	public void setCarVin(String carVin) {
+		this.carVin = carVin;
+	}
+
+	public String getCarEngine() {
+		return carEngine;
+	}
+
+	public void setCarEngine(String carEngine) {
+		this.carEngine = carEngine;
+	}
+
+	public double getCarOutput() {
+		return carOutput;
+	}
+
+	public void setCarOutput(double carOutput) {
+		this.carOutput = carOutput;
+	}
+
+	public Date getInsuranceEndDate() {
+		return insuranceEndDate;
+	}
+
+	public void setInsuranceEndDate(Date insuranceEndDate) {
+		this.insuranceEndDate = insuranceEndDate;
+	}
+
+	public String getCarTypeName() {
+		return carTypeName;
+	}
+
+	public void setCarTypeName(String carTypeName) {
+		this.carTypeName = carTypeName;
+	}
+
+	public Long getCarRegisterTime() {
+		return carRegisterTime;
+	}
+
+	public void setCarRegisterTime(Long carRegisterTime) {
+		this.carRegisterTime = carRegisterTime;
+	}
+
+	public double getCarDistance() {
+		return carDistance;
+	}
+
+	public void setCarDistance(double carDistance) {
+		this.carDistance = carDistance;
+	}
+
+	public Double getCarPrice() {
+		return carPrice;
+	}
+
+	public void setCarPrice(Double carPrice) {
+		this.carPrice = carPrice;
+	}
+
+	public int getDailyDeceTimes() {
+		return dailyDeceTimes;
+	}
+
+	public void setDailyDeceTimes(int dailyDeceTimes) {
+		this.dailyDeceTimes = dailyDeceTimes;
+	}
+
+	public double getDailyMileage() {
+		return dailyMileage;
+	}
+
+	public void setDailyMileage(double dailyMileage) {
+		this.dailyMileage = dailyMileage;
+	}
+
+	public Integer getDailyIdlingTime() {
+		return dailyIdlingTime == null ? 0 : dailyIdlingTime;
+	}
+
+	public void setDailyIdlingTime(Integer dailyIdlingTime) {
+		this.dailyIdlingTime = dailyIdlingTime;
+	}
+
+	public int getDailyTurnTimes() {
+		return dailyTurnTimes;
+	}
+
+	public void setDailyTurnTimes(int dailyTurnTimes) {
+		this.dailyTurnTimes = dailyTurnTimes;
+	}
+
+	public int getDailyAcceTimes() {
+		return dailyAcceTimes;
+	}
+
+	public void setDailyAcceTimes(int dailyAcceTimes) {
+		this.dailyAcceTimes = dailyAcceTimes;
+	}
+
+	public Long getAccOnTime() {
+		return accOnTime;
+	}
+
+	public void setAccOnTime(Long accOnTime) {
+		this.accOnTime = accOnTime;
+	}
+
+	public Long getAccOffTime() {
+		return accOffTime;
+	}
+
+	public void setAccOffTime(Long accOffTime) {
+		this.accOffTime = accOffTime;
+	}
+
+	public int getTripMaxSpeed() {
+		return tripMaxSpeed;
+	}
+
+	public void setTripMaxSpeed(int tripMaxSpeed) {
+		this.tripMaxSpeed = tripMaxSpeed;
+	}
+
+	public double getTripAvgSpeed() {
+		return tripAvgSpeed;
+	}
+
+	public void setTripAvgSpeed(double tripAvgSpeed) {
+		this.tripAvgSpeed = tripAvgSpeed;
+	}
+
+	public Float getDailyOverspeedTime() {
+		return dailyOverspeedTime == null ? 0.0f : dailyOverspeedTime;
+	}
+
+	
+	public int getDailyOverspeedTimes() {
+		return dailyOverspeedTimes;
+	}
+
+	public void setDailyOverspeedTimes(int dailyOverspeedTimes) {
+		this.dailyOverspeedTimes = dailyOverspeedTimes;
+	}
+
+	public void setDailyOverspeedTime(Float dailyOverspeedTime) {
+		this.dailyOverspeedTime = dailyOverspeedTime;
+	}
+
+	public double getIncomeAmount() {
+		return incomeAmount;
+	}
+
+	public void setIncomeAmount(double incomeAmount) {
+		this.incomeAmount = incomeAmount;
+	}
+
+	public double getTotalFuelUsage() {
+		return totalFuelUsage;
+	}
+
+	public void setTotalFuelUsage(double totalFuelUsage) {
+		this.totalFuelUsage = totalFuelUsage;
+	}
+
+	public Integer getCarAddType() {
+		return carAddType;
+	}
+
+	public void setCarAddType(Integer carAddType) {
+		this.carAddType = carAddType;
+	}
+
+	@Override
+	public String toString() {
+		return "CarDetail [id=" + id + ", state=" + state + ", message=" + message + ", carSituationSeq="
+				+ carSituationSeq + ", carInfoSeq=" + carInfoSeq + ", environmentTemp=" + environmentTemp
+				+ ", remainingMileage=" + remainingMileage + ", carInletTemp=" + carInletTemp + ", coolantTemp="
+				+ coolantTemp + ", carSpeed=" + carSpeed + ", engineRevolution=" + engineRevolution + ", gpsUploadLo="
+				+ gpsUploadLo + ", gpsUploadLa=" + gpsUploadLa + ", carVoltValue=" + carVoltValue + ", meterMileage="
+				+ meterMileage + ", carSAcc=" + carSAcc + ", faultAmount=" + faultAmount + ", snapshotFuelIns="
+				+ snapshotFuelIns + ", snapshotFuelAve=" + snapshotFuelAve + ", throttlePosition=" + throttlePosition
+				+ ", carIdF=" + carIdF + ", carIdS=" + carIdS + ", carId=" + carId + ", defaultFuel=" + defaultFuel
+				+ ", carInfoDetailSeq=" + carInfoDetailSeq + ", carVin=" + carVin + ", carEngine=" + carEngine
+				+ ", carOutput=" + carOutput + ", insuranceEndDate=" + insuranceEndDate + ", carTypeName="
+				+ carTypeName + ", carRegisterTime=" + carRegisterTime + ", carDistance=" + carDistance + ", carPrice="
+				+ carPrice + ", dailyDeceTimes=" + dailyDeceTimes + ", dailyMileage=" + dailyMileage
+				+ ", dailyIdlingTime=" + dailyIdlingTime + ", dailyTurnTimes=" + dailyTurnTimes + ", dailyAcceTimes="
+				+ dailyAcceTimes + ", accOnTime=" + accOnTime + ", accOffTime=" + accOffTime + ", tripMaxSpeed="
+				+ tripMaxSpeed + ", tripAvgSpeed=" + tripAvgSpeed + ", dailyOverspeedTimes=" + dailyOverspeedTimes
+				+ ", dailyOverspeedTime=" + dailyOverspeedTime + ", incomeAmount=" + incomeAmount + ", totalFuelUsage="
+				+ totalFuelUsage + ", carAddType=" + carAddType + ", dailyScore=" + dailyScore + ", formatDay="
+				+ formatDay + ", carStatus=" + carStatus + ", ownerName=" + ownerName + ", lbsFlag=" + lbsFlag
+				+ ", tripObdMileage=" + tripObdMileage + ", tripFuel=" + tripFuel + "]";
+	}
+}

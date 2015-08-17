@@ -1,0 +1,87 @@
+package cn.caregg.o2o.carnest.engine.service;
+
+import java.util.concurrent.TimeUnit;
+
+import android.app.IntentService;
+import android.content.Intent;
+import cn.caregg.o2o.carnest.config.ConstantValues;
+import cn.caregg.o2o.carnest.engine.callback.BaseAbstractRequestCallBack;
+import cn.caregg.o2o.carnest.engine.handler.BaseRequestHandler;
+import cn.caregg.o2o.carnest.engine.parser.GsonParser;
+import cn.caregg.o2o.carnest.entity.CarDetail;
+import cn.caregg.o2o.carnest.utils.DelayTask;
+
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+import com.lidroid.xutils.util.LogUtils;
+
+import de.greenrobot.event.EventBus;
+
+public class BaseEventService extends IntentService {
+
+	public BaseEventService() {
+		super("BaseEventService");
+	}
+
+	public BaseEventService(String name) {
+		super(name);
+	}
+
+	private EventBus eventBus;
+
+	@Override
+	public void onCreate() {
+		eventBus = EventBus.getDefault();
+		super.onCreate();
+	}
+
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+	}
+
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		LogUtils.e("onStartCommand");
+		return super.onStartCommand(intent, flags, startId);
+	}
+
+	@Override
+	protected void onHandleIntent(Intent intent) {
+		LogUtils.e("onHandleIntent");
+
+		DelayTask.startTaskAtFixedRate(1000l, 3000l, TimeUnit.MILLISECONDS, getTestRunnable());
+
+	}
+
+	private Runnable getTestRunnable() {
+		return new Runnable() {
+
+			int count = 10;
+
+			@Override
+			public void run() {
+				new BaseRequestHandler().send(ConstantValues.ACTION_ISACTIVE.toString() + "/" + count, HttpMethod.GET, new BaseAbstractRequestCallBack<String>() {
+
+					@Override
+					public void onSuccess(String result) {
+						count++;
+						LogUtils.e("onSuccess:  " + result);
+						CarDetail carDetail = GsonParser.parseObject(result, CarDetail.class);
+						if (null != carDetail) {
+							eventBus.post(carDetail);
+						}
+					}
+
+					@Override
+					public void onFailure(String failureMsg) {
+						LogUtils.e("onFailure:  " + failureMsg);
+
+					}
+				});
+
+			}
+		};
+	}
+
+}

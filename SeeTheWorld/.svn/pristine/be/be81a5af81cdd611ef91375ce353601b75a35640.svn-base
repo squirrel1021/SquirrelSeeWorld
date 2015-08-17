@@ -1,0 +1,287 @@
+package cn.caregg.o2o.carnest.entity;
+
+
+public class Recharge {
+
+	Integer virtualGoodsSeq;//虚拟商品序号
+	Integer virtualGoodsPromotionDetailSeq;//虚拟商品促销明细
+	Double virtualGoodsDiscount;//促销折扣参数
+	String virtualGoodsPromotionPara1;//商品价格
+	String virtualGoodsPromotionPara2;//所属省份
+	String virtualGoodsPromotionPara3;//所属运营商
+	String virtualGoodsOrderCode;//虚拟订单编号
+	int virtualGoodsOrderSeq;//虚拟订单序号
+	Integer payInfParaSeq;//支付接口序号
+	String careggRechargeNo;//充值流水号
+	double payMoney;//支付金额
+	double virtualGoodsOrderAmount;//支付金额
+	double rechargeTotal;//充值金额
+	double careggDiscount;//车蛋给客户折扣
+	Integer carOwnerSeq;//车主序号
+	Integer rechargeQuantity;//充值数量
+	Integer rechargePrice;//充值单价
+	String rechargeObject;//充值对象
+	String userNumberType;//充值商品类型
+	Integer amount;//充值金额（折扣前）
+	
+	
+	
+
+	public Recharge(Integer virtualGoodsSeq, Integer virtualGoodsPromotionDetailSeq, int virtualGoodsOrderSeq, Integer payInfParaSeq, String careggRechargeNo, double payMoney, Integer carOwnerSeq) {
+		super();
+		this.virtualGoodsSeq = virtualGoodsSeq;
+		this.virtualGoodsPromotionDetailSeq = virtualGoodsPromotionDetailSeq;
+		this.virtualGoodsOrderSeq = virtualGoodsOrderSeq;
+		this.payInfParaSeq = payInfParaSeq;
+		this.careggRechargeNo = careggRechargeNo;
+		this.payMoney = payMoney;
+		this.carOwnerSeq = carOwnerSeq;
+	}
+	
+	
+	
+	public Recharge(Integer virtualGoodsSeq, Integer virtualGoodsPromotionDetailSeq, int virtualGoodsOrderSeq, Integer payInfParaSeq, String careggRechargeNo, double payMoney,
+			Integer carOwnerSeq, Integer rechargeQuantity,String rechargeObject,String userNumberType) {
+		super();
+		this.virtualGoodsSeq = virtualGoodsSeq;
+		this.virtualGoodsPromotionDetailSeq = virtualGoodsPromotionDetailSeq;
+		this.virtualGoodsOrderSeq = virtualGoodsOrderSeq;
+		this.payInfParaSeq = payInfParaSeq;
+		this.careggRechargeNo = careggRechargeNo;
+		this.payMoney = payMoney;
+		this.carOwnerSeq = carOwnerSeq;
+		this.rechargeQuantity = rechargeQuantity;
+		this.rechargeObject = rechargeObject;
+		this.userNumberType = userNumberType;
+	}
+
+
+	
+
+	public Recharge(Integer virtualGoodsSeq, Integer virtualGoodsPromotionDetailSeq, int virtualGoodsOrderSeq, Integer payInfParaSeq, String careggRechargeNo, double payMoney, Integer carOwnerSeq,
+			String rechargeObject, Integer amount) {
+		super();
+		this.virtualGoodsSeq = virtualGoodsSeq;
+		this.virtualGoodsPromotionDetailSeq = virtualGoodsPromotionDetailSeq;
+		this.virtualGoodsOrderSeq = virtualGoodsOrderSeq;
+		this.payInfParaSeq = payInfParaSeq;
+		this.careggRechargeNo = careggRechargeNo;
+		this.payMoney = payMoney;
+		this.carOwnerSeq = carOwnerSeq;
+		this.rechargeObject = rechargeObject;
+		this.amount = amount;
+	}
+
+
+
+	public Recharge(Integer virtualGoodsSeq, double payMoney, double rechargeTotal, double careggDiscount, Integer carOwnerSeq, Integer rechargeQuantity, Integer rechargePrice,
+			String rechargeObject) {
+		super();
+		this.virtualGoodsSeq = virtualGoodsSeq;
+		this.payMoney = payMoney;
+		this.rechargeTotal = rechargeTotal;
+		this.careggDiscount = careggDiscount;
+		this.carOwnerSeq = carOwnerSeq;
+		this.rechargeQuantity = rechargeQuantity;
+		this.rechargePrice = rechargePrice;
+		this.rechargeObject = rechargeObject;
+	}
+
+
+
+	
+	public String getRechargeObject() {
+		return rechargeObject;
+	}
+
+
+	
+
+	public Integer getAmount() {
+		return amount;
+	}
+
+
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+
+
+
+	public double getVirtualGoodsOrderAmount() {
+		return payMoney;
+	}
+
+
+
+	public void setVirtualGoodsOrderAmount(double virtualGoodsOrderAmount) {
+		this.payMoney = virtualGoodsOrderAmount;
+	}
+
+
+
+	public double getRechargeTotal() {
+		return rechargeTotal;
+	}
+
+
+
+	public void setRechargeTotal(double rechargeTotal) {
+		this.rechargeTotal = rechargeTotal;
+	}
+
+
+
+	public double getCareggDiscount() {
+		return careggDiscount;
+	}
+
+
+
+	public void setCareggDiscount(double careggDiscount) {
+		this.careggDiscount = careggDiscount;
+	}
+
+
+
+	public void setRechargeObject(String rechargeObject) {
+		this.rechargeObject = rechargeObject;
+	}
+
+
+
+	public String getUserNumberType() {
+		return userNumberType;
+	}
+
+
+
+	public void setUserNumberType(String userNumberType) {
+		this.userNumberType = userNumberType;
+	}
+
+
+
+	public Integer getRechargeQuantity() {
+		return rechargeQuantity;
+	}
+
+
+	public void setRechargeQuantity(Integer rechargeQuantity) {
+		this.rechargeQuantity = rechargeQuantity;
+	}
+
+
+	public Integer getRechargePrice() {
+		return rechargePrice;
+	}
+
+
+	public void setRechargePrice(Integer rechargePrice) {
+		this.rechargePrice = rechargePrice;
+	}
+
+
+
+	public String getLocation() {
+		return virtualGoodsPromotionPara2 + virtualGoodsPromotionPara3;
+	}
+
+	public Integer getPayInfParaSeq() {
+		return payInfParaSeq;
+	}
+
+	public void setPayInfParaSeq(Integer payInfParaSeq) {
+		this.payInfParaSeq = payInfParaSeq;
+	}
+
+	public String getCareggRechargeNo() {
+		return careggRechargeNo;
+	}
+
+	public void setCareggRechargeNo(String careggRechargeNo) {
+		this.careggRechargeNo = careggRechargeNo;
+	}
+
+	public double getPayMoney() {
+		return payMoney;
+	}
+
+	public void setPayMoney(double payMoney) {
+		this.payMoney = payMoney;
+	}
+
+	public Integer getCarOwnerSeq() {
+		return carOwnerSeq;
+	}
+
+	public void setCarOwnerSeq(Integer carOwnerSeq) {
+		this.carOwnerSeq = carOwnerSeq;
+	}
+
+	public String getVirtualGoodsOrderCode() {
+		return virtualGoodsOrderCode;
+	}
+
+	public void setVirtualGoodsOrderCode(String virtualGoodsOrderCode) {
+		this.virtualGoodsOrderCode = virtualGoodsOrderCode;
+	}
+
+	public int getVirtualGoodsOrderSeq() {
+		return virtualGoodsOrderSeq;
+	}
+
+	public void setVirtualGoodsOrderSeq(int virtualGoodsOrderSeq) {
+		this.virtualGoodsOrderSeq = virtualGoodsOrderSeq;
+	}
+
+	public String getVirtualGoodsPromotionPara2() {
+		return virtualGoodsPromotionPara2;
+	}
+
+	public void setVirtualGoodsPromotionPara2(String virtualGoodsPromotionPara2) {
+		this.virtualGoodsPromotionPara2 = virtualGoodsPromotionPara2;
+	}
+
+	public String getVirtualGoodsPromotionPara3() {
+		return virtualGoodsPromotionPara3;
+	}
+
+	public void setVirtualGoodsPromotionPara3(String virtualGoodsPromotionPara3) {
+		this.virtualGoodsPromotionPara3 = virtualGoodsPromotionPara3;
+	}
+
+	public Integer getVirtualGoodsSeq() {
+		return virtualGoodsSeq;
+	}
+
+	public void setVirtualGoodsSeq(Integer virtualGoodsSeq) {
+		this.virtualGoodsSeq = virtualGoodsSeq;
+	}
+
+	public Integer getVirtualGoodsPromotionDetailSeq() {
+		return virtualGoodsPromotionDetailSeq;
+	}
+
+	public void setVirtualGoodsPromotionDetailSeq(Integer virtualGoodsPromotionDetailSeq) {
+		this.virtualGoodsPromotionDetailSeq = virtualGoodsPromotionDetailSeq;
+	}
+
+	public Double getVirtualGoodsDiscount() {
+		return virtualGoodsDiscount;
+	}
+
+	public void setVirtualGoodsDiscount(Double virtualGoodsDiscount) {
+		this.virtualGoodsDiscount = virtualGoodsDiscount;
+	}
+
+	public String getVirtualGoodsPromotionPara1() {
+		return virtualGoodsPromotionPara1;
+	}
+
+	public void setVirtualGoodsPromotionPara1(String virtualGoodsPromotionPara1) {
+		this.virtualGoodsPromotionPara1 = virtualGoodsPromotionPara1;
+	}
+
+}

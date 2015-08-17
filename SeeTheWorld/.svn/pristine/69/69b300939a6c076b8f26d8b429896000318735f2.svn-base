@@ -1,0 +1,64 @@
+package cn.caregg.o2o.carnest.engine.callback;
+
+import java.util.List;
+
+import cn.caregg.o2o.carnest.engine.parser.GsonParser;
+import cn.caregg.o2o.carnest.entity.EventByTag;
+import cn.caregg.o2o.carnest.utils.ListUtils;
+import cn.caregg.o2o.carnest.utils.StringUtils;
+
+import com.google.gson.reflect.TypeToken;
+
+import de.greenrobot.event.EventBus;
+
+public class ResultWapper<T> extends BaseAbstractRequestCallBack<T> {
+
+	public static final int SINGLE_PV = 0x02;
+
+	public static final int LIST_PV = 0x03;
+
+	private int PARSE_TYPE;
+
+	private Object reflectType;
+
+	private String EVENT_TAG;
+
+	public ResultWapper(Object reflectType, String EVENT_TAG) {
+		this(SINGLE_PV, reflectType, EVENT_TAG);
+	}
+
+	/**
+	 * @param PARSE_TYPE
+	 * @param reflectType
+	 *            : Class or TypeToken
+	 */
+	public ResultWapper(int PARSE_TYPE, Object reflectType, String EVENT_TAG) {
+		this.PARSE_TYPE = PARSE_TYPE;
+		this.reflectType = reflectType;
+		this.EVENT_TAG = EVENT_TAG;
+	}
+
+	@Override
+	public void onSuccess(String result) {
+		if (!StringUtils.isEmpty(result)) {
+			Object resultObj = null;
+			if (PARSE_TYPE == SINGLE_PV) {
+				resultObj = GsonParser.parseObject(result, (Class<?>) reflectType);
+				if (null == resultObj)
+					return;
+
+			} else if (PARSE_TYPE == LIST_PV) {
+				resultObj = GsonParser.parseList(result, (TypeToken<?>) reflectType);
+				if (ListUtils.isEmpty((List<?>) resultObj))
+					return;
+			}
+			EventBus.getDefault().post(EventByTag.getDefault(resultObj, EVENT_TAG));
+		}
+	}
+
+	@Override
+	public void onFailure(String failureMsg) {
+		// TODO 需要补充错误处理！
+	}
+
+}

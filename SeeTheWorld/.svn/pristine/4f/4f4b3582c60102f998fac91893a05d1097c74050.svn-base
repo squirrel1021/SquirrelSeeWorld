@@ -1,0 +1,78 @@
+package cn.caregg.o2o.carnest.ui.activity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ContentView;
+import com.lidroid.xutils.view.annotation.ViewInject;
+
+import cn.caregg.o2o.carnest.R;
+import cn.caregg.o2o.carnest.config.EventTagConfig;
+import cn.caregg.o2o.carnest.engine.task.ViolationTask;
+import cn.caregg.o2o.carnest.entity.CarDetail;
+import cn.caregg.o2o.carnest.entity.Empty;
+import cn.caregg.o2o.carnest.entity.EventByTag;
+import cn.caregg.o2o.carnest.entity.Service;
+import cn.caregg.o2o.carnest.utils.StringUtils;
+import de.greenrobot.event.EventBus;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
+@ContentView(R.layout.carnest_service_violation_activity)
+public class ServiceViolationActivity extends Activity {
+	@ViewInject(R.id.get_car_id_list)
+	Button dataShow;
+
+	List<CarDetail> carIdList;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		EventBus.getDefault().register(this);
+		ViewUtils.inject(this);
+		initView();
+	}
+
+	private void initView() {
+		carIdList = new ArrayList<CarDetail>();
+		setClickListener();
+	}
+
+	private void setClickListener() {
+		dataShow.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				new ViolationTask().getCarIdList();
+			}
+		});
+	}
+
+	@SuppressWarnings("unchecked")
+	public void onEventMainThread(EventByTag eventByTag) {
+		eventByTag.getObject();
+		if (StringUtils.isEquals(eventByTag.getTAG(), EventTagConfig.TAG_CARID_LIST)) {
+			new ViolationTask().getHistoryViolation(((List<CarDetail>) eventByTag.getObject()).get(0).getCarId());
+		}
+		//		else if (StringUtils.isEquals(eventByTag.getTAG(), EventTagConfig.TAG_PROCESSING_VIOLATION_LIST)) {
+		//			if (eventByTag.getObj() instanceof Empty) {
+		//				dataShow.setText("kong");
+		//			}
+		//		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
+	}
+}

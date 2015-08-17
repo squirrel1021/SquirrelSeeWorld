@@ -1,0 +1,42 @@
+package cn.caregg.o2o.carnest.ui.activity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.caregg.o2o.carnest.engine.task.ViolationTask;
+import cn.caregg.o2o.carnest.entity.CarDetail;
+import de.greenrobot.event.EventBus;
+import android.app.Activity;
+import android.os.Bundle;
+
+public class ServiceViolationActivity extends Activity {
+	List<CarDetail> carIdList;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		EventBus.getDefault().register(this);
+		initView();
+	}
+
+	private void initView() {
+		carIdList = new ArrayList<CarDetail>();
+	}
+
+	public void onEventMainThread(List<CarDetail> carIdListCallBack) {
+		carIdList.clear();
+		carIdList.addAll(carIdListCallBack);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		new ViolationTask().getCarIdList();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
+	}
+}

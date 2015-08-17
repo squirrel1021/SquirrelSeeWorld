@@ -1,0 +1,135 @@
+package cn.caregg.o2o.carnest.engine.task;
+
+import java.util.List;
+
+import android.webkit.WebView;
+import cn.caregg.o2o.carnest.config.ConstantValues;
+import cn.caregg.o2o.carnest.config.EventTagConfig;
+import cn.caregg.o2o.carnest.config.GlobalParams;
+import cn.caregg.o2o.carnest.engine.callback.ResultWapper;
+import cn.caregg.o2o.carnest.engine.handler.BaseRequestHandler;
+import cn.caregg.o2o.carnest.entity.Bill;
+import cn.caregg.o2o.carnest.entity.Recharge;
+import cn.caregg.o2o.carnest.entity.User;
+import cn.caregg.o2o.carnest.utils.StringUtils;
+
+import com.google.gson.reflect.TypeToken;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+
+public class AccountTask {
+	/**
+	 * @Description: 获取钱包余额
+	 * @throws:throws
+	 */
+	public void getWalletMoney() {
+		new BaseRequestHandler().send(ConstantValues.WALLET_MONEY.toString() + "/" + GlobalParams.carOwnerSeq, HttpMethod.GET, new ResultWapper<String>(ResultWapper.LIST_PV,
+				new TypeToken<List<User>>() {
+				}, EventTagConfig.TAG_WALLET));
+	}
+
+	/**
+	 * @Description: 获取账单数据
+	 * @throws:throws
+	 */
+	public void getBillData() {
+		new BaseRequestHandler().send(ConstantValues.BILL_DETAIL.toString() + "/" + GlobalParams.carOwnerSeq, HttpMethod.GET, new ResultWapper<String>(ResultWapper.LIST_PV,
+				new TypeToken<List<Bill>>() {
+				}, EventTagConfig.TAG_BILL_DATA));
+	}
+
+	/**
+	 * @Description: 获取收益详情
+	 * @throws:throws
+	 */
+	public void getIncomeDetail() {
+		new BaseRequestHandler().send(ConstantValues.LAST_BENEFIT.toString() + "/" + GlobalParams.carOwnerSeq, HttpMethod.GET, new ResultWapper<String>(ResultWapper.COMPLEX_PV, null,
+				EventTagConfig.TAG_INCOME_DETAIL));
+	}
+
+	/**
+	 * @Description: 获取昨日历史收益
+	 * @throws:throws
+	 */
+	public void getHistoryBenefit(String year, String month, String day) {
+		new BaseRequestHandler().send(ConstantValues.HISTORY_INCOME.toString() + "/" + year + "/" + month + "/" + day + "/" + GlobalParams.carOwnerSeq, HttpMethod.GET, new ResultWapper<String>(
+				ResultWapper.COMPLEX_PV, null, EventTagConfig.TAG_HISTORY_BENEFIT_YESTERDAY));
+
+	}
+
+	/**
+	 * @Description: 获取历史年收益
+	 * @throws:throws
+	 */
+	public void getHistoryYearBenefit() {
+		new BaseRequestHandler().send(ConstantValues.HISTORY_INCOME.toString() + "/" + GlobalParams.carOwnerSeq, HttpMethod.GET, new ResultWapper<String>(ResultWapper.COMPLEX_PV, null,
+				EventTagConfig.TAG_HISTORY_BENEFIT_YEAR));
+	}
+
+	/**
+	 * @Description: 获取历史日收益
+	 * @throws:throws
+	 */
+	public void getHistoryDayBenefit(String year, String month) {
+		new BaseRequestHandler().send(ConstantValues.HISTORY_INCOME.toString() + "/" + year + "/" + month + "/" + GlobalParams.carOwnerSeq, HttpMethod.GET, new ResultWapper<String>(
+				ResultWapper.COMPLEX_PV, null, EventTagConfig.TAG_HISTORY_BENEFIT_DAY));
+	}
+	/**
+	 * @Description: 获取手机号充值折扣
+	 * @throws:throws
+	 */
+	public void getPhoneDiscount(String phoneNumber) {
+		new BaseRequestHandler().send(ConstantValues.PHONE_DISCOUNT.toString() + "/" + phoneNumber, HttpMethod.GET, new ResultWapper<String>(ResultWapper.LIST_PV, new TypeToken<List<Recharge>>() {
+		}, EventTagConfig.TAG_PHONE_DISCOUNT));
+	}
+
+	/**
+	 * @Description: 
+	 *               根据传入的类型值加载对应的网页，当加载订单详情需传orderId,其他情况传null，TAG_ORDER_ALL-所有订单
+	 *               ，TAG_ORDER_WAIT_PAY-待付款，TAG_ORDER_WAIT_DELIVER_GOODS-代发货，
+	 *               TAG_ORDER_ALREADY_DELIVER_GOODS
+	 *               -已发货，TAG_ORDER_HANDLING-订单处理，TAG_ORDER_DELIVER_ADDRESS-发货地址
+	 * @param webView
+	 * @param EVENT_TAG
+	 * @param orderId
+	 *            void 返回类型
+	 * @throws:throws
+	 */
+
+	public void loadWebView(WebView webView, String EVENT_TAG, String orderId) {
+		if (!StringUtils.isEmpty(choiceOrderUrl(EVENT_TAG, orderId))) {
+			webView.loadUrl(choiceOrderUrl(EVENT_TAG, orderId));
+		}
+	}
+
+	/**
+	 * @Description: 根据传入的类型值返回相应的url，TAG_ORDER_ALL-所有订单，TAG_ORDER_WAIT_PAY-待付款，
+	 *               TAG_ORDER_WAIT_DELIVER_GOODS
+	 *               -代发货，TAG_ORDER_ALREADY_DELIVER_GOODS
+	 *               -已发货，TAG_ORDER_HANDLING-订单处理，TAG_ORDER_DELIVER_ADDRESS-发货地址
+	 * @param EVENT_TAG
+	 * @return String 返回类型
+	 * @throws:throws
+	 */
+
+	private String choiceOrderUrl(String EVENT_TAG, String orderId) {
+		if (StringUtils.isEquals(EVENT_TAG, EventTagConfig.TAG_ORDER_ALL)) {
+			return ConstantValues.ALL_ORDER.toString();
+		} else if (StringUtils.isEquals(EVENT_TAG, EventTagConfig.TAG_ORDER_WAIT_PAY)) {
+			return ConstantValues.STAY_PAY_URL.toString();
+		} else if (StringUtils.isEquals(EVENT_TAG, EventTagConfig.TAG_ORDER_WAIT_DELIVER_GOODS)) {
+			return ConstantValues.STAY_DELIVER_GOODS_URL.toString();
+		} else if (StringUtils.isEquals(EVENT_TAG, EventTagConfig.TAG_ORDER_ALREADY_DELIVER_GOODS)) {
+			return ConstantValues.USE_DELIVER_GOODS_URL.toString();
+		} else if (StringUtils.isEquals(EVENT_TAG, EventTagConfig.TAG_ORDER_HANDLING)) {
+			return ConstantValues.HANDLER_ORDER_URL.toString();
+		} else if (StringUtils.isEquals(EVENT_TAG, EventTagConfig.TAG_ORDER_DELIVER_ADDRESS)) {
+			return ConstantValues.DELIVERY_ADDRESS.toString();
+		} else if (StringUtils.isEquals(EVENT_TAG, EventTagConfig.TAG_PRODUCT_SHOP)) {
+			return ConstantValues.PRODUCTSHOP_URL.toString();
+		} else if (StringUtils.isEquals(EVENT_TAG, EventTagConfig.TAG_ORDER_DETAIL)) {
+			return ConstantValues.ORDER_DETAILS.append(orderId).toString();
+		} else {
+			return null;
+		}
+	}
+}

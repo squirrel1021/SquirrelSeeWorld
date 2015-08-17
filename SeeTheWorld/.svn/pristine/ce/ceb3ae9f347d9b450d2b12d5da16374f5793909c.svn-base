@@ -1,0 +1,106 @@
+package cn.caregg.o2o.carnest.config;
+
+public interface EventTagConfig {
+
+	/*************************************账户*******************************************/
+	String TAG_WALLET = "TAG_WALLET";
+	
+	String TAG_BILL_DATA="TAG_BILL_DATA";
+	
+	String TAG_INCOME_DETAIL="TAG_INCOME_DETAIL";
+	
+	String TAG_LOGIN="TAG_LOGIN";
+	
+	String TAG_HISTORY_BENEFIT_YESTERDAY="TAG_HISTORY_BENEFIT_YESTERDAY";
+	
+	String TAG_HISTORY_BENEFIT_YEAR="TAG_HISTORY_BENEFIT_YEAR";
+	
+	String TAG_HISTORY_BENEFIT_DAY="TAG_HISTORY_BENEFIT_DAY";
+
+	/*************************************违章*******************************************/
+	String TAG_VIOLATION_CAR_DETAIL = "TAG_VIOLATION_CAR_DETAIL";
+
+	String TAG_CARID_LIST = "TAG_CARID_LIST";
+
+	String TAG_PENDING_VIOLATION_LIST = "TAG_PENDING_VIOLATION_LIST";
+
+	String TAG_PROCESSING_VIOLATION_LIST = "TAG_PROCESSING_VIOLATION_LIST";
+	
+	String TAG_HISTORY_VIOLATION_LIST = "TAG_HISTORY_VIOLATION_LIST";
+	
+	String TAG_VIOLATION_DELETE_CARID = "TAG_VIOLATION_DELETE_CARID";
+	
+	String TAG_VIOLATION_ADD_CARID = "TAG_VIOLATION_ADD_CARID";
+	
+	String TAG_VIOLATION_CHANGE_CARID = "TAG_VIOLATION_CHANGE_CARID";
+	
+	String TAG_REFUND_MONEY_VIOLATION = "TAG_REFUND_MONEY_VIOLATION";
+	
+	String TAG_CONFIRM_MONEY_VIOLATION = "TAG_CONFIRM_MONEY_VIOLATION";
+	
+	String TAG_COMPARE_MONEY_VIOLATION = "TAG_COMPARE_MONEY_VIOLATION";
+	
+	String TAG_CREAT_VIOLATION_ORDER = "TAG_CREAT_VIOLATION_ORDER";
+	
+	/*************************************车辆*******************************************/
+	String TAG_CAR_INFO="TAG_CAR_INFO";
+	
+	String TAG_DRIVE_DETAIL="TAG_DRIVE_DETAIL";
+	
+	String TAG_CHECK_CAR="TAG_CHECK_CAR";
+	
+	/*************************************我的*******************************************/
+	//消息
+	String TAG_ORDER_NUMBER="TAG_ORDER_NUMBER";
+	
+	String TAG_NEWS_NUMBER="TAG_NEWS_NUMBER";
+	
+	String TAG_NEWS_LIST="TAG_NEWS_LIST";
+	
+	String TAG_ALL_NEWS_STATUS_CHANGE = "TAG_NEWS_ALL_STATUS_CHANGE";
+	
+	String TAG_SINGLE_NEWS_STATUS_CHANGE = "TAG_NEWS_READ";
+	
+	String TAG_ALL_UNREAD_NEWS_NUMBER = "TAG_ALL_UNREAD_NEWS_NUMBER";
+	
+	//网页WebView
+	/**
+	 * @Fields TAG_ORDER_ALL : 所有订单
+	*/
+	String TAG_ORDER_ALL = "TAG_ORDER_ALL";
+	
+	/**
+	 * @Fields TAG_ORDER_WAIT_PAY : 待付款
+	*/
+	String TAG_ORDER_WAIT_PAY = "TAG_ORDER_WAIT_PAY";
+	
+	/**
+	 * @Fields TAG_ORDER_WAIT_DELIVER_GOODS : 待发货
+	*/
+	String TAG_ORDER_WAIT_DELIVER_GOODS = "TAG_ORDER_WAIT_DELIVER_GOODS";
+	
+	/**
+	 * @Fields TAG_ORDER_ALREADY_DELIVER_GOODS : 已发货
+	*/
+	String TAG_ORDER_ALREADY_DELIVER_GOODS = "TAG_ORDER_ALREADY_DELIVER_GOODS";
+	
+	/**
+	 * @Fields TAG_ORDER_HANDLING : 订单处理
+	*/
+	String TAG_ORDER_HANDLING = "TAG_ORDER_HANDLING";
+	
+	/**
+	 * @Fields TAG_ORDER_DELIVER_ADDRESS : 收货地址
+	*/
+	String TAG_ORDER_DELIVER_ADDRESS = "TAG_ORDER_DELIVER_ADDRESS";
+	
+	/**
+	 * @Fields TAG_PRODUCT_SHOP : 车蛋购买
+	*/
+	String TAG_PRODUCT_SHOP = "TAG_PRODUCT_SHOP";
+	
+	/**
+	 * @Fields TAG_PRODUCT_SHOP : 订单详情
+	*/
+	String TAG_ORDER_DETAIL = "TAG_ORDER_DETAIL";
+}

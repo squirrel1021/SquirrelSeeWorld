@@ -1,0 +1,955 @@
+package cn.caregg.o2o.carnest.utils;
+
+import java.io.File;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.http.conn.util.InetAddressUtils;
+
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningAppProcessInfo;
+import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.os.Environment;
+import android.os.StatFs;
+import android.telephony.TelephonyManager;
+import android.text.format.Formatter;
+import android.util.DisplayMetrics;
+import cn.caregg.o2o.carnest.CarnestApplication;
+import cn.caregg.o2o.carnest.config.ConstantValues;
+import cn.caregg.o2o.carnest.config.GlobalParams;
+
+import com.lidroid.xutils.util.LogUtils;
+
+/**
+ * @ClassName: PhoneUtils
+ * @Description: 获取关于手机信息的工具类
+ * @author jinsongliu
+ * @date 2014-4-10 下午1:50:01
+ * 
+ */
+
+public class PhoneUtils {
+
+	/**
+	 * 需要的权限 <uses-permission
+	 * android:name="android.permission.READ_PHONE_STATE"/> <!--手机配置 -->
+	 * <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	 * <!--网络 --> <uses-permission
+	 * android:name="android.permission.ACCESS_WIFI_STATE" /> <!--wifi -->
+	 * <uses-permission android:name="android.permission.BLUETOOTH" /> <!--蓝牙
+	 * -->
+	 * 
+	 */
+	// private static LogUtils LogUtils = LogUtils.getLogger();
+	private static DisplayMetrics displayMetrics = new DisplayMetrics();
+
+	public static String getTVIMEI(Context ctx, String phoneNumber) {
+		StringBuffer buffer = new StringBuffer("");
+		buffer.append(getImei(ctx));
+		buffer.append(getWlanMac(ctx));
+		buffer.append(getBTMac(ctx));
+		buffer.append(phoneNumber);
+		return StringUtils.str2MD5(buffer.toString());
+	}
+
+	public static String getTVIMEI(Context ctx) {
+		
+		if(StringUtils.isEmpty(CarnestApplication.TOKEN)){
+			StringBuffer buffer = new StringBuffer("");
+			buffer.append(getImei(ctx));
+			buffer.append(getWlanMac(ctx));
+			buffer.append(getBTMac(ctx));
+			CarnestApplication.TOKEN = StringUtils.str2MD5(buffer.toString());
+		}
+
+		return CarnestApplication.TOKEN;
+	}
+
+	/**
+	 * @Title: getImei
+	 * @Description: 拿手机IMEI
+	 * @return String 返回类型
+	 */
+	public static String getImei(Context ctx) {
+		if (null == ctx) {
+			LogUtils.e(" Context is null ");
+			return null;
+		}
+		String imei = null;
+		try {
+			imei = (String) PreferencesUtils.getString(ctx, ConstantValues.IMEI);
+			if (StringUtils.isEmpty(imei)) {
+				TelephonyManager tm = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
+				imei = tm.getDeviceId();
+				PreferencesUtils.putString(ctx, ConstantValues.IMEI, imei);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			LogUtils.d("getImei error!");
+		}
+		LogUtils.d(" string imei = " + imei);
+		return imei;
+	}
+
+	/**
+	 * @Title: getWLANMac
+	 * @Description: 获取mac地址
+	 * @param ctx
+	 *            上下文对象
+	 * @return String 返回类型
+	 */
+	public static String getWlanMac(Context ctx) {
+		if (null == ctx) {
+			LogUtils.e(" Context is null ");
+			return null;
+		}
+		String wlanMac = (String) PreferencesUtils.getString(ctx, ConstantValues.WLAN_MAC);
+		if (StringUtils.isEmpty(wlanMac)) {
+			WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
+			if (null == wifiManager) {
+				LogUtils.e(" WifiManager is null ");
+				return wlanMac;
+			}
+			WifiInfo info = wifiManager.getConnectionInfo();
+			if (info == null) {
+				LogUtils.e(" WifiInfo is null ");
+				return wlanMac;
+			}
+			wlanMac = info.getMacAddress();
+			PreferencesUtils.putString(ctx, ConstantValues.WLAN_MAC, wlanMac);
+		}
+		LogUtils.d(" string mac = " + wlanMac);
+		return wlanMac;
+	}
+
+	/**
+	 * @Title: getBTMac
+	 * @Description: 获取mac地址
+	 * @param ctx
+	 *            上下文对象
+	 * @return String 返回类型
+	 */
+	public static String getBTMac(Context ctx) {
+		if (null == ctx) {
+			LogUtils.e(" Context is null ");
+			return null;
+		}
+		String btMac = (String) PreferencesUtils.getString(ctx, ConstantValues.BT_MAC);
+		if (StringUtils.isEmpty(btMac)) {
+			BluetoothAdapter btManager = BluetoothAdapter.getDefaultAdapter();
+			if (null == btManager) {
+				LogUtils.e(" BluetoothAdapter is null ");
+				return btMac;
+			} else {
+				btMac = btManager.getAddress();
+				PreferencesUtils.putString(ctx, ConstantValues.WLAN_MAC, btMac);
+			}
+		}
+		LogUtils.d(" string BTMac = " + btMac);
+		return btMac;
+	}
+
+	/**
+	 * @Title: getSimSerialNumber
+	 * @Description: 获取手机设备SIM卡的编码
+	 * @param ctx
+	 *            上下文对象
+	 * @return String 返回类型
+	 */
+	public static String getSimSerialNumber(Context ctx) {
+		String simSerialNumber = null;
+		if (null == ctx) {
+			LogUtils.e(" Context is null ");
+			return simSerialNumber;
+		}
+		try {
+			TelephonyManager telephonyManager = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
+			if (null == telephonyManager) {
+				LogUtils.e(" TelephonyManager is null ");
+				return simSerialNumber;
+			}
+			simSerialNumber = telephonyManager.getSimSerialNumber();
+		} catch (Exception e) {
+			e.printStackTrace();
+			LogUtils.e(e.toString());
+		}
+		LogUtils.d(" string simSerialNumber = " + simSerialNumber);
+		return simSerialNumber;
+	}
+
+	/**
+	 * @Title: getSimStatus
+	 * @Description: 获取手机设备SIM卡的状态
+	 * @param ctx
+	 *            上下文对象
+	 * @return Integer 返回类型
+	 *         (0:未知,1:无SIM卡可在设备,2:锁定：要求用户的SIM卡PIN码解锁,3：锁定：要求用户的SIM卡的PUK码解锁
+	 *         ,4：锁定：要求它们的网络密码解锁, 5:就绪, )
+	 */
+	public static Integer getSimStatus(Context ctx) {
+		Integer simStatus = null;
+		if (null == ctx) {
+			LogUtils.e(" Context is null ");
+			return simStatus;
+		}
+		try {
+			TelephonyManager telephonyManager = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
+			if (null == telephonyManager) {
+				LogUtils.e(" TelephonyManager is null ");
+				return simStatus;
+			}
+			simStatus = telephonyManager.getSimState();
+		} catch (Exception e) {
+			e.printStackTrace();
+			LogUtils.e(e.toString());
+		}
+		LogUtils.d("  Integer simStatus = " + simStatus);
+		return simStatus;
+	}
+
+	/**
+	 * @Title: getPhoneNum
+	 * @Description: 获取手机号码
+	 * @param ctx
+	 *            上下文对象
+	 * @return String 返回类型
+	 */
+	public static String getPhoneNum(Context ctx) {
+		String phoneNum = null;
+		if (null == ctx) {
+			LogUtils.e(" Context is null ");
+			return phoneNum;
+		}
+		try {
+			TelephonyManager telephonyManager = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
+			if (null == telephonyManager) {
+				LogUtils.e(" TelephonyManager is null ");
+				return phoneNum;
+			}
+			phoneNum = telephonyManager.getLine1Number();
+		} catch (Exception e) {
+			e.printStackTrace();
+			LogUtils.e(e.toString());
+		}
+		LogUtils.d(" string phoneNum = " + phoneNum);
+		return phoneNum;
+	}
+
+	/**
+	 * @Title: getOsModel
+	 * @Description: 型号
+	 * @param ctx
+	 *            上下文对象
+	 * @return String 返回类型
+	 */
+	public static String getOsModel(Context ctx) {
+		if (null == ctx) {
+			LogUtils.e(" Context is null ");
+			return null;
+		}
+		String model = (String) PreferencesUtils.getString(ctx, ConstantValues.MODEL);
+		if (StringUtils.isEmpty(model)) {
+			model = android.os.Build.MODEL;
+			PreferencesUtils.putString(ctx, ConstantValues.MODEL, model);
+		}
+		LogUtils.d(" string model = " + model);
+		return model;
+	}
+
+	/**
+	 * @Title: getPhoneVendor
+	 * @Description: 获取厂商
+	 * @param ctx
+	 *            上下文对象
+	 * @return String 返回类型
+	 */
+	public static String getPhoneVendor(Context ctx) {
+		if (null == ctx) {
+			LogUtils.e(" Context is null ");
+			return null;
+		}
+		String vendor = (String) PreferencesUtils.getString(ctx, ConstantValues.VENDOR);
+		if (StringUtils.isEmpty(vendor)) {
+			vendor = android.os.Build.MANUFACTURER;
+			PreferencesUtils.putString(ctx, ConstantValues.VENDOR, vendor);
+		}
+		LogUtils.d(" string vendor = " + vendor);
+		return vendor;
+	}
+
+	/**
+	 * @Title: getImsi
+	 * @Description: 获取手机imsi
+	 * @param ctx
+	 *            上下文对象
+	 * @return String 返回类型
+	 */
+	public static String getImsi(Context ctx) {
+		String imsi = null;
+		if (null == ctx) {
+			LogUtils.e(" Context is null ");
+			return imsi;
+		}
+		try {
+			TelephonyManager telephonyManager = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
+			if (null == telephonyManager) {
+				LogUtils.e(" TelephonyManager is null ");
+				return imsi;
+			}
+			imsi = telephonyManager.getSubscriberId().trim().equals("") ? null : telephonyManager.getSubscriberId().trim();
+		} catch (Exception e) {
+			e.printStackTrace();
+			LogUtils.e(e.toString());
+		}
+		LogUtils.d(" string imsi = " + imsi);
+		return imsi;
+	}
+
+	/**
+	 * 
+	 * @Title: isNetworkOk
+	 * @Description: 连接网络是否成功
+	 * @param cxt
+	 *            上下文对象
+	 * @return boolean 返回类型
+	 * @throws:throws
+	 */
+	public static boolean isNetworkOk(Context ctx) {
+		if (null == ctx) {
+			LogUtils.e(" Context is null ");
+			return false;
+		}
+		ConnectivityManager mConnMgr = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+		if (mConnMgr == null) {
+			LogUtils.e(" ConnectivityManager is null ");
+			return false;
+		}
+		NetworkInfo aActiveInfo = mConnMgr.getActiveNetworkInfo(); // 获取活动网络连接信息
+		return aActiveInfo == null ? false : true;
+	}
+
+	/**
+	 * @Title: getNetworkType
+	 * @Description: 获得网络类型
+	 * @param ctx
+	 *            上下文对象
+	 * @return String 返回类型
+	 */
+	public static String getNetworkType(Context ctx) {
+		String type = "unknown";
+		if (ctx == null) {
+			LogUtils.e(" Context is null ");
+			return type;
+		}
+		TelephonyManager tm = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
+		ConnectivityManager connec = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo info = connec.getActiveNetworkInfo();
+		if (null == info) {
+			LogUtils.e(" NetworkInfo is null ");
+			return type;
+		}
+		if (info.getType() == ConnectivityManager.TYPE_WIFI) {
+			type = "WIFI";
+		} else {
+			if (null == tm) {
+				LogUtils.e(" TelephonyManager is null ");
+				return type;
+			}
+			int id = tm.getNetworkType();
+			if (TelephonyManager.NETWORK_TYPE_CDMA == id || TelephonyManager.NETWORK_TYPE_GPRS == id || TelephonyManager.NETWORK_TYPE_EDGE == id) {
+				type = "2G";
+			} else if (TelephonyManager.NETWORK_TYPE_UMTS == id || TelephonyManager.NETWORK_TYPE_HSDPA == id || TelephonyManager.NETWORK_TYPE_EVDO_A == id
+					|| TelephonyManager.NETWORK_TYPE_EVDO_0 == id) {
+				type = "3G";
+			} else if (TelephonyManager.NETWORK_TYPE_LTE == id) {
+				type = "4G";
+			}
+		}
+		LogUtils.d(" string networkType = " + type);
+		return type;
+	}
+
+	/**
+	 * @Title: getReleaseVersion
+	 * @Description: 设备系统版本2.3
+	 * @return String 返回类型
+	 */
+	public static String getReleaseVersion() {
+		String sdkVersion = null;
+		try {
+			sdkVersion = android.os.Build.VERSION.RELEASE.trim();
+		} catch (Exception e) {
+			LogUtils.e(e.toString());
+		}
+		LogUtils.d(" string SDKVersion = " + sdkVersion);
+		return sdkVersion;
+	}
+
+	/**
+	 * @Title: getSDKVersion
+	 * @Description: 获得sdk版本 8
+	 * @return String 返回类型
+	 */
+	public static int getSDKVersion() {
+		int sdkVersion = 0;
+		try {
+			sdkVersion = android.os.Build.VERSION.SDK_INT;
+		} catch (Exception e) {
+			LogUtils.e(e.toString());
+		}
+		LogUtils.d(" string SDKVersion = " + sdkVersion);
+		return sdkVersion;
+	}
+
+	/**
+	 * @Title: getDeviceVersion
+	 * @Description: 获得系统的版本号
+	 * @return String 返回类型
+	 */
+	public static String getDeviceVersion() {
+		String info = null;
+		try {
+			info = android.os.Build.VERSION.RELEASE;
+		} catch (Exception e) {
+			e.printStackTrace();
+			LogUtils.e(e.toString());
+		}
+		return info;
+	}
+
+	/**
+	 * @Title: getVersionCode
+	 * @Description: 获得apk versioncode
+	 * @param ctx
+	 *            上下文对象
+	 * @return String 返回类型
+	 */
+	public static String getVersionCode(Context ctx) {
+		String versionCode = null;
+		if (ctx == null) {
+			LogUtils.e(" Context is null ");
+			return versionCode;
+		}
+		PackageManager pm = ctx.getPackageManager();
+		try {
+			PackageInfo info = pm.getPackageInfo(ctx.getPackageName(), 0);
+			return String.valueOf(info.versionCode);
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+			LogUtils.e(e.toString());
+			return versionCode;
+		}
+	}
+
+	/**
+	 * @Title: getVersionName
+	 * @Description: 获得apk getVersionName
+	 * @param ctx
+	 *            上下文对象
+	 * @return String 返回类型
+	 */
+	public static String getVersionName(Context ctx) {
+		String versionCode = null;
+		if (ctx == null) {
+			LogUtils.e(" Context is null ");
+			return versionCode;
+		}
+		PackageManager pm = ctx.getPackageManager();
+		try {
+			PackageInfo info = pm.getPackageInfo(ctx.getPackageName(), 0);
+			return info.versionName;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+			LogUtils.e(e.toString());
+			return versionCode;
+		}
+	}
+
+	/**
+	 * @Title: getOperator
+	 * @Description: 获得运营商
+	 * @param ctx
+	 *            上下文对象
+	 * @return String 返回类型
+	 */
+	public static String getOperator(Context ctx) {
+		String operator = null;
+		if (ctx == null) {
+			LogUtils.e(" Context is null ");
+			return operator;
+		}
+		TelephonyManager tm = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
+		if (null == tm) {
+			LogUtils.e(" TelephonyManager is null ");
+			return operator;
+		}
+		String imsi = tm.getSubscriberId();
+		if (null == imsi) {
+			LogUtils.e(" SubscriberId is null ");
+			return operator;
+		}
+		if (imsi.startsWith("46000") || imsi.startsWith("46002")) // 因为移动网络编号46000下的IMSI已经用完，所以虚拟了一个46002编号，134/159号段使用了此编号
+			operator = "中国移动";
+		else if (imsi.startsWith("46001"))
+			operator = "中国联通";
+		else if (imsi.startsWith("46003"))
+			operator = "中国电信";
+
+		LogUtils.d(" string Operator = " + operator);
+		return operator;
+	}
+
+	/**
+	 * 
+	 * @Title: getScreenWidth
+	 * @Description: 屏幕宽(px)
+	 * @param ctx
+	 *            上下文对象
+	 * @return Integer 返回类型
+	 */
+	public static Integer getScreenWidth(Context ctx) {
+		if (ctx == null) {
+			LogUtils.e(" Context is null ");
+			return -1;
+		}
+		Integer screenWidth = (Integer) PreferencesUtils.getInt(ctx, ConstantValues.SCREEN_WIDTH);
+		if (null == screenWidth || -1 == screenWidth) {
+			((Activity) ctx).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+			screenWidth = displayMetrics.widthPixels;
+			PreferencesUtils.putInt(ctx, ConstantValues.SCREEN_WIDTH, screenWidth);
+		}
+		LogUtils.d(" Integer screenWidth = " + screenWidth);
+		return screenWidth;
+	}
+
+	/**
+	 * @Title: getScreenHeight
+	 * @Description: 屏幕高(px)
+	 * @param ctx
+	 *            上下文对象
+	 * @return Integer 返回类型
+	 */
+	public static Integer getScreenHeight(Context ctx) {
+		if (ctx == null) {
+			LogUtils.e(" Context is null ");
+			return -1;
+		}
+		Integer screenHeight = (Integer) PreferencesUtils.getInt(ctx, ConstantValues.SCREEN_HEIGHT);
+		if (null == screenHeight || -1 == screenHeight) {
+			((Activity) ctx).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+			screenHeight = displayMetrics.heightPixels;
+			PreferencesUtils.putInt(ctx, ConstantValues.SCREEN_HEIGHT, screenHeight);
+		}
+		LogUtils.d(" Integer screenHeight = " + screenHeight);
+		return screenHeight;
+	}
+
+	/**
+	 * @Description: 设备分辨率
+	 * @return String 返回类型
+	 * @throws:throws
+	 */
+
+	public static String getResolution(Context ctx) {
+		return new StringBuffer().append(getScreenWidth(ctx) + "*").append(getScreenHeight(ctx)).toString();
+	}
+
+	/**
+	 * @Title: getDensity
+	 * @Description: 屏幕的密度
+	 * @param ctx
+	 *            上下文对象
+	 * @return Float 返回类型
+	 */
+	public static Float getDensity(Context ctx) {
+		if (ctx == null) {
+			LogUtils.e(" Context is null ");
+			return -1f;
+		}
+		Float density = (Float) PreferencesUtils.getFloat(ctx, ConstantValues.DENSITY);
+		if (-1f == density) {
+			((Activity) ctx).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+			density = displayMetrics.density;
+			PreferencesUtils.putFloat(ctx, ConstantValues.DENSITY, density);
+		}
+		LogUtils.d(" Float density = " + density);
+		return density;
+	}
+
+	/**
+	 * @Title: isSDCardReady
+	 * @Description: 判断sd卡是否可用
+	 * @return boolean 返回类型
+	 */
+	public static boolean isSDCardReady() {
+		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+	}
+
+	/**
+	 * 卸载apk
+	 * 
+	 * @param context
+	 * @param PkgName
+	 */
+	public static void unstallApk(Context context, String pkgName) {
+		Uri packageURI = Uri.parse("package:" + pkgName);
+		Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
+		context.startActivity(uninstallIntent);
+	}
+
+	/**
+	 * 安装apk
+	 * 
+	 * @param context
+	 * @param PkgName
+	 */
+	public static void installFile(Context ctx, File file) {
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		Intent intent = new Intent();
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.setAction(android.content.Intent.ACTION_VIEW);
+		intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+		ctx.startActivity(intent);
+	}
+
+	public static boolean isAppRunning(Context ctx, String packageName) {
+		ActivityManager am = (ActivityManager) ctx.getSystemService(Context.ACTIVITY_SERVICE);
+		List<RunningAppProcessInfo> runningAppProcesses = am.getRunningAppProcesses();
+
+		return checkAppRunning(ctx, runningAppProcesses, packageName);
+	}
+
+	private static boolean checkAppRunning(Context ctx, List<RunningAppProcessInfo> runningAppProcesses, String packageName) {
+		for (RunningAppProcessInfo runningAppProcessInfo : runningAppProcesses) {
+			if (runningAppProcessInfo.processName.equals(packageName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * 启动一个app
+	 */
+	public static void startApk(Context ctx, String appPackageName) {
+		try {
+			Intent intent = ctx.getPackageManager().getLaunchIntentForPackage(appPackageName);
+			ctx.startActivity(intent);
+		} catch (Exception e) {
+			LogUtils.d(" is not install ");
+		}
+	}
+
+	/**
+	 * 保存本地文件夹
+	 * 
+	 * @return
+	 */
+	public static String getLocalSavePath(Context ctx, String connectFolder, String localFolderName) {
+		StringBuffer savePath = new StringBuffer();
+		if (isSDCardReady()) {
+			savePath.append(Environment.getExternalStorageDirectory().getAbsolutePath());
+		} else {
+			savePath.append(GlobalParams.FILE_UPDATE_PATH);
+		}
+		if (!StringUtils.isEmpty(connectFolder)) {
+			savePath.append(File.separator + connectFolder);
+		}
+		if (!StringUtils.isEmpty(localFolderName)) {
+			savePath.append(File.separator + localFolderName);
+		}
+		return savePath.toString();
+	}
+
+	/**
+	 * 获取路径下的可用空间
+	 * 
+	 * @param dir
+	 * @return
+	 */
+	public static String getAvaiableAtDirectory(Context context, String dir) {
+		return new File(dir).exists() ? formatFileSize(context, getAvailable(getStatFs(dir))) : "";
+	}
+
+	/**
+	 * @Description: 获取手机的内存Rom的总大小
+	 * @param context
+	 * @return String 返回类型
+	 * @throws:throws
+	 */
+
+	public static String getROMTotal(Context context) {
+		return formatFileSize(context, getTotal(getRomStatFs()));
+	}
+
+	/**
+	 * @Description: 获取手机的内存Rom的可用大小
+	 * @param context
+	 * @return String 返回类型
+	 * @throws:throws
+	 */
+
+	public static String getROMAvailable(Context context) {
+		return formatFileSize(context, getAvailable(getRomStatFs()));
+	}
+
+	/**
+	 * @Description: 获取存储卡的大小
+	 * @param context
+	 * @return String 返回类型
+	 * @throws:throws
+	 */
+	public static String getSDTotal(Context context) {
+		return isSDCardReady() ? formatFileSize(context, getTotal(getSDStatFs())) : "";
+	}
+
+	/**
+	 * @Description: 获取存储卡的可用的空间
+	 * @param context
+	 * @return String 返回类型
+	 * @throws:throws
+	 */
+	public static String getSDAvailable(Context context) {
+		return isSDCardReady() ? formatFileSize(context, getAvailable(getSDStatFs())) : "";
+	}
+
+	public static String formatFileSize(Context context, long size) {
+		return Formatter.formatFileSize(context, size);
+	}
+
+	public static long getTotal(StatFs statFs) {
+		return getBlockCount(statFs) * getBlockCellSize(statFs);
+	}
+
+	public static long getAvailable(StatFs statFs) {
+		return getAvailableBlocksCount(statFs) * getBlockCellSize(statFs);
+	}
+
+	public static long getAvailableBlocksCount(StatFs statFs) {
+		return (long) statFs.getAvailableBlocks();
+	}
+
+	public static long getBlockCellSize(StatFs statFs) {
+		return (long) statFs.getBlockSize();
+	}
+
+	public static long getBlockCount(StatFs statFs) {
+		return (long) statFs.getBlockCount();
+	}
+
+	public static StatFs getSDStatFs() {
+		return getStatFs(Environment.getExternalStorageDirectory().getPath());
+	}
+
+	public static StatFs getRomStatFs() {
+		return getStatFs(Environment.getRootDirectory().getPath());
+
+	}
+
+	public static StatFs getStatFs(String dir) {
+		return new StatFs(dir);
+	}
+
+	/**
+	 * @Description: 电话号码验证
+	 * @param str
+	 * @return boolean 返回类型
+	 * @throws:throws
+	 */
+
+	public static boolean isPhone(String str) {
+		Matcher m = null;
+		boolean b = false;
+
+		Pattern p = Pattern.compile("^[1][34578][0-9]{9}$");
+		if (str.length() != 11) {
+			return false;
+		}
+		m = p.matcher(str);
+		b = m.matches();
+		return b;
+	}
+
+	/**
+	 * @Description: 密码判断，6-20位数字字母组合
+	 * @param str
+	 * @return boolean 返回类型
+	 * @throws:throws
+	 */
+	public static boolean checkPwd(String str) {
+		Matcher m = null;
+		boolean b = false;
+
+		Pattern p = Pattern.compile("^[A-Za-z0-9]{6,20}$");
+		m = p.matcher(str);
+		b = m.matches();
+		return b;
+	}
+
+	public static boolean checkCarVin(String str) {
+		Matcher m = null;
+		boolean b = false;
+
+		Pattern p = Pattern.compile("^[A-Za-z0-9]{17}$");
+		m = p.matcher(str);
+		b = m.matches();
+		return b;
+	}
+
+	public static boolean isNumber(String str) {
+		Matcher m = null;
+		boolean b = false;
+
+		Pattern p = Pattern.compile("^[0-9]$");
+		m = p.matcher(str);
+		b = m.matches();
+		return b;
+	}
+
+	public static boolean checkCarEngine(String str) {
+		Matcher m = null;
+		boolean b = false;
+
+		Pattern p = Pattern.compile("^[A-Za-z0-9]{6,20}$");
+		m = p.matcher(str);
+		b = m.matches();
+		return b;
+	}
+
+	public static boolean checkCarNum(String str) {
+		Matcher m = null;
+		boolean b = false;
+
+		Pattern p = Pattern.compile("^[A-Za-z0-9]{6}$");
+		m = p.matcher(str);
+		b = m.matches();
+		return b;
+	}
+	public static boolean isEmoticon(String str) {
+		Matcher m = null;
+		boolean b = false;
+
+		Pattern p = Pattern.compile("[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]");
+		m = p.matcher(str);
+		b = m.matches();
+		return b;
+	}
+	  public static boolean containsEmoji(String source) {
+	        int len = source.length();
+	        for (int i = 0; i < len; i++) {
+	            char codePoint = source.charAt(i);
+	            if (!isEmojiCharacter(codePoint)) { //如果不能匹配,则该字符是Emoji表情
+	                return true;
+	            }
+	        }
+	        return false;
+	    }
+	   private static boolean isEmojiCharacter(char codePoint) {
+	        return (codePoint == 0x0) || (codePoint == 0x9) || (codePoint == 0xA) ||
+	                (codePoint == 0xD) || ((codePoint >= 0x20) && (codePoint <= 0xD7FF)) ||
+	                ((codePoint >= 0xE000) && (codePoint <= 0xFFFD)) || ((codePoint >= 0x10000)
+	                && (codePoint <= 0x10FFFF));
+	    }
+
+	public static boolean isScreenOriatationPortrait(Context context) {
+		return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+	}
+
+	public static void callPhone(Context context, String phoneNumber) {
+		Intent intent = new Intent();
+
+		intent.setAction("android.intent.action.CALL");
+
+		intent.setData(Uri.parse("tel:" + phoneNumber));
+
+		context.startActivity(intent);
+
+	}
+
+	public static boolean isServiceRunning(Context mContext, String className) {
+
+		boolean isRunning = false;
+		ActivityManager activityManager = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
+		List<ActivityManager.RunningServiceInfo> serviceList = activityManager.getRunningServices(30);
+
+		if (!(serviceList.size() > 0)) {
+			return false;
+		}
+
+		for (int i = 0; i < serviceList.size(); i++) {
+			if (serviceList.get(i).service.getClassName().equals(className) == true) {
+				isRunning = true;
+				break;
+			}
+		}
+		return isRunning;
+	}
+	
+	public static String getIP() {
+	    String IP = null;
+	    StringBuilder IPStringBuilder = new StringBuilder();
+	    try {
+	      Enumeration<NetworkInterface> networkInterfaceEnumeration = NetworkInterface.getNetworkInterfaces();
+	      while (networkInterfaceEnumeration.hasMoreElements()) {
+	        NetworkInterface networkInterface = networkInterfaceEnumeration.nextElement();
+	        Enumeration<InetAddress> inetAddressEnumeration = networkInterface.getInetAddresses();
+	        while (inetAddressEnumeration.hasMoreElements()) {
+	          InetAddress inetAddress = inetAddressEnumeration.nextElement();
+	          if (!inetAddress.isLoopbackAddress()&& 
+	            !inetAddress.isLinkLocalAddress()&& 
+	             inetAddress.isSiteLocalAddress()) {
+	             IPStringBuilder.append(inetAddress.getHostAddress().toString());
+	          }
+	        }
+	      }
+	    } catch (SocketException ex) {
+		IP = IPStringBuilder.toString();
+	    }
+		return IP;
+	}
+	
+public static String getLocalIpAddress(){
+		
+		try{
+			 for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+				 NetworkInterface intf = en.nextElement();  
+	                for (Enumeration<InetAddress> enumIpAddr = intf  
+	                        .getInetAddresses(); enumIpAddr.hasMoreElements();) {  
+	                    InetAddress inetAddress = enumIpAddr.nextElement();  
+	                    if (!inetAddress.isLoopbackAddress() && InetAddressUtils.isIPv4Address(inetAddress.getHostAddress())) {  
+	                        
+	                    	return inetAddress.getHostAddress().toString();  
+	                    }  
+	                }  
+			 }
+		}catch (SocketException e) {
+			// TODO: handle exception
+			System.out.println(e.toString());
+//			Utils.log("WifiPreference IpAddress---error-" + e.toString());
+		}
+		
+		return null; 
+	}
+
+}

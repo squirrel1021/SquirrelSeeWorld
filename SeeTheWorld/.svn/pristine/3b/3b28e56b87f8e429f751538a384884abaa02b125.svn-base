@@ -1,0 +1,5 @@
+package cn.caregg.o2o.carnest.config;
+
+interface EventTagConfig {
+
+}

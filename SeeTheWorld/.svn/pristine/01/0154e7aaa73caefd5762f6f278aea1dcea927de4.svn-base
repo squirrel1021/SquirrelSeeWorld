@@ -1,0 +1,7 @@
+package cn.caregg.o2o.carnest.config;
+
+
+interface EventTagConfig {
+
+	String TAG_WALLET="TAG_WALLET";
+}

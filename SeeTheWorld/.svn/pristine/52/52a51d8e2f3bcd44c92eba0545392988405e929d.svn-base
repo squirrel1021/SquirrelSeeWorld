@@ -1,0 +1,8 @@
+package cn.caregg.o2o.carnest.entity;
+
+public class Empty {
+
+	public Empty() {
+	}
+
+}

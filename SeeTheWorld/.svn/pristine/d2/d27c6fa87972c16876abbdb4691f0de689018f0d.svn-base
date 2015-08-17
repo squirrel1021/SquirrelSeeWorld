@@ -1,0 +1,46 @@
+package cn.caregg.o2o.carnest.engine.task;
+
+import java.util.List;
+
+import cn.caregg.o2o.carnest.config.ConstantValues;
+import cn.caregg.o2o.carnest.config.GlobalParams;
+import cn.caregg.o2o.carnest.engine.callback.BaseAbstractRequestCallBack;
+import cn.caregg.o2o.carnest.engine.handler.BaseRequestHandler;
+import cn.caregg.o2o.carnest.engine.parser.GsonParser;
+import cn.caregg.o2o.carnest.entity.CarDetail;
+import cn.caregg.o2o.carnest.utils.ListUtils;
+import cn.caregg.o2o.carnest.utils.StringUtils;
+
+import com.google.gson.reflect.TypeToken;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+
+import de.greenrobot.event.EventBus;
+
+public class ViolationTask {
+
+	public void getCarIdList() {
+		new BaseRequestHandler().send(ConstantValues.CAR_NUMBER_LIST.toString() + GlobalParams.carOwnerSeq,
+				HttpMethod.GET, new BaseAbstractRequestCallBack<String>() {
+
+					@Override
+					public void onSuccess(String result) {
+						parseCarDetailList(result);
+					}
+
+					private void parseCarDetailList(String result) {
+						List<CarDetail> datalist = GsonParser.parseList(result, new TypeToken<List<CarDetail>>() {
+						});
+						if (!ListUtils.isEmpty(datalist)) {
+							EventBus.getDefault().post(datalist);
+						} else {
+							return;
+						}
+					}
+
+					@Override
+					public void onFailure(String failureMsg) {
+
+					}
+				});
+	}
+}

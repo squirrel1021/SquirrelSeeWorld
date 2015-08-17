@@ -1,0 +1,25 @@
+package cn.caregg.o2o.carnest;
+
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+
+import android.app.Application;
+import android.content.Context;
+
+public class CarnestApplication extends Application {
+
+	public static String TOKEN;
+
+	public static Context mContext;
+
+	public static HttpUtils mHttpUtils;
+
+	@Override
+	public void onCreate() {
+		mContext = this;
+		mHttpUtils = new HttpUtils(this);
+		mHttpUtils.sHttpCache.setEnabled(HttpMethod.GET, false);
+		super.onCreate();
+	}
+
+}

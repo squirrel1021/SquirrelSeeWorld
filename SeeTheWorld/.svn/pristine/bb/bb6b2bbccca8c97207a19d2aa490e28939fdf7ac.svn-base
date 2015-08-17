@@ -1,0 +1,61 @@
+package cn.caregg.o2o.carnest.ui.activity;
+
+import java.util.List;
+
+import android.app.Activity;
+import android.os.Bundle;
+import cn.caregg.o2o.carnest.R;
+import cn.caregg.o2o.carnest.config.EventTagConfig;
+import cn.caregg.o2o.carnest.engine.task.AccountTask;
+import cn.caregg.o2o.carnest.entity.EventBusByTag;
+import cn.caregg.o2o.carnest.entity.EventByTag;
+import cn.caregg.o2o.carnest.entity.User;
+import cn.caregg.o2o.carnest.utils.ListUtils;
+import cn.caregg.o2o.carnest.utils.StringUtils;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ContentView;
+import com.lidroid.xutils.view.annotation.ViewInject;
+
+import de.greenrobot.event.EventBus;
+
+@ContentView(R.layout.test1)
+public class Test2 extends Activity {
+	@ViewInject(R.id.test)
+	BootstrapButton mBootstrapButton;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		EventBusByTag.getEventByTag(EventTagConfig.TAG_WALLET).registerSticky(this);
+		super.onCreate(savedInstanceState);
+		ViewUtils.inject(this);
+		new AccountTask().getWalletMoney();
+
+	}
+
+	public void onEventMainThread(EventByTag eventByTag) {
+		mBootstrapButton.setTextGravity("center");
+		if (StringUtils.isEquals(eventByTag.getTAG(), EventTagConfig.TAG_WALLET)) {
+			if (!ListUtils.isEmpty((List<User>) eventByTag.getObj()) && ((List<User>) eventByTag.getObj()).size() > 3) {
+
+				double drivenBalance = 0.00d;
+				double careggBalance = 0.00d;
+				double creditBalance = 0.00d;
+
+				for (User user : (List<User>) eventByTag.getObj()) {
+
+					if (1 == user.getAccountType() || 3 == user.getAccountType()) {
+						careggBalance += user.getAccountBalance();
+					} else if (2 == user.getAccountType()) {
+						drivenBalance += user.getAccountBalance();
+					} else if (4 == user.getAccountType()) {
+						creditBalance += user.getAccountBalance();
+					}
+				}
+				mBootstrapButton.setText("" + drivenBalance);
+			}
+		}
+
+	}
+}

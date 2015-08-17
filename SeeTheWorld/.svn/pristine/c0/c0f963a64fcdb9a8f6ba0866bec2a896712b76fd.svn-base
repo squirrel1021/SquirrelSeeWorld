@@ -1,0 +1,65 @@
+package cn.caregg.o2o.carnest.ui.activity;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+import cn.caregg.o2o.carnest.R;
+import cn.caregg.o2o.carnest.config.EventTagConfig;
+import cn.caregg.o2o.carnest.engine.callback.ResultWapper;
+import cn.caregg.o2o.carnest.engine.task.UserTask;
+import cn.caregg.o2o.carnest.entity.EventByTag;
+import cn.caregg.o2o.carnest.entity.User;
+import cn.caregg.o2o.carnest.utils.EventUtils;
+import cn.caregg.o2o.carnest.utils.StringUtils;
+import cn.caregg.o2o.carnest.utils.ToastUtils;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ContentView;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
+
+import de.greenrobot.event.EventBus;
+
+@ContentView(R.layout.carnest_activity_splash)
+public class SplashActivity extends Activity {
+
+	@ViewInject(R.id.login)
+	BootstrapButton mBootstrapButton;
+	final UserTask userTask = new UserTask();
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		ViewUtils.inject(this);
+		EventBus.getDefault().registerSticky(this);
+	}
+
+	@OnClick(R.id.login)
+	public void login(View view) {
+		userTask.login("13633095391", StringUtils.str2MD5("123456"), new ResultWapper<String>(ResultWapper.SINGLE_PV, User.class, EventTagConfig.TAG_LOGIN));
+
+	}
+
+	public void onEventBackgroundThread(final EventByTag event) {
+		if (EventUtils.isValid(event, EventTagConfig.TAG_LOGIN, null))
+			userTask.saveLoginedUser((User) event.getObj());
+		
+		runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				ToastUtils.show(SplashActivity.this, ((User) event.getObj()).getOwnerTel());
+				
+			}
+		});
+
+	}
+
+	public void onEvent(EventByTag event) {
+//		if (EventUtils.isValid(event, EventTagConfig.TAG_LOGIN, null))
+//			ToastUtils.show(this, ((User) event.getObj()).getOwnerTel());
+	}
+
+}

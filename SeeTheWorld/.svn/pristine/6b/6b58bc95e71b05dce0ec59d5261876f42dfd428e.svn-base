@@ -1,0 +1,20 @@
+package cn.caregg.o2o.carnest.ui.activity;
+
+import android.app.Activity;
+import android.os.Bundle;
+import cn.caregg.o2o.carnest.R;
+import cn.caregg.o2o.carnest.utils.ActivityStartUtil;
+
+public class MainActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.carnest_activity_main);
+//		startService(new Intent(this, BaseEventService.class));
+
+		ActivityStartUtil.start(this, Test2.class);
+
+	}
+
+}
