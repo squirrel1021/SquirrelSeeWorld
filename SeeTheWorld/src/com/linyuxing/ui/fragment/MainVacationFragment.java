@@ -6,30 +6,6 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-import com.google.gson.reflect.TypeToken;
-import com.lidroid.xutils.BitmapUtils;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
-import com.lidroid.xutils.view.annotation.ViewInject;
-import com.lidroid.xutils.view.annotation.event.OnItemClick;
-import com.linyuxing.R;
-import com.linyuxing.adapter.BaseAbsListAdapter;
-import com.linyuxing.config.RequestInterfaces;
-import com.linyuxing.engine.handler.BaseRequestHandler;
-import com.linyuxing.engine.parser.GsonParser;
-import com.linyuxing.entity.Empty;
-import com.linyuxing.entity.TravelList;
-import com.linyuxing.ui.activity.WebViewTest;
-import com.linyuxing.ui.widget.HeadAdView;
-import com.linyuxing.utils.ActivityStartUtil;
-import com.linyuxing.utils.ListUtils;
-import com.linyuxing.utils.StringUtils;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -43,15 +19,42 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.gson.reflect.TypeToken;
+import com.lidroid.xutils.BitmapUtils;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.linyuxing.Constants;
+import com.linyuxing.R;
+import com.linyuxing.adapter.BaseAbsListAdapter;
+import com.linyuxing.adapter.ImageAdapter;
+import com.linyuxing.base.AnimateFirstDisplayListener;
+import com.linyuxing.config.RequestInterfaces;
+import com.linyuxing.engine.handler.BaseRequestHandler;
+import com.linyuxing.engine.parser.GsonParser;
+import com.linyuxing.entity.TravelList;
+import com.linyuxing.ui.activity.WebViewTest;
+import com.linyuxing.ui.widget.HeadAdView;
+import com.linyuxing.utils.ActivityStartUtil;
+import com.linyuxing.utils.ListUtils;
+import com.linyuxing.utils.StringUtils;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 public class MainVacationFragment extends Fragment {
 
 	private View mView;
 	private List<TravelList> list1 = new ArrayList<TravelList>();
-	private BaseAbsListAdapter adapter;
-	private final int REQUEST_CODE = 1;
-	
+	private ImageAdapter adapter;
+	private DisplayImageOptions options;
+	private static final String[] IMAGE_URLS = Constants.RECOMMENDIMAGE;
+	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 
 	@ViewInject(R.id.head_view_pager)
 	ViewPager headAdViewPager;
@@ -73,27 +76,33 @@ public class MainVacationFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		mView = inflater.inflate(R.layout.main_vacation_fg, null);
 		ViewUtils.inject(this, mView);
+		createImageCatch();
 		setHeadAdView();
 		setRecommendView();
 		getTravelList();
 		return mView;
 	}
 
+	private void createImageCatch() {
+		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.bg2).showImageForEmptyUri(R.drawable.ic_empty).showImageOnFail(R.drawable.ic_error).cacheInMemory(true)
+				.cacheOnDisk(true).considerExifParams(true).displayer(new RoundedBitmapDisplayer(20)).build();
+	}
+
 	private void getTravelList() {
-		new BaseRequestHandler().send(RequestInterfaces.GET_TRAVEL_LIST.toString()+"?"+"page=1", HttpMethod.GET, new RequestCallBack<String>() {
+		new BaseRequestHandler().send(RequestInterfaces.GET_TRAVEL_LIST.toString() + "?" + "page=1", HttpMethod.GET, new RequestCallBack<String>() {
 
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
-				System.out.println(arg1+arg0);
+				System.out.println(arg1 + arg0);
 			}
 
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
 				try {
-					JSONObject jsonObject=new JSONObject(responseInfo.result);
-					String errmsg=jsonObject.getString("errmsg");
-					if(StringUtils.isEquals(errmsg, "success")){
-						JSONObject date=jsonObject.getJSONObject("data");
+					JSONObject jsonObject = new JSONObject(responseInfo.result);
+					String errmsg = jsonObject.getString("errmsg");
+					if (StringUtils.isEquals(errmsg, "success")) {
+						JSONObject date = jsonObject.getJSONObject("data");
 						System.out.println(date);
 						setDate(date);
 					}
@@ -105,14 +114,21 @@ public class MainVacationFragment extends Fragment {
 		});
 	}
 
+	List<String> imageList = new ArrayList<String>();
+	private String[] imageUrl;
+
 	protected void setDate(JSONObject jsonObject) {
 		try {
-			String travelList=jsonObject.getString("books");
-			list1=GsonParser.parseList(travelList, new TypeToken<List<TravelList>>(){});
-			setAdapter(list1);
+			String travelList = jsonObject.getString("books");
+			list1 = GsonParser.parseList(travelList, new TypeToken<List<TravelList>>() {
+			});
+			for (TravelList travel : list1) {
+				imageList.add(travel.getHeadImage());
+			}
+			imageUrl = (String[]) imageList.toArray(new String[imageList.size()]);
+			setAdapter();
 			setOnItemClickListener();
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -129,36 +145,33 @@ public class MainVacationFragment extends Fragment {
 		});
 	}
 
-	private void setAdapter(List<TravelList> TravelList) {
-		adapter = new BaseAbsListAdapter(getActivity(), TravelList) {
-			
+	private void setAdapter() {
+	
+		adapter = new ImageAdapter(getActivity(),list1) {
 
 			@Override
 			public View inflate(int position, View convertView, ViewGroup parent) {
 				View view = View.inflate(getActivity(), R.layout.main_vacation_listview_item, null);
-				BitmapUtils bitmapUtils = new BitmapUtils(getActivity());
-				bitmapUtils.configDefaultBitmapConfig(Bitmap.Config.RGB_565);// 设置图片压缩类型
-				if(!ListUtils.isEmpty(list1)){
-					((TextView)view.findViewById(R.id.item_name)).setText(""+list1.get(position).getTitle());
-					((TextView)view.findViewById(R.id.user_name)).setText(""+list1.get(position).getUserName());
-					((TextView)view.findViewById(R.id.travel_data)).setText(""+list1.get(position).getStartTime());
-					bitmapUtils.display(((ImageView)view.findViewById(R.id.item_bg)),list1.get(position).getHeadImage());
-//					bitmapUtils.display(((ImageView)view.findViewById(R.id.user_headimg)),list1.get(position).getUserHeadImg());
+				if (!ListUtils.isEmpty(list1)) {
+					((TextView) view.findViewById(R.id.item_name)).setText("" + list1.get(position).getTitle());
+					((TextView) view.findViewById(R.id.user_name)).setText("" + list1.get(position).getUserName());
+					((TextView) view.findViewById(R.id.travel_data)).setText("" + list1.get(position).getStartTime());
 				}
+				ImageView image = (ImageView) view.findViewById(R.id.item_bg);
+				ImageLoader.getInstance().displayImage(imageUrl[position], image, options, animateFirstListener);
 				return view;
 			}
 		};
 		travelLv.setAdapter(adapter);
 		ListUtils.setListViewHeightBasedOnChildren(travelLv);
 	}
- 
+
 	private void setRecommendView() {
-		BitmapUtils bitmapUtils = new BitmapUtils(getActivity());
-		bitmapUtils.configDefaultBitmapConfig(Bitmap.Config.RGB_565);// 设置图片压缩类型
-		bitmapUtils.display(recommendImageOne,"http://img1.qunarzz.com/travel/d0/1408/28/ec37c21593f64f25ffffffffc8d65eac.jpg");
-		bitmapUtils.display(recommendImageTwo,"http://img1.qunarzz.com/travel/d2/1502/58/01c9ce916fb59a.jpg");
-		bitmapUtils.display(recommendImageThree,"http://img1.qunarzz.com/travel/d3/1505/2a/03a0c61daf13e6.jpg");
-		bitmapUtils.display(recommendImageFour,"http://hiphotos.baidu.com/lvpics/pic/item/eac4b74543a9822607ab29f28a82b9014b90ebf9.jpg");
+		ImageView[]ig={recommendImageOne,recommendImageTwo,recommendImageThree,recommendImageFour};
+		for(int i=0;i<IMAGE_URLS.length;i++){
+			ImageLoader.getInstance().displayImage(IMAGE_URLS[i], ig[i], options, animateFirstListener);
+		}
+		
 	}
 
 	private void setHeadAdView() {
@@ -182,10 +195,9 @@ public class MainVacationFragment extends Fragment {
 
 	private List<String> getImgUrlList() {
 		List<String> imgUrls = new ArrayList<String>();
-		imgUrls.add("http://img1.qunarzz.com/travel/d0/1408/28/ec37c21593f64f25ffffffffc8d65eac.jpg");
-		imgUrls.add("http://img1.qunarzz.com/travel/d2/1502/58/01c9ce916fb59a.jpg");
-		imgUrls.add("http://img1.qunarzz.com/travel/d3/1505/2a/03a0c61daf13e6.jpg");
-		imgUrls.add("http://hiphotos.baidu.com/lvpics/pic/item/eac4b74543a9822607ab29f28a82b9014b90ebf9.jpg");
+		for(int i=0;i<IMAGE_URLS.length;i++){
+			imgUrls.add(IMAGE_URLS[i]);
+		}
 		return imgUrls;
 	}
 
